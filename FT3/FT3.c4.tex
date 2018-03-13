@@ -377,6 +377,693 @@ Sea $ S( \{ m_l \} ) $ la suma de todos los l-racimos compatibles con el conjunt
 	\left[ \boxed{ \phantom{a} }-- \right]^2 \left[ \boxed{ \phantom{a} } ---- \right]^1
 \]
 donde los conectores se permutan dentro de cada racimo.
+\[
+	Z_N = \int d^3q_1 d^3q_2 ... d^3q_N \: ( 1 + f_{12} + f_{13} + ... + f_{12}f_{13} + ... )
+\]
+
+Tenemos $ 2^{N(N-1)/2} $ integrales
+\[
+	Z_N = \int d^3q_1 1 + \int d^3q_2 f_{12} + ... + \int d^3q_N f_{12}f_{13} 
+\]
+Cada integral es un N-grafo (N bolas unidas por un número $m$ de links ($m$ es igual al número de $f_{ij}$)).
+
+Cada N-grafo se factoriza en l-racimos y se puede escribir 
+\[
+	N = \sum_{l=1}^N  \; l \cdot m_l \quad \text{ suma en racimos }
+\]
+siendo $l$ el número de partículas en el racimo $l$ y $m_l$ el número de l-racimos. 
+El conjunto $ \{ m_l \} $ es la distribución de l-racimos de un grafo
+\[
+	1. \text{ es } \{ m_l \} = ( N, 0, 0 , ..., 0 ) \qquad \text{ tiene $N$ 1-racimos }
+\]
+\[
+	2.  \{ m_l \} = ( N-2, 1, 0 , ..., 0 ) \qquad \text{ tiene $N-2$ 1-racimos y $1$ 2-racimo }
+\]
+\[
+	3. \{ m_l \} = ( N-3, 0, 1 , ..., 0 ) \qquad \text{ tiene $N-3$ 1-racimos y $1$ 3-racimo }
+\]
+\notamargen{ \[ N = N\cdot 1 \] \[ N = (N-2)\cdot 1 + 1 \cdot 2 \] \[ N = 1\cdot(N-3) + 3\cdot 1\]}
+
+Sea $ S( \{ m_l \} ) $ la suma de todos los l-racimos compatibles con un conjunto $ \{ m_l \}$ dado,
+\[
+	S( \{ m_l \} ) = \sum_{\text{ perm. conectores. }} \left[ \boxed{ \phantom{a} } \right]^{m_1} \cdot 
+	\left[ \boxed{ \phantom{a} }-- \right]^{m_2} \left[ \boxed{ \phantom{a} } ---- \right]^{m_3} \times ...
+\]
+
+Por ejemplo, para $m_3=2$ (dos 3-racimos)
+\[
+	\equiv 
+\]
+\[
+	\equiv 
+\]
+\notamargen{Faltan los diagramáticos de estas cosas.}
+y entonces 
+\[
+	\oplus
+\]
+lo que da un total de 16 términos.
+
+Esto da el número de formas de construir un 6-grafo compuesto de dos 3-racimos
+
+DIBUJO
+
+Cada set $ \{ m_l \} $ define un conjunto de $ R = \sum m_l $ racimos correspondiente a un conjunto de 
+N-grafos. Así:
+\[
+	\{ m_l \} = ( N-2, 1, 0, ..., 0 )
+\]
+representa
+
+DIBUJO 
+
+una gran cantidad de N-grafos dada por permutar etiquetas. Pero si quiero economizar cuentas similares consideraré
+un factor 
+\[
+	\frac{1}{ 1!^{m_1} 2!^{m_2} 3!^{m_3} ... N!^{m_N} }
+\]
+por permutaciones de índices en cada racimo 
+\[
+	\frac{1}{ m_1! m_2! ... m_N! }
+\]
+por permutaciones de índices entre racimos iguales.
+
+Para el ejemplo es 
+\[
+	\frac{1}{1!^{N-1} 2!^1} \frac{1}{(N-2)! 1!}
+\]
+Entonces
+\[
+	S( \{ m_l \} ) = \frac{1}{ 1!^{m_1} 2!^{m_2} 3!^{m_3} ... N!^{m_N} } \frac{1}{ m_1! m_2! ... m_N! }
+	\left[ \boxed{ \phantom{a} } \right]^{m_1} \times \left[ \boxed{ \phantom{a} }-- \right]^{m_2} \times ...
+\]
+\[
+	S( ( N-2, 1, 0, ..., 0 ) ) = \frac{ N(N-1) }{2!}
+	\left[ \boxed{ \phantom{a} } \right]^{m_1} \times \left[ \boxed{ \phantom{a} }-- \right]^{m_2} \times
+	\left[ \boxed{ \phantom{a} } ---- \right]^{m_3} \times ...
+\]
+
+Recordando 
+\[
+	b_l = \frac{ 1 }{ l! \lambda^{3(l-1)} V }\cdot ( \text{ Suma de todos los l-racimos } )
+\]
+será 
+\[
+	S( \{ m_l \} ) = \frac{N!}{ 1!^{m_1} 2!^{m_2} 3!^{m_3} ... N!^{m_N} } \: \prod_{l}^N \: 
+	\frac{ ( l! \lambda^{3(l-1)} V \: b_l )^{ m_l } }{ m_1! m_2! ... m_N! }
+\]
+\[
+	S( \{ m_l \} ) = N! \: \prod_{l}^N \: 
+	\frac{ ( \lambda^{3(l-1)} V \: b_l )^{ m_l } }{ m_1! m_2! ... m_N! }
+\]
+
+Luego
+\[
+	Z_N = \sum_{\{ m_l \} } ' S( \{ m_l \} ) = N! \lambda^{3N}  \sum_{\{ m_l \} }' \prod_{l}^N 
+	\frac{1}{m_l!} \Frac{ V \: b_l }{ \lambda^3 }^{m_l}
+\]
+\[
+	Q_N = \frac{1}{N! \lambda^{3N}} Z_N = 
+	\sum_{\{ m_l \} }' \prod_{l}^N \frac{1}{m_l!} \Frac{ V \: b_l }{ \lambda^3 }^{m_l}
+\]
+\[
+	\Xi = \sum_{N=0}^\infty z^N Q_N =  \sum_{m_1=0}^\infty \sum_{m_2=0}^\infty ...  \sum_{m_N=0}^\infty
+	z^N \prod_{l}^N \frac{1}{m_l!} \Frac{ V \: b_l }{ \lambda^3 }^{m_l}
+\]
+\[
+	\Xi = \sum_{m_1=0}^\infty \sum_{m_2=0}^\infty ...  \sum_{m_N=0}^\infty
+	\prod_{l}^N \frac{1}{m_l!} \Frac{ z^l V \: b_l }{ \lambda^3 }^{m_l}
+\]
+\[
+	\Xi = \prod_{l=1}^N \sum_{m_l=0}^\infty \frac{1}{m_l!} \Frac{ z^l V \: b_l }{ \lambda^3 }^{m_l}
+	= \prod_{l=1}^N \euler^{ \frac{ z^l V \: b_l }{ \lambda^3 } }
+\]
+\[
+	\log \Xi = \sum_{l=1}^N \log\left( \euler^{ \frac{ z^l V \: b_l }{ \lambda^3 } } \right) =
+	\sum_{l=1}^N  \frac{ z^l V \: b_l }{ \lambda^3 }
+\]
+de modo que 
+\[
+	\beta p = \frac{ 1 }{ \lambda^3 } \sum_{l=1}^N  z^l b_l .
+\]
+	
+\[
+	b_1 = \frac{1}{1!\lambda^{3(1-1)}V} \int d^3r = \frac{V}{\lambda^0 V} = 1
+\]
+\[
+	b_2 = \frac{1}{2\lambda^3 V} \int d^3r d^3r' f_{rr'} = \frac{1}{2\lambda^3 V} \int d^3r \int d^3u f_u
+\]
+\notamargen{$r-r'= u$ y entonces $-dr'= du$.}
+
+Sea un sistema de esferas rígidas (potencial esférico)
+\[
+	f_u = \euler^{-\beta V_u} - 1 = \begin{cases}
+	                                 -1 \quad r < \sigma \\
+	                                  0 \quad r > \sigma
+	                                \end{cases}
+\]
+
+DIBUJO 
+
+\[
+	b_2 = \frac{1}{2\lambda^3 V} \int_0^\infty du 4 \pi u^2 f_u = \frac{-1}{2\lambda^3 V} \frac{4\pi\sigma^3}{3}
+\]
+
+\[
+	Z_3 = \int d^3q_1 \int d^3q_2 \int d^3q_3 \; ( 1 + f_{12} ) ( 1 + f_{13} ) ( 1 + f_{23} )
+\]
+\begin{multline*}
+	Z_3 = 	\int d^3q_1 d^3q_2 d^3q_3 + \int d^3q_1 d^3q_2 d^3q_3 \: f_{12} +
+	\int d^3q_1 d^3q_2 d^3q_3 \: f_{13} + \\ \int d^3q_1 d^3q_2 d^3q_3 \: f_{23} +
+	\int d^3q_1 d^3q_2 d^3q_3 \: f_{12}f_{13}  + \int d^3q_1 d^3q_2 d^3q_3 \: f_{12}f_{23} + \\
+	\int d^3q_1 d^3q_2 d^3q_3 \: f_{13}f_{23} + \int d^3q_1 d^3q_2 d^3q_3 \: f_{12}f_{13}f_{23} 
+\end{multline*}
+\[
+	Z_3 = + + + + + + 
+\]
+(muchos dibujitos)
+
+Se observa cierta degeneración. Podemos dar los números de ocupación de cada N-grafo
+\[
+\begin{aligned}
+	\{ m_l \} = & (3,0,0) \qquad \text{ 1er N-grafo } \\
+	\{ m_l \} = & (1,1,0) \qquad \text{ 2-4 N-grafo } \\
+	\{ m_l \} = & (0,0,1) \qquad \text{ 5-8 N-grafo }
+\end{aligned}
+\]
+
+Son sólo tres conjuntos $\{ m_l \}$ que describen todos los ocho 3-grafos. Sumamos los diferentes permutaciones de 
+etiquetas distinguibles de cada conjunto $\{ m_l \}$
+\[
+	S((3,0,0)) = [  ]^3 = [\lambda^0 V b_1 ]^3
+\]
+\[
+	S((1,1,0)) = []^1[]^1 = 3! [\lambda^0 V b_1 ]^1 [\lambda^3 V b_2 ]^1
+\]
+\[
+	S((0,0,3)) = []^3 = 3! [\lambda^6 V b_3 ]^1
+\]
+\[
+	\sum_{ \{ m_l \} } = 3! \left[ \frac{(V b_1)^3}{3!} + \lambda^3 V^2 b_1 b_2 + \lambda^6 V b_3 \right]
+\]
+
+\subsection{hoja suelta --reubicar--}
+\[
+	\hat{\rho} = \frac{\euler^{\beta \hat{H}}}{Q_N(V,T)} \quad \rightarrow \quad 
+	\text{ Tr }(\hat{\rho}) = \frac{1}{Q_N(V,T)} \text{ Tr }(\euler^{\beta \hat{H}})
+\]
+\[
+	1 =  \frac{1}{Q_N(V,T)} \text{ Tr }(\euler^{\beta \hat{H}})
+\]
+\[
+	Q_N(V,T) = \text{ Tr }(\euler^{\beta \hat{H}})
+\]
+
+Pero la traza debe evaluarse en alguna base dada,
+\[
+	\text{ Tr }(\euler^{\beta \hat{H}}) = 
+	\int \Bra{\vb{q}_1,..., \vb{q}_N} \euler^{-\beta \hat{H}} \Ket{\vb{q}_1,..., \vb{q}_N} d^{3N}q
+\]
+\[
+	= \int \Bra{\vb{q}_1,..., \vb{q}_N} \euler^{-\beta \hat{H}} 
+	\sum_E \Ket{\Psi_E} \braket{\Psi_E | \vb{q}_1,..., \vb{q}_N} d^{3N}q
+\]
+\[
+	= \int  \sum_E \euler^{ -\beta E }  \braket{\vb{q}_1,..., \vb{q}_N | \Psi_E} 
+	\braket{\Psi_E | \vb{q}_1,..., \vb{q}_N} d^{3N}q
+\]
+\[
+	\text{ Tr }(\euler^{\beta \hat{H}}) = 
+	\int \sum_E \euler^{ -\beta E }  \Psi_E (\vb{q}_1,..., \vb{q}_N ) 
+	\Psi_E^*(\vb{q}_1,..., \vb{q}_N ) d^{3N}q
+\]
+donde $\Ket{\Psi_E}$ son autoestados de energía del $\hat{H}$. Usaremos la función de onda simetrizada y normalizada
+\[
+	\Psi_E (\vb{q}_1,..., \vb{q}_N )  =
+\]
+\begin{multline*}
+	\Psi_E \Psi_E* = \frac{1}{N!} \sum_{\mathbb{P},\mathbb{P}'} \delta \mathbb{P} u_1(\mathbb{P}_1)
+	u_2(\mathbb{P}_2) ... \delta \mathbb{P}' u(\mathbb{P}'_1)(1) u(\mathbb{P}'_2) (2) ... \\
+	\sum_{\mathbb{P}} \delta(\mathbb{P}) u_1(\mathbb{P}_1) u_1^*(1) u_2(\mathbb{P}_2) u_2^*(2) ...
+\end{multline*}
+
+
+Una función de onda de $N$ partículas correctamente normalizada y simetrizada
+\be
+	\Psi (\vb{q}_1,..., \vb{q}_N ) = \frac{1}{\sqrt{N!}} \sum_{ \mathbb{P} } \delta \mathbb{P} \; \mathbb{P}
+	\{ u_1(\vb{q}_1) u_2(\vb{q}_2) ... \}
+	\label{fun_onda_norm}
+\ee
+\notamargen{$\mathbb{P}$ es el operador de permutaciones}
+donde 
+\[
+	\Psi_B (\vb{q}_1,..., \vb{q}_N ) = \prod_{i=1}^{n_1} u_1(\vb{q}_1) \prod_{i=n_1+1}^{n_1+n_2} u_2(\vb{q}_2)
+\]
+es una función para partículas distinguibles (de Boltzmann).
+
+Cada
+\notamargen{Estas $\Psi$ son autofunciones del $\hat{H}$.}
+\[
+	u_{p_i}(\vb{q}_i) = \frac{1}{\sqrt{V}} \euler^{ i \vb{p}_i \cdot \vb{q}_i / \hbar }
+\]
+es función de onda de la partícula i-ésima en el ninvel energético $e_i$ dado por 
+\[
+	e_i = \frac{|\vb{p}_i|^2}{2m}
+\]
+
+Dado que sumamos en todas las permutaciones de \eqref{fun_onda_norm} es lo mismo permutar coordenadas que vectores
+\[
+	\Psi (\vb{q}_1,..., \vb{q}_N ) = \frac{1}{\sqrt{N!}} \sum_{ \mathbb{P} } \delta \mathbb{P} \;
+	\left( u_{\mathbb{P}_1}(1) u_{\mathbb{P}_2}(2) ... \right) = 
+	\frac{1}{\sqrt{N!}} \sum_{ \mathbb{P} } \delta \mathbb{P} \;
+	\left( u_1({\mathbb{P}_1}) u_2({\mathbb{P}_2}) ... \right)
+\]
+\begin{multline*}
+	\Psi (\vb{q}_1,..., \vb{q}_N ) \Psi^* (\vb{q}_1',..., \vb{q}_N' ) = \frac{1}{N!} \times \\
+	\sum_{\mathbb{P}} \;  \delta \mathbb{P} \; \left(  u_1({\mathbb{P}_1}) u_2({\mathbb{P}_2}) ...\right)
+	\sum_{\mathbb{P}'} \;  \delta \mathbb{P}' \; \left(  u_{\mathbb{P}_1}^*(1') u_{\mathbb{P}_2}^*(2') ... \right)\\
+	= \frac{1}{N!} \sum_{\mathbb{P},\mathbb{P}'}\delta \mathbb{P} \delta \mathbb{P}'
+	\left[ u_1({\mathbb{P}_1}) u_{\mathbb{P}_1}^*(1') u_2({\mathbb{P}_2}) u_{\mathbb{P}_2}^*(2') ... \right]
+\end{multline*}
+
+Dado que las permutaciones sólo difieren en el orden de los términos consideramos sólo una permutación repetida $N!$ 
+veces, con lo cual 
+\[
+	\Psi (\vb{q}_1,..., \vb{q}_N ) \Psi^* (\vb{q}_1',..., \vb{q}_N' ) =
+	\sum_{\mathbb{P}} \delta \mathbb{P} 
+	\left[ u_1({\mathbb{P}_1}) u_{\mathbb{P}_1}^*(1') u_2({\mathbb{P}_2}) u_{\mathbb{P}_2}^*(2') ... \right]
+\]
+\[
+	\Psi (\vb{q}_1,..., \vb{q}_N ) \Psi^* (\vb{q}_1',..., \vb{q}_N' ) =
+	\sum_{\mathbb{P}} \delta \mathbb{P}
+	\left[ \frac{\euler^{ i \vb{p}_1 \cdot ( \mathbb{P}\vb{q}_1 - \vb{q}_1' )/\hbar} }{V} \times 
+	\frac{\euler^{ i \vb{p}_2 \cdot ( \mathbb{P}\vb{q}_2 - \vb{q}_2' )/\hbar}}{V} \times ... \right]
+\]
+\notamargen{
+\[
+	\delta \mathbb{P} = \begin{cases}
+	                     1 \qquad \text{ bosones } \\
+	                     \pm 1 \qquad \text{ fermiones}\\
+	                     \text{ (perm par o impar) }
+	                    \end{cases}
+\]}
+
+Ahora sea el sistema de las $N$ partículas con energía $E$, es decir 
+\[
+	E = \sum_i^N \; \frac{|\vb{p}_i|^2}{2m} =
+	\frac{1}{2m} \left( |\vb{p}_1|^2 + |\vb{p}_2|^2 + ... + |\vb{p}_N|^2 \right)
+\]
+el estado energético será función de un vector $\vb{P}$
+\[
+	\vb{P} = (\vb{p}_1, \vb{p}_2, ..., \vb{p}_N )
+\]
+quiero evaluar 
+\[
+	\braket{ \{ \vb{q} \} | \euler^{\beta \hat{H}} | \{ \vb{q} \} } =
+	\sum_P \euler^{-\beta E(P)} \Psi (\vb{q}_1,..., \vb{q}_N ) \Psi^* (\vb{q}_1',..., \vb{q}_N' )
+\]
+\notamargen{Suma en todos los $P$ posibles.}
+pero esta sumatoria en $P$ es equivalente a 
+\[
+	\frac{1}{N!} \sum_{\vb{p}_1} \sum_{\vb{p}_2} ... \sum_{\vb{p}_N} 
+	\euler^{-\beta/2m \left( |\vb{p}_1|^2 + |\vb{p}_2|^2 + ... + |\vb{p}_N|^2 \right)}
+\]
+
+\begin{multline*}
+	= \frac{1}{N!} \sum_{\vb{p}_1} \sum_{\vb{p}_2} ... \sum_{\vb{p}_N} 
+	\euler^{-\beta/2m \left( |\vb{p}_1|^2 + |\vb{p}_2|^2 + ... + |\vb{p}_N|^2 \right)} \times \\ 
+	\sum_{ \mathbb{P} } \delta\mathbb{P} \: \frac{\euler^{ i \vb{p}_1 \cdot ( \mathbb{P}\vb{q}_1 - \vb{q}_1')/ 
+	\hbar} }{V} \times \frac{\euler^{ i \vb{p}_2 \cdot ( \mathbb{P}\vb{q}_2 - \vb{q}_2' )/\hbar} }{V}\times ...
+\end{multline*}
+\[
+	= \frac{1}{N!}\sum_{ \mathbb{P} } \delta\mathbb{P} \: \left( 
+	\sum_{\vb{p}_1} \frac{\euler^{ -\beta/2m|\vb{p}_1|^2 + i \vb{p}_1 \cdot \vb{r}_1/ \hbar} }{V} \times 
+	\sum_{\vb{p}_2} \frac{\euler^{ -\beta/2m|\vb{p}_2|^2 + i \vb{p}_2 \cdot \vb{r}_2/ \hbar} }{V} \times ...
+	\right)
+\]
+donde 
+\[
+	\vb{r}_i = ( \mathbb{P}\vb{q}_i - \vb{q}_i')
+\]
+
+La cuenta entre paréntesis es integrable pasando al continuo con 
+\[
+	\frac{V}{h^3} \delta \vb{p}_i = 1 \quad \rightarrow \quad \frac{d\vb{p}_i}{h^3} = \frac{1}{V}
+\]
+\[
+	= \frac{1}{N!} \sum_{ \mathbb{P} } \delta\mathbb{P} \: \left( 
+	\frac{1}{h^3} \int d\vb{p}_1 \euler^{ -\beta/2m|\vb{p}_1|^2 + i \vb{p}_1 \cdot \vb{r}_1/ \hbar} \times 
+	\frac{1}{h^3} \int d\vb{p}_2 \euler^{ -\beta/2m|\vb{p}_2|^2 + i \vb{p}_2 \cdot \vb{r}_2/ \hbar} \times ...
+	\right)
+\]
+
+Descomponemos cada integral en tres
+\[
+	I \equiv \left[ \frac{1}{h} \int dp_x \euler^{ -\beta/2m p_x^2 + i p_x r_x/ \hbar} \right] 
+	\left[ \frac{1}{h} \int dp_y ... \right] \left[ \frac{1}{h} \int dp_z ... \right]
+\]
+
+Usamos que 
+\[
+	\int dp \euler^{-ap^2} \euler^{-ibp} = \frac{\sqrt{\pi}}{\sqrt{a}} \euler^{-b^2/(4a)}
+\]
+\[
+	I_x = \frac{1}{h} \sqrt{\frac{2\pi m}{\beta}} \euler^{-\frac{2r^2m}{4\beta \hbar^2}} =
+	\frac{1}{h} \sqrt{2\pi m kT} \euler^{-\frac{2mkT\pi^2 r^2}{h^2}} = 
+	\frac{1}{\lambda} \euler^{-r_x^2\pi /\lambda^2}
+\]
+\[
+	I = I_x I_y I_z = \frac{1}{\lambda^3} \euler^{ -\frac{\pi}{\lambda^2}
+	[ (\mathbb{P}q_x-q_x')^2 + (\mathbb{P}q_y-q_y')^2 + (\mathbb{P}q_z-q_z')^2 ]} = 
+	\frac{1}{\lambda^3} \euler^{ -\frac{\pi}{\lambda^2} |\vb{r}|^2 }
+\]
+
+Luego,
+\[
+	= \frac{1}{N!} \sum_{ \mathbb{P} } \delta\mathbb{P} \frac{1}{\lambda^{3N}}
+	\euler^{ -\frac{\pi}{\lambda^2} |\vb{r}_1|^2 } \times \euler^{ -\frac{\pi}{\lambda^2} |\vb{r}_2|^2 } \times ...
+\]
+
+Definimos
+\[
+	f( \vb{r}_i ) = \euler^{ -\frac{ \pi |\vb{r}_i|^2 }{ \lambda^2 } } \qquad 
+	f( \mathbb{P}\vb{q}_i - \vb{q}_i' ) = \euler^{ -\frac{ \pi }{ \lambda^2 }(\mathbb{P}\vb{q}_i - \vb{q}_i')^2 }
+\]
+
+Resultando 
+\[
+	= \frac{1}{N!\lambda^{3N}} \sum_{\mathbb{P}} \delta\mathbb{P} [ f( \mathbb{P}\vb{q}_1 - \vb{q}_1' ) ... 
+	f( \mathbb{P}\vb{q}_N - \vb{q}_N' )]
+\]
+\[
+	\braket{ \vb{q}_1,..., \vb{q}_N|\euler^{-\beta\hat{H}}| \vb{q}_1',..., \vb{q}_N' } = 
+	\frac{1}{N!\lambda^{3N}} \sum_{\mathbb{P}} \delta\mathbb{P} [ f( \mathbb{P}\vb{q}_1 - \vb{q}_1' ) \times 
+	... \times f( \mathbb{P}\vb{q}_N - \vb{q}_N' )]
+\]
+\begin{multline*}
+	\text{ Tr} (\euler^{-\beta\hat{H}}) = \int d^{3N} q
+	\braket{ \vb{q}_1,..., \vb{q}_N|\euler^{-\beta\hat{H}}| \vb{q}_1',..., \vb{q}_N' } =\\
+	\frac{1}{N!\lambda^{3N}} \int d^{3N}q \sum_{\mathbb{P}} \delta\mathbb{P} [ f( \mathbb{P}\vb{q}_1 - \vb{q}_1' ) 
+	\times ... \times f( \mathbb{P}\vb{q}_N - \vb{q}_N' )]
+\end{multline*}
+\[
+	\text{ Tr} (\euler^{-\beta\hat{H}}) = \frac{1}{N!\lambda^{3N}} \int d^{3N}q \sum_{\mathbb{P}} 
+	\delta\mathbb{P} \prod_i f( \mathbb{P}\vb{q}_i - \vb{q}_i )
+\]
+
+Analizamos la $\sum_{\mathbb{P}}$. Como se suma en todas las permutaciones, tendremos
+\[
+	\sum_{\mathbb{P}} f(\mathbb{P}{q}_1 - {q}_1) f(\mathbb{P}{q}_2 - {q}_2) ... =
+\]
+\[
+	1 \: f(0) \pm \sum_{i<j} f_{ij} f_{ji} + \sum_{i<j<k} f_{ij} f_{jk} f_{ki} \pm ...
+\]
+\[
+	\text{ 0 permut } \qquad \text{ 1 permut } \qquad \text{ 2 permut }
+\]
+
+Veamos la permutación de $q_1$ y $q_2$
+\[
+	\underbrace{\mathbb{P}}_{=1} (\prod_i f( \mathbb{P}\vb{q}_i - \vb{q}_i ) ) =
+	\underbrace{f(\mathbb{P}{q}_1 - {q}_1) f(\mathbb{P}{q}_2 - {q}_2)}_{f_{ij}f_{ji}}
+	\underbrace{\prod_{i=3}^N f(q_i - q_i)}_{\prod f(0)=1}
+\]
+\[
+	q_1 \; q_2 \; q_3 \; ... \; q_N
+\]
+\[
+	q_1 \; q_2 \; q_3 \; ... \; q_N
+\]
+
+\[
+	\underbrace{\mathbb{P}}_{=2} (\prod_i f( \mathbb{P}\vb{q}_i - \vb{q}_i ) ) =
+	\underbrace{f( {q}_2 - {q}_1 )}_{f_{ij}} \underbrace{f( {q}_3 - {q}_2 )}_{f_{ki}}
+	\underbrace{f( {q}_1 - {q}_3 )}_{f_{jk}}
+	\prod_{i=4}^N f(0)
+\]
+\[
+	q_1 \; q_2 \; q_3 \; ... \; q_N
+\]
+\[
+	q_1 \; q_2 \; q_3 \; ... \; q_N
+\]
+
+\[
+	\underbrace{\mathbb{P}}_{=3} (\prod_i f( \mathbb{P}\vb{q}_i - \vb{q}_i ) ) =
+	f( {q}_2 - {q}_1 ) f( {q}_1 - {q}_2 ) f( {q}_4 - {q}_3 ) f( {q}_3 - {q}_4 ) 
+	\prod_{i=5}^N f(0)
+\]
+\[
+	q_1 \; q_2 \; q_3 \; q_4 \; ... \; q_N
+\]
+\[
+	q_1 \; q_2 \; q_3 \; q_4 \; ... \; q_N
+\]
+\[
+	\text{ Tr} (\euler^{-\beta\hat{H}}) = \frac{1}{N!\lambda^{3N}} \int d^{3}q 
+	\left( 1 \pm \sum_{i<j} f_{ij} f_{ji}  \right)
+\]
+\notamargen{El $+$ es por bosones y el $-$ por fermiones.}
+\[
+	f_{ij} = \euler^{ -\frac{\pi}{\lambda^2} |\vb{q}_i - \vb{q}_j|^2} =
+	\euler^{ -\frac{\pi}{h} 2\pi k T |\vb{q}_i - \vb{q}_j|^2}
+\]
+
+Veamos los límites clásico y el surgimiento de fenómenos cuánticos 
+\[
+	\text{ CLÁSICO } \qquad v = \frac{V}{N} \ggg 1 \quad \Rightarrow \quad 
+	|\vb{q}_i - \vb{q}_j| \gg 1 \qquad T \ggg 1
+\]
+y por lo tanto
+\[
+	\euler^{ -\frac{\pi}{h} 2\pi k T |\vb{q}_i - \vb{q}_j|^2} \to 0
+\]
+\[
+	\text{ Tr} (\euler^{-\beta\hat{H}}) = \frac{1}{N!\lambda^{3N}} \int d^{3}q (1) =
+	\frac{1}{N!}\Frac{V}{\lambda^3}^N
+\]
+\[
+	\Or(v) \approx 1 \quad \Rightarrow \quad \Or(|\vb{q}_i - \vb{q}_j|) \approx 1 \qquad
+	\Or(T) \approx 1
+\]
+y en este caso es
+\[
+	\euler^{ -\frac{\pi}{h} 2\pi k T |\vb{q}_i - \vb{q}_j|^2} \to 1
+\]
+\begin{multline*}
+	\text{ Tr} (\euler^{-\beta\hat{H}}) \cong \frac{1}{N!\lambda^{3N}} \int d^{3}q 
+	\left( 1 \pm \sum_{i<j} f_{ij} f_{ji}  \right) \\ 
+	\cong \frac{1}{N!\lambda^{3N}} \int d^{3}q 
+	\left[ \prod_{i<j} (1 \pm f_{ij} f_{ji} ) \right] 
+\end{multline*}
+\notamargen{Este pasaje vale si $f_{ij} f_{ji}$ es pequeño.}
+
+\begin{multline*}
+	\prod_{i<j} ( 1 \pm f_{ij}f_{ji}) = \displaystyle \euler^{\log \prod_{i<j} ( 1 \pm f_{ij}f_{ji}) } =
+	\euler^{\displaystyle \sum_{i<j} \log ( 1 \pm f_{ij}f_{ji}) } = \\
+	\euler^{\displaystyle -\beta \sum_{i<j}  kT \log ( 1 \pm f_{ij}f_{ji}) } =
+	\euler^{\displaystyle -\beta \sum_{i<j}  V_{ij}^{\pm} }
+\end{multline*}
+donde 
+\[
+	V_{ij}^{\pm} = -kT\log \left( 1 \pm \euler^{-\frac{\pi}{\lambda^2}|\vb{q}_i - \vb{q}_j|^2} 
+	\euler^{-\frac{\pi}{\lambda^2}|\vb{q}_j - \vb{q}_i|^2} \right) =
+	-kT\log \left( 1 \pm  \euler^{-2\frac{\pi}{\lambda^2}|\vb{q}_i - \vb{q}_j|^2} \right)
+\]
+
+Con $ | \vb{q}_i - \vb{q}_j| \to 0 $ es
+\[
+	V_{ij}^{\pm} = -kT\log ( 1 \pm 1 ) = \begin{cases}
+	                                           -kT\log (2) \quad \text{ bosones } \\
+	                                           -kT\log (o^+) \quad \text{ fermiones } 
+	                                          \end{cases}
+\]
+
+DIBUJO 
+
+El potencial efectivo $\beta V_{ij}$ luce como la Figura
+
+
+Límite clásico $\to$ no permutación 
+
+Cuando hay overlap de las funciones de onda de las partículas hay que realizar las permutaciones correspondientes.
+
+La simetría (por la indistinguibilidad que hace necesaria la permutación) lleva a términos efectivos de interacción 
+repulsivos (FD) o a atractivos (BE).
+
+\subsection{Otra cosa suelta --reubicar--}
+
+El parámetro de comportamiento siempre es
+\[
+	\frac{\lambda^3}{v} = \frac{h^3/(2\pi m kT)^{3/2}}{V/N}
+\]
+donde la longitud de onda térmica $\lambda = h/(2\pi m kT)^{1/2}$ es una medida que da idea de la dispersión de la 
+partícula de masa $m$ y temperatura $T$ considerada como onda. El volumen específico $v=V/N$ es el volumen promedio 
+ocupado por una partícula. Luego, $\lambda^3$ es una especie de volumen de la partícula considerada como onda.
+Si 
+\[
+	\lambda^3 > v \qquad \text{ Fenómenos de interferencia cuántica }
+\]
+\[
+	\lambda^3 < v \qquad \text{ No hay fenómenos de interferencia cuántica }
+\]
+
+GRAFIQUETES
+
+$\lambda$ es una característica del sistema de partículas $(m,T)$
+\begin{center}
+\begin{tabular}{c c}
+$\displaystyle \frac{\lambda^3}{v} \ggg 1 $ & $\displaystyle \frac{\lambda^3}{v} \lll 1 $ \\
+Altamente cuántico &  Altamente clásico\\
+alta $N/V$ & baja $N/V$\\
+baja T & alta T
+\end{tabular}
+\end{center}
+
+Para Bose el análisis parte de 
+\[
+	\euler^{-\beta(e-\mu)} < 1 \quad \rightarrow \quad \mu < e \to \mu < 0
+\]
+\notamargen{gas ideal $e_0=0$, todas con $\vb{p}=0$}
+para toda $e$ del sistema, lo cual hará que 
+\[
+	0 < z < 1 
+\]
+y
+\[
+	\frac{N}{V} = \frac{1}{\lambda^3} g_{3/2}(z) + \frac{1}{V} \frac{z}{1-z}
+\]
+
+Como $z$ es a lo sumo 1, entonces $g_{3/2}(z)$ está acotada y $g_{3/2}(1)=2.612$
+\[
+	\frac{\lambda^3}{v} = g_{3/2}(z) + \frac{\lambda^3}{V} \Frac{z}{1-z}
+\]
+
+Cuando $z=1$, $g_{3/2}$  ya no puede crecer más; si sube $N$ el remanente $(N-N_e)$ va al estado 
+$e_0=0$
+\[
+	\frac{\lambda^3}{v}(N_e+N_0) = \underbrace{g_{3/2}(z)}_{\lambda^3/V N_e} + \frac{\lambda^3}{V} N_0
+\]
+
+Definimos $T_c, v_c$ a partir de $\frac{\lambda^3}{v} = g_{3/2}(1)$ 
+
+Si $ T<T_c$ o $v<v_c$ se tiene 
+\[
+	\frac{\lambda^3}{v} > g_{3/2}(1) \quad \Rightarrow \quad \frac{\lambda^3}{v} =
+	g_{3/2}(1) + \frac{\lambda^3}{V} N_0
+\]
+
+Entonces tendremos 
+\[
+	z = 1 \quad \Rightarrow \quad \mu(T_c) = 0 \quad \Rightarrow \quad T=T_c \quad \Rightarrow \quad  
+	\frac{\lambda^3}{v} = 2.612
+\]
+\[
+	T < T_c \quad \Rightarrow \quad \mu(T) = 0 \quad \Rightarrow \quad z = 1 \quad \Rightarrow \quad  
+	\frac{\lambda^3}{v} > 2.612
+\]
+\[
+	T > T_c \quad \Rightarrow \quad \mu(T) < 0 \quad \Rightarrow \quad z < 1 \quad \Rightarrow \quad  
+	\frac{\lambda^3}{v} < 2.612
+\]
+\[
+	T \gg T_c \quad \Rightarrow \quad \mu(T) \ll 0 \quad \Rightarrow \quad z \ll 1 \quad \Rightarrow \quad  
+	\frac{\lambda^3}{v} \ll 1
+\]
+
+El $\mu(T)$ luego del condensado $(T<T_c)$ se hace cero con lo cual $z=1$ para todo el intervalo.
+
+Una vez que se tiene el condensado
+
+GRAFICO
+
+\subsection{Cuánticos 6}
+
+comentario estadísticas
+
+modelado de un metal
+
+red de átomos -> gas de fonones -> $c_v$ fonones
+
+Modelos de Debye -> distribución de $\omega$
+Einstein -> $\omega = \omega_E$
+
+Modelado de un metal (gas de electrones) -> $c_v$ electrónico
+
+Emisión termoiónica
+
+Tema pequeñas oscilaciones (leer mi resumen)
+ver tema de ondas de sonido en sólidos.
+
+\subsection{Estudio de un metal}
+
+Modelamos un metal como una red de átomos que pueden oscilar y un gas de electrones
+\[
+	=
+\]
+
+PICTURE 
+
+Los desplazamientos del equilibrio serán 
+\[
+	=
+\]
+\[
+	=
+\]
+\[
+	=
+\]
+siendo las constantes de fuerza $k_{ij}$ las que controlan la interacción 
+\[
+	=
+\]
+
+Este hamiltoniano se puede pasar a modos normales diagonalizando la matriz de fuerzas
+\[
+	=
+\]
+y $\omega_i$ son las frecuencias de los $3N$ modos normales del sistema de $N$ grados de libertad en
+3D. En modos normales el hamiltoniano del sistema es el de $3N$ osciladores armónicos independientes
+(no acoplados. 
+Puede resolverse mediante los operadores de bajada y de subida (cuántica) resultando en
+\[
+	=
+\]
+donde $n_i$ es el número de fonones (ocupación) del modo normal $i-$ésimo.
+
+Estos fonones, cuasipartículas, son bosones porque pueden ser 
+\[
+	n_i = 0,1,2,...,\infty
+\]
+y su número total no está fijo ($\mu=0$ pues la energía no depende del número de fonones)
+\[
+	=
+\]
+pues $\hbar\omega_i$ es la energía del estado $i-$ésimo
+\[
+	=
+\]
+\[
+	=
+\]
+
+La función de partición canónica será 
+\[
+	=
+\]
+\[
+	=
+\]
+\[
+	=
+\]
+\[
+	=
+\]
+\[
+	=
+\]
 
 % =================================================================================================
 \section{Sistemas de partículas indistinguibles y no interactuantes}
