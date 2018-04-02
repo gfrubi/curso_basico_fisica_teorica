@@ -35,12 +35,1161 @@
 
 
 % =================================================================================================
-% \section{Energía y entropía}
+\section{Ising 1}
 % =================================================================================================
 
+\begin{itemize}
+ \item Modelo sencillo de sistema interactuante
+ \item Magnetización espontánea 1D y 2D:
+ \subitem En 1D no hay magnetización espontánea
+ \subitem En 2D hay magnetización espontánea
+\end{itemize}
+
+Fase es una porción de materia física y químicamente homogénea (asociada a la densidad atómica o molecular
+uniforme) que no puede separarse por medios mecánicos.
+
+Una fase puede ser una única sustancia o una mezcla.
+
+El concepto de fase está también relacionado con el pasaje de la materia de una a otra fase.
+
+\notamargen{corregir}
+
+Estados de agregación (en función de la proximidad de sus componentes). Agua y aceite (líquido) es un sistema de dos 
+fases.
+
+La materia puede encontrarse en gran variedad de fases; las más conocidas están relacionadas con los estados de 
+agregación. Pero dentro del estado sólido tenemos fases dependiendo de cómo sea la estructura interna.
+
+Tenemos también sistemas que manifiestan fases ordenadas y desordenadas; aleaciones de sólidos, superconductividad.
+
+Transición de fase: cuando una propiedad del sistema cambia discontinuamente frente a la variación de un parámetro 
+intensivo ($T, p$ campo magnético).
+
+\[
+	\text{ interacciones entre partículas } \qquad \rightarrow \qquad \text{ CORRELACIÓN A GRAN ESCALA }  
+\]
+
+Las transiciones de fase emergen de la interacción. Uno de los modelos más sencillos fuera del gas ideal es el modelo de
+Ising (red con interacción entre primeros vecinos)
+\[
+	\boxed{ E_\nu = -H \sum_{i=1}^N (\mu S_i) - J \sum_{\braket{i,j}} S_i \cdot S_j }
+	\label{energia_ising}
+\]
+\notamargen{Ising es energía dada por \eqref{energia_ising} e interacción a primeros vecinos.}
+
+dibujo 
 
 
+donde $\nu$ es una dada configuración de la red (valores $S_i$ con $i=1,2,...,N$)
+\[
+	S_i = \pm 1 \qquad \rightarrow \qquad \pm \mu S_i \text{ Momento magnético del spin i-ésimo }
+\]
+donde $\mu>0$, $J$ es constante de acoplamiento y $\sum_{<i,j>}$ se extiende sobre los pares de vecinos (primeros).
 
+Con $J>0$ es favorable que todos los spines se hallen alineados. Entonces esto llevará a la magnetización espontánea: 
+fenómeno de cooperación; la mayoría de los spines se orienta en una dirección y dan un valor de magnetización 
+$\braket{M} \neq 0$
+\[
+	M_\nu = \sum_{i=1}^N \mu \cdot S_i^\nu
+	\text{ (Magnetización) }
+\]
+\notamargen{$J>0$ ferromagnetismo y $J<0$ paramagnetismo}
+
+Si los spines están orientados al azar, entonces habrá igual cantidad de $+1$ que de $-1$ y entonces
+\[
+	M \approx 0
+\]
+
+Si $H=0$ entonces $M$ es la magnetización espontánea.
+\notamargen{$M$ se define como un momento dipolar magnético por unidad de volumen.}
+
+Habrá magnetización con $T$ baja (o $J$ alto) y hasta una $T_\text{curie}$
+\[
+	Q_N(H,T) = \sum_{s_1=-1}^{+1} \; \sum_{s_2=-1}^{+1} \; ... \sum_{s_N=-1}^{+1} \;
+	\euler^{ +\beta H \mu \sum_i^N S_i + \beta J \sum_{\braket{i,j}} S_i \cdot S_j }
+\]
+donde las sumatorias toman para cada $i$ los valores $S_i = +1, -1$
+\[
+	A = -kT\log Q \qquad \braket{E} = -\dpar{}{\beta}\log Q = kT^2 \dpar{}{T} \log Q
+\]
+
+\begin{ejemplillo}{(Ejercicio 5.1 Chandler)}
+\[
+	E_0 = -J \sum_{\braket{i,j}} S_i \cdot S_j = -J  \sum_i^N \sum_j^\gamma \frac{S_i S_j}{2}
+\]
+para cada $i$ sumo en sus $\gamma$ vecinos el $j$ (sobre 2 para no contar dos veces).
+\[
+	E_0 = -J \sum_i^N \frac{S_i\gamma}{2} = -J N\frac{\gamma}{2} = -JND
+\]
+donde $D$ es la dimensionalidad.
+\end{ejemplillo}
+
+
+Como es
+\[
+	E_\nu =  -H \sum_{i=1}^N \mu \cdot S_i - J \sum_{\braket{i,j}} S_i \cdot S_j \qquad
+	\text{ y } \qquad \braket{M} = \braket{ \sum_i^N \mu \cdot S_i }
+\]
+entonces
+\[
+	\braket{M} = \braket{ \sum_i^N \mu \cdot S_i } = 
+	\frac{ \sum_{s_1} \; \sum_{s_2} \; ... \sum_{s_N} \;
+	\euler^{ \beta H \mu \sum_i^N S_i + \beta J \sum_{\braket{i,j}} S_i \cdot S_j } }{Q_N}
+\]
+\[
+	\braket{M} = \frac{ \sum_{s_1} \; \sum_{s_2} \; ... \sum_{s_N} \;
+	\dpar{}{\beta H} \left[ \euler^{ \beta H \mu \sum_i^N S_i + \beta J \sum_{\braket{i,j}} S_i \cdot S_j } 
+	\right]}{Q_N} = \frac{\dpar{}{\beta H}(Q_N)}{Q_N}
+\]
+\[
+	\braket{M} = \dpar{}{\beta H}\left( \log Q_N \right) = \dpar{}{\beta H}\left( -\beta A \right) =
+	\dpar{}{H}\left( A \right)
+\]
+
+\subsection{No hay magnetización espontánea en 1D}
+
+\notamargen{Error en Huang (14.6); es $-\dpar{}{H}(A_I)$}
+
+DIBUJO 
+
+Con $H=0$ invierto spines detrás de una pared.
+\[
+	E_0 = -J(N-1) \qquad E_f = -J[(N-1)-2p]
+\]
+\notamargen{$p$ es el número de paredes}
+
+Varían los términos asociados a la pared
+\[
+	\Delta E = E_f - E_0 = 2Jp > 0
+\]
+con $p=1$ es $\Delta E = 2J$ y con $p=2$ es $\Delta E = 4J$ (es 2 por pared puesto que desaparece un $+$ y aparece
+en su lugar un $-$).
+
+La variación de $S$ está asociada con el número de formas de ubicar la pared
+\[
+	S = l \log (N-1)
+\]
+y es la $S$ del estado con una pared, el desordenado.
+\[
+	\Delta S = k \log(N-1)	\qquad (S_0 \equiv 0)
+\]
+que define al estado sin pared como de entropía $S_0=0$
+\[
+	A = U - TS \quad \rightarrow \quad \delta A = \delta U - T \delta S
+\]
+\[
+	\delta J - kT \log(N-1)
+\]
+\notamargen{Para $p$ paredes es 
+$\Delta A = 2Jp - kT \log [(N-1)(N-2)...(N-p)]$}
+
+Con $T > 0$ tenemos que si desordeno (agrego paredes) sube $U$ y sube $S$.
+En general, como 
+\[
+	\frac{\delta A}{kT} = \frac{2J}{kT} - \log(N-1)
+\]
+vemos que para $N\to\infty$ $\delta A < 0$ a menos de que $J/kT$ sea muy grande.
+
+\notamargen{$S$ domina la minimización de $A$.}
+
+En un sistema macroscópico 1D el desorden baja la $A$, entonces el equilibrio tiende
+al desorden (no al orden).
+
+Es decir, un sistema 1D de spines a $ T \neq 0 $ espontáneamente irá hacia $ A $
+mínimas (mayor aleatoriedad), no se tiende a alcanzar estados ordenados.
+
+\subsection{Magnetización espontánea en 2D}
+
+La magnetización media por spín es
+\[
+	\mathcal{M} = \frac{1}{2} \Frac{N_+ - N_-}{N}
+\]
+Con $N\to\infty$ claramente será 0 a no ser que exista una preferencia por cierta dirección $+$ o $-$.
+
+Queremos calcular todas las configuraciones posibles de un arreglo 2D de spines.
+Para ello sistematizamos una dada construcción en dominios $\Box$ que engloban spines ($-$) y están
+limitados por paredes.
+
+DIBUJO ising
+
+
+Los spines $+$ son una condición de contorno que con $N\to\infty$ es una perturbación que rompe la
+simetría. También sirven para cerrar los dominios.
+
+Cada dominio tiene una longitud $b$ medido en paredes $|$ y una dirección de recorrido de forma que 
+los spines $-$ están siempre a la izquierda de la pared.
+El tamaño de la red es $\sqrt{N} \times \sqrt{N} = N$. El área se mide en términos del dominio 
+mínimo ``$\Box$''
+\[
+	\text{ dominio } = (b,i)
+\]
+donde $b$ es el número de paredes e $i$ una etiqueta.
+
+A un mismo número de paredes según forma y localización tendrá varios dominios.
+
+Una dada configuración del sistema tendrá ciertos dominios $(b,i)$
+
+\begin{center}
+\begin{tabular}{llll}
+ & $b$ (paredes) & Areas (spines) & $b^2/16$ \\
+\hline
+ & 4 & 1 & 1\\
+ & 6 & 2 & 2.25\\
+ & 8 & 3,4 & 4
+\end{tabular}
+\end{center}
+
+Si cada spin ocupa un área de 1, en términos de paredes el área que engloba un dominio de $b$ paredes
+es 
+\[
+	\text{ Área dominio } \neq \frac{b^2}{16} \qquad \rightarrow \qquad S([b,i]) = \text{ Área dominio}
+\]
+\notamargen{Tengo una figura de longitud $b$ y si la quiero llevar a un cuadrado con suerte el lado
+será $b/4$ de modo que su área es $b^2/16$}
+
+Definimos ahora 
+\[
+	\chi([b,i]) = \begin{cases}
+	              1 \qquad \text{ Si (b,i) ocurre en una dada configuración } \\
+	              0 \qquad \text{ En caso contrario}
+	             \end{cases}
+\]
+y $m(b)$ número de dominios de $b$ paredes.
+
+Luego;
+\[
+	\boxed{ N_- = \sum_b \sum_i^{m(b)} \chi([b,i]) S([b,i]) } \quad [1]
+\]
+en el caso dibujado sería
+\[
+	N_- = 1 \cdot S(6,i) + 1 \cdot S(8,i') + 1 \cdot S(26,i'') \qquad 
+	N_- = 1 \cdot  2 + 1 \cdot  4 + 1 \cdot 12 = 18
+\]
+
+Por la [1] se puede acotar, empezando por $m(b)$. Para ver el número de dominios de longitud $b$ piénsese que 
+para la primera pared tengo $N$ posibilidades; para las siguientes $b-1$ tengo tres opciones pues no puedo volver,
+y entonces 
+\[
+	m(b) \leq N 3^{b-1}
+\]
+
+Nótese que estamos considerando paredes abiertas y cerradas.
+
+Luego,
+\[
+	\braket{N_-} \leq \sum_b \sum_i^{N3^{b-1}} \chi([b,i]) \underbrace{S([b,i])}_{\leq b^2/16}
+\]
+\[
+	N_- \leq \sum_b \frac{b^2}{16} \sum_i^{N3^{b-1}} \chi([b,i])
+\]
+\[
+	\braket{N_-} \leq \sum_b \frac{b^2}{16} \sum_i^{N3^{b-1}} \braket{\chi([b,i])}
+\]
+
+Pero
+\[
+	\braket{\chi([b,i])} = \frac{ \sum_{\{Si\}}' \euler^{-\beta E_{\{Si\}}} }
+	{ \sum_{\{Si\}} \euler^{-\beta E_{\{Si\}}} }
+\]
+donde la sumatoria es en aquellas configuraciones que contienen al dominio $(b,i)$.
+
+\notamargen{num: de todas las configuraciones posibles aquellas en las cuales se da el dominio $(b,i)$.
+den: todas las configuraciones posibles.}
+
+Removemos términos del denominador para acotar: pensamos que si en una dada configuración $C$ con $\{b,i\}$ revertimos 
+en el dominio $\{b,i\}$ los spines llegamos a una configuración $\tilde{C}$
+\[
+	E_C - E_{\tilde{C}} = 2 \varepsilon b
+\]
+
+Al revertir los spines de un dominio pasamos a una configuración más ordenadas y por ende de menor energía
+ 
+ DIBUJO
+ 
+\[
+	\frac{ \sum_{\{Si\}}' \euler^{-\beta E_{\{Si\}}} }{ \sum_{\{Si\}} \euler^{-\beta E_{\{Si\}}} }
+	\leq 
+	\frac{ \sum_{\{C\}} \euler^{-\beta E_C} }{ \sum_{\{C'\}} \euler^{-\beta E_{\tilde{C}}} } =
+	\frac{ \sum_{\{C\}} \euler^{-\beta E_C} }{ \sum_{\{C\}} \euler^{-\beta E_{\tilde{C}}} 
+	\euler^{2\beta\varepsilon b} } = \euler^{-2\beta \varepsilon b}
+\] 
+\[
+	\braket{N_-} \leq \sum_b \frac{b^2}{16} \euler^{-2\beta \varepsilon b} N 3^{b-1} =
+	\frac{N}{48} \sum_b b^2 [ 3 \euler^{-2\beta \varepsilon } ]^b
+\]
+\[
+	\braket{N_-} \leq \frac{N}{48} \sum_{b=4,6,8,...} b^2 x^2,
+\]
+con $ x \equiv 3 \euler^{-2\beta \varepsilon } $
+
+\[
+	\braket{N_-} \leq \frac{N}{48} (16x^4 + 36x^6 + 64x^8 + ...) 
+\]
+Sea $b=2n$, entonces
+\[
+	\braket{N_-} \leq \frac{N}{48} \sum_{n=2,3,4,...} 4 n^2 (x^2)^n,
+\]
+con $x^2 = 9 \euler^{-4\beta\varepsilon} $
+\[
+	\braket{N_-} \leq \frac{N}{12} \sum_{n=2}^\infty n^2 r^n,
+\]
+con $r=9 \euler^{-4\beta\varepsilon}$
+\[
+	\braket{N_-} \leq \frac{N}{3} \frac{r^2}{(1-r)^3} \left[ 1 - \frac{3}{4}r + \frac{1}{4}r^2 \right]
+\]
+y esta cantidad para algún $\beta$ grande pero finito es menor a $N/2$.
+
+
+% =================================================================================================
+\section{Ising 2}
+% =================================================================================================
+
+La energía se podía escribir como
+\[
+	E_\nu = - H \sum_i^N (\mu s_i) - J \sum_{\braket{i,j}} s_i \cdot s_j 
+\]
+
+El grado de un nodo es $\gamma$ que depende de la red y de la dimensión,
+\begin{center}
+\begin{tabular}{lll}
+2D & cuadrada & $\gamma=4$ \\
+3D & SC & $\gamma=6$ \\
+3D & BCC & $\gamma=8$
+\end{tabular}
+\end{center}
+
+\notamargen{$\gamma$ es el número de vecinos. De cada nodo salen $\gamma$ líneas.}
+
+\[ 
+	\sum_{\braket{i,j}} = \frac{\gamma N}{2} = \text{ nro total de líneas } 
+\]
+
+dibujos
+
+Tomando un nodo y trazando líneas a sus $\gamma$ vecinos tengo $ \gamma N/2 $ líneas dibujadas
+(se divide en 2 por el doble conteo).
+
+Tomando cada $\oplus$ trazo líneas a sus vecinos y defino
+\[ 
+	N_+ = \text{ nro de spines $\uparrow$} \qquad N_- = \text{ nro de spines $\downarrow$}
+\]
+\[ 
+	N_{++} = \text{ nro de pares $\uparrow\uparrow$} \qquad 
+	N_{--} = \text{ nro de pares $\downarrow\downarrow$}
+\]
+\[ 
+	N_{+-} = \text{ nro de pares $\uparrow\downarrow$ o ($\downarrow\uparrow$)}
+\]
+\begin{itemize}
+ \item 1) $ \gamma N_+ = 2N_{++} + N_{+-} $
+ \item 2) $ \gamma N_- = 2N_{--} + N_{+-} $
+ \item 3) $ N_+ + N_- = N $
+\end{itemize}
+
+\[
+	\gamma N = 2N_{++} + 2N_{--} + 2N_{+-}
+\]
+\[
+	\gamma N_+ + \gamma N_- = (2N_{++} + N_{+-}) + (2N_{--} + N_{+-})
+\]
+\[
+	\frac{\gamma N}{2} = N_{++} + N_{--} + N_{+-} 
+\]
+
+Podemos poner todo en términos de $N_{++}, N_+, N$ y entonces
+\[
+	N_{+-} = \gamma N_+ - 2N_{++} \qquad N_- = N - N_+
+\]
+\[
+	N_{--} = \frac{\gamma}{2}(N-N_+) - \frac{1}{2}(\gamma N_+ - 2N_{++}) =
+	\frac{\gamma}{2} N - \gamma N_+ + N_{++}
+\]
+\begin{multline*}
+	\sum_{\braket{i,j}} s_i \cdot s_j = N_{++} + N_{--} - N_{+-} =
+	N_{++} + \frac{\gamma}{2}N - \gamma N_+ + N_{++} - \gamma N_+ + 2N_{++}= \\
+	4N_{++} - 2\gamma N_+ + \frac{\gamma}{2}N 
+\end{multline*}
+\[
+	s_i = N_+ - N_- = N_+ - (N-N_+) = 2N_+ - N
+\]
+
+La energía se puede escribir en función de estas variables
+\[
+	E_I = - H\mu (2N_+ - N) - J(4N_{++} - 2\gamma N_+ + \frac{\gamma}{2}N)
+\]
+\[
+	E_I = -4JN_{++} - 2(H\mu - \gamma J)N_+ - \left( \frac{\gamma J}{2}- H\mu \right)N
+\]
+
+\notamargen{La energía depende de las cantidades $N,N_+,N_{++}$ y no del detalle de la distribución
+de los mismos.}
+
+La función canónica será
+\[
+	Q_I = \sum_{E_I} \euler^{-\beta E_I} = \euler^{\beta(J\gamma/2 - H\mu)N } \sum_{N_+=0}^N
+	\left( \euler^{2\beta( \mu H - J\gamma )N_+ } \sum_{N_{++}}' \euler^{4\beta J N_{++}}
+	\: g(N_+,N_{++})\right)
+\]
+donde $g(N_+,N_{++})$ es el número de configuraciones de $N_{++}$ y $N_{+}$ y la sumatoria primada se hace 
+sobre los valores de $N_{++}$ consistentes con que hay $N_{+}$ spines up.
+
+Esta expresión no ha sido resuelta salvo en 2D.
+
+\subsection{Aproximación de Bragg-Williams}
+
+\[
+	\frac{N_+}{N} = \text{ (promedio) $\leftarrow$ correlaciones de largo rango } 
+\]
+\[
+	\frac{N_{++}}{\gamma/2 N} = \text{  $\leftarrow$ correlaciones de corto rango } 
+\]
+y entonces $N_{+}/N$ está asociado a una visión global del sistema (un cuerpo), 
+mientras que $N_{++}/(\gamma/2 N)$ lo está a una visión local del sistema (dos cuerpos).
+
+Si un dado spin es $\oplus$ entonces tiene en promedio $N_{++}/(\gamma/2 N)$ vecinos del tipo $\oplus$.
+
+Definimos unos parámetros de orden $L$ y $\sigma$
+\[
+	\frac{N_+}{N} = \frac{1}{2}(L+1) \qquad (\text{ todo } \downarrow) -1 \leq L \leq 1 (\text{ todo } \uparrow)
+\]
+\[
+	\frac{N_{++}}{\gamma/2 N} = \frac{1}{2}(\sigma + 1) \qquad -1 \leq \sigma \leq 1
+\]
+\notamargen{Estamos viendo todo del lado de los spines $\oplus$.}
+pero 
+\[
+	\sum_i s_i = 2N_+ - N = (L+1)N - N = NL,
+\]
+\[
+	\braket{M} = \braket{ \sum_i^N \mu s_i } = \mu \braket{ \sum_i^N s_i } = \mu N \braket{L} 
+\]
+\[
+	\frac{\braket{M}}{\mu N} \equiv \mathcal{M} = \braket{L}
+\]
+que es la magnetización por partícula (adimensional).
+\[
+	\sum_{\braket{i,j}} = \frac{1}{2} N \gamma (2\sigma - 2L + 1) 
+\]
+
+La energía es 
+\[
+	E = - H \mu \sum_i^N s_i - J \sum_{\braket{i,j}} =
+	-H\mu NL - \frac{J}{2} N \gamma (2\sigma - 2L + 1) 
+\]
+y por partícula,
+\[
+	\epsilon \equiv \frac{E}{N} = -H\mu L - \frac{J}{2} \gamma (2\sigma - 2L + 1) 
+\]
+
+Hasta aquí el planteo es exacto; Bragg-Williams hace la aproximación
+\notamargen{Significa que no hay correlaciones de orden corto salvo las que surgen
+del orden largo. Me quedo sólo con el parámetro $L$.}
+\[
+	\frac{N_{++}}{\gamma/2 N}= \Frac{N_+}{N}^2
+\]
+\[
+	\frac{1}{2}(\sigma + 1) \approx \frac{1}{2^2} (L+1)^2 \quad \rightarrow \quad 
+	\sigma \approx \frac{L^2 + 2L + 1}{2}
+\]
+\[ 
+	\boxed{ E = -\mu H N L - \frac{JN\gamma }{2}L^2 },
+\]
+que es la $E$ en Bragg-Williams.
+\[
+	Q(H,T) = \sum_{\{ s_i\}} \euler^{-\beta N(- \H\mu L - JL^2 \gamma / 2) }
+\]
+donde $\{ s_i\}$ es la configuración de los N spines.
+
+La suma se extiende sobre todos los conjuntos $\{ s_i\}$, pero el sumando sólo depende de $L$.
+Queremos saber cuántos conjuntos $\{ s_i\}$ tienen el mismo $L$,
+\[
+	\frac{N!}{N_+!(N-N_+)!}
+\]
+que es el número de maneras de tomar $N_+$ de $N$ indistinguibilizando dentro de $N_+$ y de $N_-\equiv
+N-N_+$
+\[
+	Q(H,T) = \sum_{L=-1}^{L=1} \frac{N!}{N_+!(N-N_+)!}
+	 \euler^{\beta N( \H\mu L + JL^2 \gamma / 2) }
+\]
+
+La suma es ahora en todos los $L$ posibles. Con $N\to\infty$ el logaritmo de $Q$ es dominado por el término
+(con $\bar{L}$) que maximiza el sumando.
+\notamargen{La clave es el término que maximiza el sumando en valor absoluto. Será máximo o mínimo. }
+\[
+	\log (Q(H,T)) = \log \left( \sum_L \frac{N!}{N_+!(N-N_+)!} \euler^{\beta N f(L)} \right)
+\]
+si pensamos que la suma está dominada por un término,
+\[
+	\log (Q(H,T)) \approx \log \left( \frac{N!}{ N/2(\bar{L}+1)!N/2(1-\bar{L})!} 
+	\euler^{\beta N f(\bar{L})} \right)
+\]
+\[
+	\log (Q(H,T)) \approx \log N! - \log N/2(\bar{L}+1)!N/2(1-\bar{L})! + 
+	\beta N ( H\mu \bar{L} + J\bar{L}^2 \gamma/2 ) 
+\]
+y usando Stirling,
+\[
+	\log Q = \beta N H \mu \bar{L} + \beta \frac{NJ}{2} \gamma \bar{L}^2 -
+	\frac{N}{2} \log \Frac{1-\bar{L}^2}{4} - \frac{N\bar{L}}{2} \log \Frac{1+\bar{L}}{1-\bar{L}}
+	\qquad [1]
+\]
+pero no sabemos quién es $\bar{L}$. Y si hacemos
+\[
+	\dpar{}{\bar{L}}( \log Q[H,T] ) = 0
+\]
+llegamos a que debe valer [2]
+\[
+	\log \frac{1+\bar{L}}{1-\bar{L}} = 2\beta H\mu + 2\beta \gamma \bar{L} J
+\]
+y por ello el valor de $\bar{L}$ sale de
+\[
+	\bar{L} = \tanh( \beta H \mu + \beta \gamma J \bar{L} )
+\]
+
+Con $H=0$ es 
+\[
+	\boxed{ \bar{L} = \tanh( \beta \gamma J \bar{L} ) } \qquad \text{ condición para $\bar{L}$ }
+\]
+
+DIBUJO 
+
+busco igualar $f=\tanh(\beta\gamma J\bar{L})$ con $f=\bar{L}$.
+
+Entonces, si
+\[
+	T_c \equiv \frac{\gamma J}{k} > T \qquad \rightarrow \quad \bar{L} = 0, L_0, -L_0 \; 
+	\text{ son soluciones } 
+\]
+\[
+	T_c \equiv \frac{\gamma J}{k} \geq T \qquad \rightarrow \quad \bar{L} = 0 \; 
+	\text{ es solución } 
+\]
+siendo $T_c$ la temperatura de Curie.
+\notamargen{El $L$ máximo, el $\bar{L}$, es el que domina en $\log Q$.
+Asimismo, como $A = -kT\log Q$, el valor que maximiza $\log Q$ también minimiza $A$.}
+Usando (2) en (1) podemos escribir 
+\[
+	- \beta A = \log Q(H,T) \approx - \beta \frac{\gamma J N}{2} \bar{L}^2 
+	- \frac{N}{2} \log \Frac{1-\bar{L}^2}{4}
+\]
+\[
+	\log Q(H,T) \approx - \Frac{T_c}{T}\frac{N}{2}\bar{L}^2 - \frac{N}{2} \log \Frac{1-\bar{L}^2}{4}
+	\; [3]
+\]
+pero (3) vale para el $\bar{L}$ que maximiza $\log Q$. Vemos que es independiente de $H$.
+Es más, (3) graficado en función de $\bar{L}$ no me dice nada. Lo que es valioso es (1).
+Desde allí,
+\[
+	A \approx -NH\mu \bar{L} - kT_C \frac{N}{2}\bar{L}^2  + kT\frac{N}{2} \log \Frac{1-\bar{L}^2}{4}
+	+ kT \frac{N}{2} L \log \Frac{1+\bar{L}}{1-\bar{L}}
+\]
+
+Considerando $H=0$ resulta
+\[
+	\frac{\beta A}{N/2} \approx -\frac{T_c}{T} \bar{L}^2 + \log \Frac{1-\bar{L}^2}{4}
+	+ \bar{L} \log \Frac{1+\bar{L}}{1-\bar{L}}
+\]
+y si 
+\[
+	-\frac{2H\mu}{kT}\bar{L},
+\]
+siendo chico el factor,
+
+DIBUJOS
+
+\[
+	A \approx k T_c \frac{N}{2} \bar{L}^2 + k T N \log \Frac{1-\bar{L}^2}{4}
+\]
+
+El efecto del $H\neq 0$ es entonces romper la degeneración. Por otro lado $\bar{L}$ es el valor de
+magnetización por partícula. Entonces podemos graficar $A(\mu)$
+
+DIBUJO
+
+Las otras funciones termodinámicas resultan (con $H=0$)
+\[
+	\frac{M}{\mu N} = \begin{cases}
+	                   0 \qquad T > T_c \\
+	                   L_0 \qquad T< T_c
+	                  \end{cases}
+\]
+\[
+	\frac{A}{N} = \begin{cases}
+	                   0 \qquad T > T_c \\
+	                   \frac{\gamma J}{2}\bar{L_0}^2 + \frac{kT}{2} \log \Frac{1-\bar{L_0}^2}{4}
+	                   \qquad T< T_c
+	                  \end{cases}
+\]
+\[
+	\frac{U}{N} = \begin{cases}
+	                   0 \qquad T > T_c \\
+	                   -\frac{\gamma J}{2}\bar{L_0}^2 \qquad T< T_c
+	                  \end{cases}
+\]
+\[
+	\frac{C}{N} = \dpar{}{T}\Frac{U}{N} = \dpar{}{T}\left(-\frac{\gamma J}{2}\bar{L_0}^2 \right)
+	= - \gamma J L_0 \dtot{L_0}{T}
+\]
+donde $L_0$ debe computarse numéricamente pero podemos aproximar en dos límites $T\approx 0$ y $T\approx T_c$
+
+\[
+	L_0 = \tanh\Frac{T_c L_0}{T} = \frac{(1-\euler^{-2x})}{1+\euler^{-2x}}
+	\approx (1-\euler^{-2x})^2
+\]
+siendo $x\equiv T_cL_0/T$ y amasando tenemos
+\[
+	\begin{cases}
+	L_0 \approx 1 - 2\euler^{-T_cL_0/T} \quad \text{ si } T_c/T \gg 1 \\
+	L_0 \approx 3^{1/2}\left( 1 - \frac{T}{T_c} \right)^{1/2} \quad \text{ si } T_c \approx T 
+	\end{cases}
+\]	
+
+
+DIBUJOS
+
+\subsection{Aproximación de Bette-Peierls}
+
+Tiene en cuenta correlaciones de corto orden. Se piensa en un elemento fundamental de la red de spines y el
+efecto de toda la red sobre el mismo.
+\[
+	z \equiv \text{ parámetro que mide el efecto de la red sobre el elemento }
+\]
+
+dibujete
+
+$P(s,n)$ es la probabilidad de que el spin central tenga valor 's' y halla 'n' vecinos $\oplus$
+de manera que 
+\[
+	P(+,n) \quad \rightarrow \qquad n \text{ pares } ++, \quad \gamma_- n \text{ pares } +- 
+\]
+\[
+	P(-,n) \quad \rightarrow \qquad n \text{ pares } +-, \quad \gamma_- n \text{ pares } -- 
+\]
+
+Para un dado $n$ hay $(\gamma n)$ [combinatorio] posibles ordenamientos.
+Se propone:
+\[
+	P(+,n) = \frac{1}{q}\binom{\gamma}{n} \euler^{\beta J (2n-\gamma)} z^n
+\]
+\[
+	P(-,n) = \frac{1}{q}\binom{\gamma}{n} \euler^{\beta J (\gamma-2n)} z^n
+\]
+con $q$ una normalización.
+\[
+	\sum_{n=0}^\gamma [ P(+,n) + P(-,n) ] = 1
+\]
+\[
+	q = \sum_{n=0}^\gamma \binom{\gamma}{n} z^n 
+	\left[ \euler^{2\beta J n} \cdot \euler^{-\beta J \gamma} + 
+	\euler^{-2\beta J n} \cdot \euler^{\beta J \gamma} \right]
+\]
+y armando binomios dentro del paréntesis puede arribarse a
+\notamargen{Estamos usando teorema del binomio, ponerlo en apéndice de cuentas.}
+\[
+	q = \left[ z\euler^{\beta J} + \euler^{-\beta J} \right]^\gamma +
+	\left[ \euler^{\beta J} + z\euler^{-\beta J} \right]^\gamma
+\]
+
+Ahora se tendrá
+\[
+	\frac{N_+}{N} = \frac{1}{2}(L+1) = \sum_{n=0}^\gamma P(+,n) =
+	\frac{1}{q} \left[ \euler^{\beta J} + z\euler^{-\beta J} \right]^\gamma
+\]
+\[
+	\frac{N_{++}}{N\gamma/2} = \frac{1}{2}(\sigma+1) = \frac{1}{\gamma} \sum_{n=0}^\gamma n P(+,n) =
+	\frac{z}{q} \euler^{\beta J} \left[ \euler^{-\beta J} + z\euler^{\beta J} \right]^{\gamma-1}
+\]
+y suponemos que estas dos ecuaciones se cumplen en toda la red.
+Entonces tenemos $L,\sigma$ en función de $z$ y $T$.
+Dado que los centros son indistinguibles de un vecino,
+\[
+	\sum_{n=0}^\gamma P(+,n) = \frac{1}{\gamma} \sum_{n=0}^\gamma n \left[ P(+,n) + P(-,n) \right]
+\]
+pero
+\[
+	\dpar{}{z}P(+,n) = P(+,n)\frac{n}{Z}
+\]
+de manera que 
+\be
+	z = \Frac{1+z\euler^{2\beta J}}{z+\euler^{2\beta J}}^{\gamma -1}
+	\label{z_equation}
+\ee
+y podemos calcular
+\[
+	L = \frac{z^x - 1}{z^x + 1} \qquad \qquad \sigma = \frac{2z^2}{(1+z\euler^{-2\beta J})(1+z^x)} -1
+\]
+considerando $x\equiv \frac{\gamma}{\gamma -1}$
+
+Pero \eqref{z_equation} debe hacerse gráficamente
+\begin{itemize}
+ \item $z=1$ es solución siempre 
+ \item Si $z_0$ es solución, entonces $1/z_0$ también lo es
+ \item $z=1$ hace $L=0$ y $z\to\infty$ hace $L=1$
+\end{itemize}
+
+DIBUJO
+
+Hay que ver la pendiente $C$ de la curva azul en $z=1$,
+\[
+	\text{ pendiente } \equiv C = \frac{(\gamma - 1)(\euler^{4\beta J}-1)}{(1+\euler^{2\beta J})^2}
+\]
+
+\[
+	\text{ Si } C<1 \text{ DIBUJO } \quad z = 1 \text{ única solución }
+\]
+
+\[
+	\text{ Si } C>1 \text{ DIBUJO } \quad \begin{cases}
+	                                       z = 1 \text{ descartada por ser mínimo} \\
+	                                       z_0 \\
+	                                       1/z_0 \text{ obtenida de intercambiar $\oplus$ por $\ominus$}
+	                                      \end{cases}
+\]
+
+La $T_c$ se impone desde
+\[
+	1 =  \frac{(\gamma - 1)(\euler^{4\beta J}-1)}{(1+\euler^{2\beta J})^2}
+\]
+que lleva a 
+\[
+	\frac{1}{kT_c} = \frac{1}{2J} \log \Frac{-\gamma}{2-\gamma} 
+\]
+\[ 
+	\boxed{ kT_c = \frac{2J}{\log \Frac{\gamma}{\gamma -2 } }}
+\]
+
+\[
+	T > T_c \qquad \begin{cases}
+	                z = 1 \\
+	                L = 0
+	               \end{cases}
+\]
+\[
+	T < T_c \qquad \begin{cases}
+	                Z > 1 \\
+	                L>0
+	               \end{cases}
+\]
+y en este último caso, con $z>1$, hay magnetización espontánea.
+
+DIBUJO
+
+El $c_V$ no se va a cero para $T>T_c$.
+La solución exacta, Onsager, tiene allí una divergencia logarítmica.
+
+\subsection{Cosas sin título}
+
+dibujillos tipo tablero de ajedrez
+
+\begin{center}
+\begin{tabular}{l|l|l|l}
+\includegraphics[scale=0.3]{images/fig_ajedrez1.pdf} & 
+\includegraphics[scale=0.28]{images/fig_ajedrez2.pdf} & 
+\includegraphics[scale=0.3]{images/fig_ajedrez3.pdf} &
+\includegraphics[scale=0.3]{images/fig_ajedrez4.pdf} \\
+ & & & \\
+$ \displaystyle \frac{N_+}{N} =\frac{1}{2} \to L=0 $ & $ \displaystyle \frac{N_+}{N} =\frac{1}{2} \to L=0 $ & 
+$ \displaystyle \frac{N_+}{N} =\frac{1}{2} \to L=0 $ & $ \displaystyle \frac{N_+}{N} =1 \to L=1 $ \\
+ & & & \\
+$ \displaystyle \frac{N_{++}}{\gamma/2 N} =\frac{1}{2} \to \sigma=0 $ & 
+$ \displaystyle \frac{N_{++}}{\gamma/2 N} = 0 \to \sigma=-1 $ & 
+$ \displaystyle \frac{N_{++}}{\gamma/2 N} =\frac{1}{4} \to \sigma=-\frac{1}{2} $ & 
+$\displaystyle \frac{N_{++}}{\gamma/2 N} = 1 \to \sigma=1$ \\
+ & & & \\
+$\mathcal{M}=0$ & $\mathcal{M}=0$ & $\mathcal{M}=0$ & $\mathcal{M}=1$
+\end{tabular}
+\end{center}
+
+Ahora las energías son
+\[=\]
+\begin{center}
+\begin{tabular}{l|l|l|l}
+dibujo & dibujo & dibujo & dibujo \\
+ $E=-\frac{J\gamma N}{2}$ & & & 
+\end{tabular}
+\end{center}
+
+Notemos que $N_{++}/(\gamma/2)N$ significa que todas las líneas $\oplus - \oplus$ dividido sobre todas
+las líneas posibles $(\oplus - \oplus, \oplus - \ominus, \ominus - \ominus)$.
+
+\subsection{Orden corto y orden largo}
+
+dibujo bola spines
+
+$N_+ / N$ : no me dice algo preciso en A. Creciendo hacia B va adquiriendo cada vez más sentido, entonces
+es un parámetro global.
+
+$N_{++}/(\gamma/2)N$ : tiene sentido en A. Creciendo hacia B ya en general no lo conservará, entonces es
+un parámetro local.
+
+\notamargen{En $N_{++}2/(\gamma N)$} note que nos paramos en un $\oplus$ para que tenga el sentido de
+vecinos con $\oplus$.
+\[
+	A = U - TS
+\]
+
+Con $ST$ chicos la minimización de $A$ la domina $U$ (min.) pero con $U$ chicas la minimización de $A$ la domina
+$TS$ (ma)
+
+\subsection{Comentario magnetización}
+
+DIBUJETE
+
+Con $H=0$ es claro que deberíamos tener $ \braket{M}=0 $ por simetría entre $\oplus$ y $\ominus$.
+
+Los dos ramos son equivalentes, pero el sistema cae en una u otra por una ``rotura espontánea de simetría''
+llevada a cabo por un $ H \to 0 $ o por impurezas.
+
+Acá hay una cuenta que no paso que tiene que ver con el $ \log Q $.
+
+El mínimo de $A$ será 
+\[ = \]
+
+dibujo
+
+dibujo
+
+dibujo
+
+La presencia de $ H \neq 0 $ añade un término 
+\[
+	A \approx - N H \mu I + ...
+\]
+que hará menor a $ A $ en $ + L_0 $ y mayor en $ - L_0 $. Rompe degeneración.
+
+\[=\]
+
+\subsection{Metropolis Monte-Carlo}
+
+Repaso de teoría de procesos de Markov.
+
+$Y$ es una variable estocástica en un espacio muestral $(y_1, y_2,...)$
+Sea por simplicidad todo equiprobable, entonces
+\[
+	P(y_1) = \frac{1}{4}
+\]
+\[=\]
+\notamargen{$Y$ puede tomar cualquier valor de su espacio muestral.}
+\[=\]
+Asumo que estoy con probabilidad 1 (certeza) en $y_1$ tengo tres flechas
+\[ = \]
+
+Las normalizaciones vienen de integrar
+\begin{itemize}
+ \item $ \int P(y_1) dy_1 = 1 $
+ \item $ \int P(y_1|y_2) dy_2 = 1 $
+\end{itemize}
+
+Para procesos de Markov sólo interesará un único paso anterior. El sistema no tiene mucha memoria que 
+digamos.
+\[
+	P(y_1|y_2) \equiv \text{ Probabilidad de transición }
+\]
+El proceso de Markov lo definimos por 
+\[=\]
+\[=\]
+\[=\]
+\[=\]
+
+Sea ahora un espacio muestral discreto $(y_1,y_2,...,y_L)$ con el tiempo discretizado
+\[=\]
+\notamargen{Cadenas de Markov son en espacios discretos.}
+\[=\]
+
+La información de las transiciones se introduce en 
+\[=\]
+
+Para todo el sistema podemos definir un vector de dimensión $L$
+\[=\]
+\[=\]
+\[=\]
+
+Es regular la matriz estocástica $ Q $ si existe $ k : [ Q^k ]_{ij} > 0 \forall i,j $
+Si es regular, entonces existe $ \$ : Q^\$ =  Q^{\$+1} $ y entonces $T = QT$ con $T\equiv Q^\$$.
+
+Llegado un momento, $\$$ pasos, el sistema ya no cambia. A partir del paso $\$$ la matriz Q ya no cambia
+la distribución en $\vec{P}$.
+
+\notamargen{Hay una hoja con algunas preguntas pegada acá.}
+
+\[=\]
+\[=\]
+\[
+	\vec{P} = \vec{P} Q,
+\]
+lo cual define el equilibrio. Este punto fijo define
+\[ =\]
+
+% =================================================================================================
+\section{Método de Metropolis Monte Carlo}
+% =================================================================================================
+
+Tenemos el espacio $ \mathbb{\Gamma} $ 3DN dimensional para un sistema de N partículas.
+Un punto es el estado del sistema.
+
+DIBUJETE
+
+Queremos generar una cadena de Markov con probabilidades constantes de transición.
+
+Subdividimos el volumen $ \mathbb{\Gamma} $  en S celdas; el estado del sistema a un paso $n$ es su
+ubicación en la celda $S_k$, $k=1,2,...,S$. La energía en ese estado es $U_k$.
+
+DIBUJO 
+
+El sistema visita estados en un paso de tiempo (no es el tiempo físico)
+
+\[=\]
+
+que es la probabilidad de ir desde 1 a 2 (transición)
+
+Los estados se ponderan de acuerdo a su energía $U_k$ para que aparezcan en la cadena con frecuencia
+$ \propto \exp(-\beta U_k ) $
+
+De esta forma la cuenta converge al canónico.
+\[=\]
+\[=\]
+\[=\]
+\[=\]
+
+El tiempo medio de recurrencia es
+\[=\]
+con la condición 
+\[=\]
+
+Estamos viendo la suma entre todos los caminos para llegar desde $i$ a $j$; debe dar uno.
+Siempre hay un camino entre dos estados (la red es conexa).
+
+\[=\]
+
+Un estado $i$ es recurrente si 
+\[=\]
+\[=\]
+\[=\]
+\[=\]
+
+
+Si los estados pertenecen a la misma clase cumplen UNA de estas condiciones 
+\begin{itemize}
+ \item Son todos no recurrentes
+ \item Son todos positivos
+ \item Son todos nulos
+\end{itemize}
+
+Todos los estados están conectados en $ \mathbb{\Gamma} $  (su probabilidad es no nula) y entonces
+si uno solo de ellos es nulo y son de la misma clase entonces deben ser todos nulos.
+Lo mismo si uno es positivo, todos deben serlo.
+
+DIBUJO 
+
+Cadena ergódica: cadena irreducible finita, con todos sus estados aperiódicos. 
+Se dará que:
+\[=\]
+
+Con infinitos loops la probabilidad de llegar desde cualquier 'j' no depende del punto inicial 'j'.
+La probabilidad del estado 'k' tiene un valor asintótico estable
+\[
+	\pi_k = \frac{1}{n_k} \qquad \text{ (razonable) } 
+\]
+\[=\]
+\[=\]
+
+dibujin
+
+\subsection{Metropolis}
+
+\[= \text{ Promedio en el ensamble } \]
+
+La probabilidad del estado asintótico del sistema será:
+\[=\]
+pero no conozco todos los posibles 's' y no puedo evaluar $\sum_s$.
+Pido reversibilidad macroscópica y entonces
+\[=\]
+luego,
+\[=\]
+
+Entonces, si se da 
+REVERSIBILIDAD + ERGODICIDAD + NORMALIZACIÓN
+se tiene que la cadena converge.
+
+El método:
+Se propone una $P^*$ cadena de Markov con 
+\[=\]
+\[=\]
+\[=\]
+\[=\]
+
+Tenemos tres situaciones $ \pi_i < \pi_j , \pi_i = \pi_j, \pi_i > \pi_j$
+\[=\]
+\[=\]
+
+\subsection{Aplicación a Ising}
+
+\[=\]
+\[=\]
+\[=\]
+
+Las probabilidades de transición serán:
+\[=\]
+de modo que para un sistema con single spin flip se tendrá:
+\begin{center}
+\begin{tabular}{llll}
+1 &  & $ \Delta E = 8J $  & El menos conveniente \\
+4 &  & $ \Delta E = 4J $ &  \\
+6 &  & $ \Delta E = 0 $ & Caso neutro \\
+4 &  & $ \Delta E = -4J $ &  \\
+1 &  & $ \Delta E = -8J $ & Es más conveniente
+\end{tabular}
+\end{center}
+
+Con estas consideraciones tengo todas las probabilidades de MMC
+
+tres dibujetes seguidos
+
+% =================================================================================================
+\section{Fenómenos críticos}
+% =================================================================================================
+
+Existe analogía entre sistemas magnéticos $(H,M)$ y gases $(p,V)$
+\[=\]
+\[=\]
+\[=\]
+\[=\]
+\[=\]
+\[=\]
+
+Derivando ambos lados:
+
+dibujos
+
+$L$ revienta en $T=T_c$
+
+y las derivadas segundas de $G$ discontinuas en $T_c$
+
+Landau propone una teoría unificada de comportamiento de un sistema cerca del punto crítico.
+Introduce el parámetro de orden $m_0$ que vale 0 si $T>T_c$ y $\neq 0$ si $T<T_c$.
+
+La idea es expandir $ A = A(m_0) $.
+Con $H=0$ el sistema es simétrico y entonces términos pares
+\[=\]
+\[=\]
+\[=\]
+\[=\]
+\[=\]
+
+Elegimos
+\[=\]
+\[=\]
+\[=\]
+\[=\]
+
+dibujo
+
+\[=\]
+\[=\]
+
+Si hay campo externo :
+\[=\]
+\[=\]
+
+Con $f \to 0$ recordamos
+\[=\]
+\[=\]
+
+Ambos revienta en $T_c$
+
+DIBUJO
+
+% =================================================================================================
+\section{Exponentes críticos}
+% =================================================================================================
+
+\begin{itemize}
+ \item Al cruzar el punto crítico el parámetro de orden crece.
+ \item En la vecindad del punto crítico el sistema sobrelleva procesos de ajuste, entonces
+ hay grandes fluctuaciones.
+ \item Algunas fluctuaciones termodinámicas tienen diferentes comportamientos.
+\end{itemize}
+
+Los exponentes críticos describen la naturaleza de las singularidades en el punto crítico.
+Son seis: $ \alpha, \beta, \gamma, \delta, \eta, \nu $
+\[
+	t = \frac{T-T_c}{T_c} \qquad \text{ parámetro } 
+\]
+
+Cerca del punto crítico las funciones termodinámicas pueden escribirse como:
+\[=\]
+\[=\]
+
+\begin{center}
+\begin{tabular}{lll}
+ & expresión & rango \\
+\hline
+$C_M, C_v$ & $(-t)^{-\alpha}$ & $t < 0$  \\
+× & × & ×\\
+× & × & ×\\
+× & × & ×\\
+× & × & ×\\
+× & × & ×\\
+× & × & ×
+\end{tabular}
+\end{center}
+
+Se cumplen ciertas desigualdades entre exponentes:
+\[=\]
+\[=\]
+
+\subsection{Exponentes críticos Van Der Waals} 
+
+\[=\]
+\[=\]
+\[=\]
+
+Para la teoría de Landau es:
+\[=\]
+\[=\]
+\[=\]
+
+\subsection{Sobre trabajo y relación $p,V$ [mover]}
+
+\[ 
+	dU = dQ - p dV
+\]
+
+DIBUJO 
+
+El sistema entrega trabajo al entorno si $ pdV > 0 $ y entonces $ dV > 0 $ (expansión)
+pues $ p > p_{ext} $
+
+El sistema absorbe energía en forma de trabajo si $ pdV < 0 $ y entonces $ dV < 0 $ (compresión)
+pues $ p < p_{ext} $
+\notamargen{$p$ y $V$ no varían separadamente; si $p$ sube entonces $V$ baja.}
+\[=\]
+\[=\]
+\[=\]
+
+Para el sistema magnético si $ H > 0 $ entonces $ dM > 0 $
+\[=\]
+
+Si el sistema se ordena $dM>0$ y baja su energía y por ende hace trabajo.
+\notamargen{Este sistema hace trabajo no mecánico.}
+
+\subsection{Comentarios varios [mover]}
+
+Los efectos de la estadística cuántica surgen de la indistinguibilidad de las partículas.
+\[=\]
+Cuando $\lambda^3/v \approx 1$ surgen efectos cuánticos y tiene importancia la estadística de las
+partículas (BE o FD).
+
+Para un sistema de cuasipartículas es $\mu=0$. En general,
+\[
+	\mu = \mu(T)
+\]
+es un valor único para el sistema y depende de la temperatura.
+\[=\]
+\[=\]
+\[=\]
+
+RESTA UNA HOJA DE EXPRESIONES Y CUENTAS QUE DEJAMOS PARA EL futuro APÉNDICE.
 
 % \bibliographystyle{CBFT-apa-good}	% (uses file "apa-good.bst")
 % \bibliography{CBFT.Referencias} % La base de datos bibliográfica
