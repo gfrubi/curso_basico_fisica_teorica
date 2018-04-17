@@ -496,7 +496,7 @@ del orden largo. Me quedo sólo con el parámetro $L$.}
 \]
 que es la $E$ en Bragg-Williams.
 \[
-	Q(H,T) = \sum_{\{ s_i\}} \euler^{-\beta N(- \H\mu L - JL^2 \gamma / 2) }
+	Q(H,T) = \sum_{\{ s_i\}} \euler^{-\beta N(- H\mu L - JL^2 \gamma / 2) }
 \]
 donde $\{ s_i\}$ es la configuración de los N spines.
 
@@ -509,7 +509,7 @@ que es el número de maneras de tomar $N_+$ de $N$ indistinguibilizando dentro d
 N-N_+$
 \[
 	Q(H,T) = \sum_{L=-1}^{L=1} \frac{N!}{N_+!(N-N_+)!}
-	 \euler^{\beta N( \H\mu L + JL^2 \gamma / 2) }
+	\euler^{\beta N( H\mu L + JL^2 \gamma / 2) }
 \]
 
 La suma es ahora en todos los $L$ posibles. Con $N\to\infty$ el logaritmo de $Q$ es dominado por el término
@@ -801,11 +801,12 @@ $\mathcal{M}=0$ & $\mathcal{M}=0$ & $\mathcal{M}=0$ & $\mathcal{M}=1$
 \end{center}
 
 Ahora las energías son
-\[=\]
+\[
+	E = - H \mu N L - \frac{\gamma}{2} J N ( 2\sigma - 2L + 1 )
+\]
 \begin{center}
 \begin{tabular}{l|l|l|l}
-dibujo & dibujo & dibujo & dibujo \\
- $E=-\frac{J\gamma N}{2}$ & & & 
+ $E=-\frac{J\gamma N}{2}$ & $E =\frac{\gamma}{2} J N$ & $E=0$ & $E = - H \mu N - \frac{\gamma}{2} J N$\\
 \end{tabular}
 \end{center}
 
@@ -843,13 +844,23 @@ llevada a cabo por un $ H \to 0 $ o por impurezas.
 Acá hay una cuenta que no paso que tiene que ver con el $ \log Q $.
 
 El mínimo de $A$ será 
-\[ = \]
+\[ 
+	\begin{cases}
+		\bar{L} = 0 \quad T > T_c \\
+		\bar{L} = \begin{cases}
+		0 		  \\
+		L_0 \quad T < T_c \\
+		-L_0
+		\end{cases}
+	\end{cases}
+\]
 
 dibujo
 
 dibujo
 
 dibujo
+
 
 La presencia de $ H \neq 0 $ añade un término 
 \[
@@ -857,7 +868,11 @@ La presencia de $ H \neq 0 $ añade un término
 \]
 que hará menor a $ A $ en $ + L_0 $ y mayor en $ - L_0 $. Rompe degeneración.
 
-\[=\]
+\[
+	L_0 = \tanh\left( \frac{\gamma J}{kT}L_0\right) = \tanh\left( \frac{T_c L_0}{T}\right)
+\]
+
+dibujete
 
 \subsection{Metropolis Monte-Carlo}
 
@@ -868,11 +883,17 @@ Sea por simplicidad todo equiprobable, entonces
 \[
 	P(y_1) = \frac{1}{4}
 \]
-\[=\]
+\[
+	\text{ Conjunta } \rightarrow P(y_1;y_2) = \frac{1}{12}
+\]
 \notamargen{$Y$ puede tomar cualquier valor de su espacio muestral.}
-\[=\]
+\[
+	\text{ Condicional } \rightarrow P(y_1|y_2) = \frac{1}{3}
+\]
 Asumo que estoy con probabilidad 1 (certeza) en $y_1$ tengo tres flechas
-\[ = \]
+\[ 
+	P(y_1) P_{\frac{1}{1}}(y_1|y_2) = P(y_1;y_2)
+\]
 
 Las normalizaciones vienen de integrar
 \begin{itemize}
@@ -886,23 +907,47 @@ digamos.
 	P(y_1|y_2) \equiv \text{ Probabilidad de transición }
 \]
 El proceso de Markov lo definimos por 
-\[=\]
-\[=\]
-\[=\]
-\[=\]
+\[
+	i) P(y_1,t_1) \qquad \qquad ii) P(y_1,t_1|y_2,t_2)
+\]
+\[
+	P_3(y_1;y_2;y_3) = P(y_1;y_2) P_{2/1}(y_1;y_2|y_3) = P(y_1) P_{1/1}(y_1|y_2) P_{2/1}(y_1;y_2|y_3) 
+\]
+y como en Markov sólo cuenta un paso,
+\[
+	\underbrace{P_3(y_1;y_2;y_3)}_{\text{Markov}} = P(y_1) P_{1/1}(y_1|y_2) P_{1/1}(y_2|y_3)
+\]
+\[
+	\int dy_2 P_3(y_1;y_2;y_3) = \int dy_2 P(y_1) P_{1/1}(y_1|y_2) P_{1/1}(y_2|y_3)
+\]
+y por ``reducción'',
+\[
+	P_2(y_1;y_3) = P(y_1) \int dy_2 P_{1/1}(y_1|y_2) P_{1/1}(y_2|y_3) = P(y_1) P_{1/1}(y_1|y_3).
+\]
 
 Sea ahora un espacio muestral discreto $(y_1,y_2,...,y_L)$ con el tiempo discretizado
-\[=\]
+\[
+	P_1(y_j,1) = \sum_i^L P_1(y_i,1) P_{1/1}(y_i,0|y_j,1) = \sum_i^L P_2(y_i,0 ; y_j,1)
+\]
+donde $1$ es el paso de tiempo.
 \notamargen{Cadenas de Markov son en espacios discretos.}
-\[=\]
 
 La información de las transiciones se introduce en 
-\[=\]
+\[
+	Q_{ij} = P(y_i,0|y_j,1) \rightarrow \sum_i^L Q_{ij} = 1 \forall j 
+\]
 
 Para todo el sistema podemos definir un vector de dimensión $L$
-\[=\]
-\[=\]
-\[=\]
+\[
+	\vec{P}(1) = [ (y_1,1) (y_2,1) ... (y_L,1 )]
+\]
+\[
+	\vec{P}(1) = \vec{P}(0) Q \Rightarrow  \vec{P}(s) = \vec{P}(s-1) Q = \vec{P}(s-2) Q^2 = ...
+\]
+\[
+	\vec{P}(s) = \vec{P}(0) Q^s
+\]
+con $s$ número de pasos.
 
 Es regular la matriz estocástica $ Q $ si existe $ k : [ Q^k ]_{ij} > 0 \forall i,j $
 Si es regular, entonces existe $ \$ : Q^\$ =  Q^{\$+1} $ y entonces $T = QT$ con $T\equiv Q^\$$.
@@ -912,13 +957,24 @@ la distribución en $\vec{P}$.
 
 \notamargen{Hay una hoja con algunas preguntas pegada acá.}
 
-\[=\]
-\[=\]
+\[
+	P(\$) = P(0) Q^\$
+\]
+\[
+	P(\$+1) = P(0) Q^{\$+1} = P(0) Q^\$
+\]
 \[
 	\vec{P} = \vec{P} Q,
 \]
 lo cual define el equilibrio. Este punto fijo define
-\[ =\]
+\[
+	T = Q^s = \begin{pmatrix}
+	         \alpha & \beta & ... & \omega \\
+	         \alpha & \beta & ... & \omega \\
+	         .. & .. & ... & .. \\
+	         \alpha & \beta & ... & \omega \\
+	        \end{pmatrix}
+\]
 
 % =================================================================================================
 \section{Método de Metropolis Monte Carlo}
@@ -938,7 +994,9 @@ DIBUJO
 
 El sistema visita estados en un paso de tiempo (no es el tiempo físico)
 
-\[=\]
+\[
+	P_{12} \equiv P_{1/1}( y_1, t_1 | y_2, t_2 )
+\]
 
 que es la probabilidad de ir desde 1 a 2 (transición)
 
@@ -946,27 +1004,60 @@ Los estados se ponderan de acuerdo a su energía $U_k$ para que aparezcan en la 
 $ \propto \exp(-\beta U_k ) $
 
 De esta forma la cuenta converge al canónico.
-\[=\]
-\[=\]
-\[=\]
-\[=\]
+\[
+	\sum_{k=1}^S p_{jk} = 1 \forall j \quad \text{ normalización }
+\]
+\[
+	f_{ij}^{(n)} = P( y_t, y_{t-1}, ..., y_{t-n+1} | y_{t-n} )
+\]
+y con $n=3$
+\[
+	f_{ij}^{(3)} = P( \underbrace{y_t}_{S_j}, y_{t-1}, y_{t-2} | \underbrace{y_{t-3}}_{S_i} )
+\]
+\[
+	f_{ij}^{(1)} = P( \underbrace{y_t}_{S_j} | \underbrace{y_{t-1}}_{S_i} )
+\]
+\[
+	f_{ij}^{(n)} = = p_{ij}^{(n+1)} - \sum_{r=1}^n f_{ij}^{(r)} p_{ij}^{(n-r+1)}
+\]
 
 El tiempo medio de recurrencia es
-\[=\]
-con la condición 
-\[=\]
-
-Estamos viendo la suma entre todos los caminos para llegar desde $i$ a $j$; debe dar uno.
+\[
+	m_{ij} = \sum_{n=1}^\infty n f_{ij}^{(n)}, 
+\]
+(que es el tiempo de recurrencia medio entre los estados $i$ y $j$) con la condición 
+\[	
+	1 = \sum_{n=1}^\infty f_{ij}^{(n)}
+\]
+donde aquí estamos viendo la suma entre todos los caminos para llegar desde $i$ a $j$; debe dar uno.
 Siempre hay un camino entre dos estados (la red es conexa).
 
-\[=\]
+ESQUEMITA
+
+$m_{ij}$ me dice el número medio de pasos de tiempo $n$ que tengo entre $i$ y $j$.
 
 Un estado $i$ es recurrente si 
-\[=\]
-\[=\]
-\[=\]
-\[=\]
+\[
+	\sum_{n=1}^\infty f_{ii}^{(n)} = 1
+\]
+partiendo de $i$, si espero $n=\infty$ pasos vuelvo con certeza a $i$.
 
+\[
+	m_{ii} < \infty \rightarrow \text{ positivos }
+\]
+\[
+	m_{ii} = \infty \rightarrow \text{ nulos }
+\]
+\[
+	\text{ si } p_{mn}^{(n)} \neq 0 \text{ sólo con } n=\alpha d (\alpha \in \mathbb{Z}) \rightarrow 
+	\text{ periódicos } 
+\]
+y en cambio si $d=1$ entonces son aperiódicos.
+
+Si para algún $m,n$, $p_{ij}^{(n)} \neq 0$ y $p_{ji}^{(n)} \neq 0$, entonces $S_i$ y $S_j$ son mutuamente accesibles 
+(misma clase). DIBUJO.
+
+Cadena de estados que pertenecen a la misma clase: IRREDUCIBLE.
 
 Si los estados pertenecen a la misma clase cumplen UNA de estas condiciones 
 \begin{itemize}
@@ -983,29 +1074,48 @@ DIBUJO
 
 Cadena ergódica: cadena irreducible finita, con todos sus estados aperiódicos. 
 Se dará que:
-\[=\]
+\[
+	\boxed{ \lim_{n\to\infty} p_{jk}^{(n)} = \pi_k \quad \forall k }
+\]
 
 Con infinitos loops la probabilidad de llegar desde cualquier 'j' no depende del punto inicial 'j'.
 La probabilidad del estado 'k' tiene un valor asintótico estable
 \[
 	\pi_k = \frac{1}{n_k} \qquad \text{ (razonable) } 
 \]
-\[=\]
-\[=\]
+\[
+	\sum_{k=1}^S \pi_k = 1 \qquad \text{ (normalización) } 
+\]
+\[
+	\pi_k = \sum_{j=1}^S \pi_j p_{jk}  \qquad \text{ (razonable) } 
+\]
 
 dibujin
 
 \subsection{Metropolis}
 
-\[= \text{ Promedio en el ensamble } \]
+\[
+	\braket{f} = \frac{\sum_s \euler^{-\beta E(s)} f(s) }{\sum_s \euler^{-\beta E(s)} } 
+	\text{ Promedio en el ensamble } 
+\]
 
 La probabilidad del estado asintótico del sistema será:
-\[=\]
+\[
+	\pi(s) = \frac{ \euler^{-\beta E(s)} }{\sum_s \euler^{-\beta E(s)} } 
+\]
 pero no conozco todos los posibles 's' y no puedo evaluar $\sum_s$.
 Pido reversibilidad macroscópica y entonces
-\[=\]
+\[
+	\pi_k p_{ki} = \pi_i p_{ik}
+\]
 luego,
-\[=\]
+\[
+	\sum_i \pi_k p_{ki} = \sum_i \pi_i p_{ik}
+\]
+y entonces
+\[
+	\pi_k \sum_i  p_{ki} = \pi_k = \sum_i \pi_i p_{ik}
+\]
 
 Entonces, si se da 
 REVERSIBILIDAD + ERGODICIDAD + NORMALIZACIÓN
@@ -1013,23 +1123,56 @@ se tiene que la cadena converge.
 
 El método:
 Se propone una $P^*$ cadena de Markov con 
-\[=\]
-\[=\]
-\[=\]
-\[=\]
+\[
+	p_{ij}^* \geq 0 p_{ij}^* = p_{ji}^* \qquad \sum_j p_{ij}^* = 1
+\]
+\[
+	p_{ij} = \begin{cases}
+	          p_{ij}^*	\quad \quad \text{ si }  \frac{\pi_j}{\pi_i} \geq 1
+	          p_{ij}^*\frac{\pi_j}{\pi_i} \quad \text{ si }  \frac{\pi_j}{\pi_i}< 1
+	         \end{cases}
+\]
+donde lo primero significa que es más probable terminar en $j$ que en $i$.
+\[
+	p_{ii} = p_{ii}^* + \sum_j^{'} p_{ij}^*( 1 - \frac{\pi_j}{\pi_i} ) \qquad 
+	\text{ $'$ con } \pi_j \geq _pi_i 
+\]
+\[
+	\sum_j p_{ij} = 1 = p_{ii}^* + \sum_j^{'} p_{ij}^*  + \sum_{j\neq i}^{''} p_{ij}^* \qquad 
+	\text{ $''$ con } \pi_j \geq _pi_i 
+\]
 
 Tenemos tres situaciones $ \pi_i < \pi_j , \pi_i = \pi_j, \pi_i > \pi_j$
-\[=\]
-\[=\]
+\[
+	p_{ij} = p_{ij}^* \frac{\pi_j}{\pi_i} = p_{ij}^*\frac{\pi_j}{\pi_i} = p_{ji} \frac{\pi_j}{\pi_i}
+\]
+y entonces
+\[
+	\pi_i p_{ij} = \pi_j p_{ji} \to \text{ vale macho, vale }
+\]
+\[
+	\frac{\pi_j}{\pi_i} = \frac{\euler^{-\beta E(s_j)}}{\euler^{-\beta E(s_i)}} 
+	\qquad \text{ se eliminó la $\sum_s$ }
+\]
+
+dibujete con condiciones periódicas de contorno
 
 \subsection{Aplicación a Ising}
 
-\[=\]
-\[=\]
-\[=\]
+\[
+	\mathcal{H} = -H \mu \sum_i^N S_i - J \sum_{\braket{i,j}} s_i s_j
+\]
+\[
+	C = \dpar{\braket{E}}{T} \rightarrow C = \frac{1}{kT^ 2}(\braket{E^2}-\braket{E}^2)
+\]
+\[
+	\chi = \lim_{H\to 0} \dpar{\braket{M}}{T} \rightarrow \chi = \frac{1}{kT}(\braket{M^2}-\braket{M}^2)
+\]
 
 Las probabilidades de transición serán:
-\[=\]
+\[
+	p_{ij} = \euler^{-\beta \Delta E }
+\]
 de modo que para un sistema con single spin flip se tendrá:
 \begin{center}
 \begin{tabular}{llll}
@@ -1041,6 +1184,8 @@ de modo que para un sistema con single spin flip se tendrá:
 \end{tabular}
 \end{center}
 
+\notamargen{En la columna dos hacer unos grafiquetes vectoriales chulos!}
+
 Con estas consideraciones tengo todas las probabilidades de MMC
 
 tres dibujetes seguidos
@@ -1050,18 +1195,54 @@ tres dibujetes seguidos
 % =================================================================================================
 
 Existe analogía entre sistemas magnéticos $(H,M)$ y gases $(p,V)$
-\[=\]
-\[=\]
-\[=\]
-\[=\]
-\[=\]
-\[=\]
+\[
+	H,M,T	\qquad \qquad \qquad p,V,T
+\]
+\[
+	H \equiv P \qquad -M \equiv V
+\]
+\[
+	dU = TdS + HdM + \mu dM 
+\]
+y con $N$ fijo,
+\[
+	T.dS = dU - H.dM	
+\]
+\[
+	c_V = \dtot{Q}{T}|_V, \kappa_T = \dpar{V}{T}|_T
+\]
+\[
+	A = U - TS \qquad dA = dT - TdS - SdT = HdM + \mu dM - SdT
+\]
 
+\[
+	c_M = T\dtot{S}{T}|_M = T \dpar{S}{T}|_M = -T\dpar[2]{A}{T}|_M 
+\]
+\[
+	\dpar{A}{T}|_{M,N} = -S \qquad \dpar[2]{A}{T}|_{M,N} = -\dpar{S}{T}|_{M,N}
+\]
+\[
+	\chi_T \equiv \dpar{M}{H}|_T = \dpar{}{H}\left(\dpar{G}{H}|_T\right)_T = - \dpar[2]{G}{H}|_T
+\]
+\[
+	G = U - TS -HM \qquad dG = dA - HdM - MdH = \mu dN - SdT - M dH
+\]
+\[
+	M = \sum s_i = NL \qquad \chi_T = \dpar{NL}{H}|_T
+\]
+sabiendo que 
+\[
+	\overline{L} = \tanh ( \beta H \mu + \beta \gamma J \overline{L} )
+\]
 Derivando ambos lados:
 
 dibujos
 
 $L$ revienta en $T=T_c$
+
+\notamargen{ \[
+N \dpar{L}{H} = N \dpar{L}{T} \dpar{T}{H}
+\] y la derivada parcial del medio revienta. }
 
 y las derivadas segundas de $G$ discontinuas en $T_c$
 
@@ -1070,30 +1251,83 @@ Introduce el parámetro de orden $m_0$ que vale 0 si $T>T_c$ y $\neq 0$ si $T<T_
 
 La idea es expandir $ A = A(m_0) $.
 Con $H=0$ el sistema es simétrico y entonces términos pares
-\[=\]
-\[=\]
-\[=\]
-\[=\]
-\[=\]
+\[
+	t \equiv \frac{T-T_c}{T_c} = \frac{T}{T_c} -1  \qquad Y = \text{ Fuerza generalizada }
+\]
+\[
+	\Psi( t, m_0,Y ) = \Psi_0( t, Y ) + r(t) m_0^2 + s(t) m_0^4
+\]
+\[	
+	\dpar{\Psi}{m_0} = 0 \qquad  \qquad  \dpar[2]{\Psi}{m_0} \geq 0
+\]
+\[	
+	\dpar{\Psi}{m_0} = 2 r(t) m_0 + 4 s(t) m_0^3 = 0 \qquad \qquad 
+	\dpar{\Psi}{m_0} = 2 r(t) + 12 s(t) m_0^2 \geq 0
+\]
+\[	
+	m_0^2 = -\frac{r(t)}{2s(t)}
+\]
+y con $m_0$ grande se tiene que $s(t)>0$ controla la concavidad.
 
 Elegimos
-\[=\]
-\[=\]
-\[=\]
-\[=\]
+\[
+	r > 0 \quad T > T_c \quad \rightarrow \quad \text{ mínimo en } m_0 = 0
+\]
+\[
+	r < 0 \quad T < T_c \quad \rightarrow \quad \text{ mínimos en } m_0 \neq 0
+\]
+siendo estos mínimos localizados en $\pm \sqrt{ -r(t)/(2s(t))}$.
+\[
+	\Psi \text{ continua en } t=0 \rightarrow r=0 \text{ en } T=T_c
+\]
+\[
+	r(t) = \alpha_2 t \qquad \qquad s(t) = 2 \alpha_4 > 0 \quad \text{ así }
+\]
+\[
+	2 \alpha_2 t - 3 \alpha_2 t = - \alpha_2 t = -\alpha_2 \left( \frac{T}{T_c} - 1 \right)\geq 0
+\]
+y esta cuenta significa que si $T<T_c$ es $\alpha_2 <0$ y si $T>T_c$ es $\alpha_2 >0$
 
 dibujo
 
-\[=\]
-\[=\]
+\[
+	\Psi = \Psi_0 - \frac{\alpha_2^2t^2}{4\alpha_4} \qquad T < T_c
+\]
+\[
+	\Psi = \Psi_0 \qquad T>T_c
+\]
+\[
+	C_M = - T \dpar[2]{A}{T}|_M = \begin{cases}
+	                        \displaystyle -T \dpar[2]{\Psi_0}{T} \\
+	                        \\
+	                        \displaystyle -T \dpar[2]{\Psi_0}{T} + 2 T \frac{\alpha_2}{4\alpha_4} \frac{1}{T_c^2}
+	                        \end{cases}
+\]
 
 Si hay campo externo :
-\[=\]
-\[=\]
+\[
+	\Psi = \Psi_0 + \alpha_2 t m_0^2 + 2 \alpha_4 m_0^4 - f m_0
+\]
+\[
+	\dpar{\Psi}{m_0} = 2 \alpha_2 t m_0 + 8 \alpha_4 m_0^3 - f =  0
+\]
+y derivando contra $f$,
+\[
+	2 \alpha_2 t \dtot{m_0}{f} + 24 \alpha_4 m_0^2 \dtot{m_0}{f} - 1 = 0
+\]
+\[
+	\chi = \dtot{m_0}{f} = \frac{1}{2\alpha_2 t + 24 \alpha_4 m_0^2}
+\]
 
 Con $f \to 0$ recordamos
-\[=\]
-\[=\]
+\[
+	T > T_c \quad m_0 = 0 \quad \rightarrow \quad \chi \to \frac{1}{2\alpha_2 t} = 
+	\frac{T_c}{2\alpha_2(T-T_c)}
+\]
+\[
+	T < T_c \quad m_0 = -\frac{\alpha_2 t}{4\alpha_4} \quad \rightarrow \quad \chi \to 
+	-\frac{1}{4\alpha_2 t} = -\frac{T_c}{4\alpha_2(T-T_c)}
+\]
 
 Ambos revienta en $T_c$
 
@@ -1117,37 +1351,76 @@ Son seis: $ \alpha, \beta, \gamma, \delta, \eta, \nu $
 \]
 
 Cerca del punto crítico las funciones termodinámicas pueden escribirse como:
-\[=\]
-\[=\]
+\[
+	f(t) = A t^\lambda ( 1 + Bt^y + ... ), \quad y > 0 
+\]
+y tenemos un exponente crítico $\lambda$
+\[
+	\lambda = \lim_{t\to 0} \frac{\log f(t)}{\log t}  \begin{cases}
+	                                                   < 0 \quad \text{ diverge }  f(t) \\
+	                                                   > 0 \quad \text{ a 0 } \\
+	                                                   = 0 \quad \text{ divergencia logarítmica } 
+	                                                  \end{cases}
+\]
 
 \begin{center}
 \begin{tabular}{lll}
  & expresión & rango \\
 \hline
 $C_M, C_v$ & $(-t)^{-\alpha}$ & $t < 0$  \\
-× & × & ×\\
-× & × & ×\\
-× & × & ×\\
-× & × & ×\\
-× & × & ×\\
-× & × & ×
+ & $ (t)^{-\alpha}$ & $t > 0$\\
+$M$  & $ (-t)^\beta $ & $t < 0 $ \\
+$\dpar{V}{p} \propto \kappa_T, \chi_T $ & $ (-t)^{-\gamma '}$  & $t < 0$ \\
+ & $ (t)^{-\gamma'} $ & $t > 0$ \\
+$H$ & $ |M|^\delta $ & $t=0$ \\
+$P$ & $ \rho^\delta $ & $t=0$ 
 \end{tabular}
 \end{center}
 
+\notamargen{Justamente $M$ es el parámetro de orden y $M=0$ con $t>0$} 
+
 Se cumplen ciertas desigualdades entre exponentes:
-\[=\]
-\[=\]
+\[
+	\text{ Rushbroke } \qquad \qquad 2 \leq \gamma ' + 2 \beta + \alpha ' \quad (H=0)  
+\]
+\[
+	\text{ Griffiths } \qquad \qquad \alpha ' + \beta(1+\delta) \geq 2  
+\]
 
 \subsection{Exponentes críticos Van Der Waals} 
 
-\[=\]
-\[=\]
-\[=\]
+\[
+	\left( p + \frac{an^2}{V^2}\right) (V-nb)= nRT
+\]
+\[
+	\overline{p} = \frac{p}{p_c} \quad \to \quad \frac{p-p_c}{p_c} = \overline{p}-1 = \mathcal{p}, v, t
+\]
+Y como en $T=T_c$ es $ t = 0 $ entonces 
+\[
+	2p(1+\frac{7v}{2} + 4v^2 + \frac{3v^2}{2}) = -3v^3 + 8t(1+2v + v^2)
+\]
+pero $t=0$,
+\[
+	p = -\frac{3}{2} v^3 \left(1+\frac{7v}{2} + 4v^2 + \frac{3v^2}{2}\right)^{-1}
+\]
+\[
+	\delta = 3
+\]
 
 Para la teoría de Landau es:
-\[=\]
-\[=\]
-\[=\]
+\[
+	M = m_0 = \Frac{\alpha_2}{2\alpha_4}^{1/2}(T_c-T)^{1/2} \quad \to \quad \beta = 2
+\]
+\[
+	\chi = \begin{cases}
+		\propto \frac{1}{t} \quad t>0 \\
+		\propto \frac{1}{-t} \quad t<0 \\
+	       \end{cases} 
+	\quad \to \quad \gamma = \gamma ' = 1       
+\]
+$C_H$ tiene $\alpha \approx 0$, $\alpha ' \approx 0 $ (ver que no dependen de $t$ )
+
+\notamargen{Las transformaciones de primer orden $\dpar{G}{T}, \dpar{G}{x}$ son discontinuas.}
 
 \subsection{Sobre trabajo y relación $p,V$ [mover]}
 
@@ -1163,12 +1436,25 @@ pues $ p > p_{ext} $
 El sistema absorbe energía en forma de trabajo si $ pdV < 0 $ y entonces $ dV < 0 $ (compresión)
 pues $ p < p_{ext} $
 \notamargen{$p$ y $V$ no varían separadamente; si $p$ sube entonces $V$ baja.}
-\[=\]
-\[=\]
-\[=\]
+
+\[
+	\text{ Si } p > p_{ext} \to \text{ exp. } dV > 0 (dp < 0)
+\]
+\[
+	\text{ Si } p < p_{ext} \to \text{ comp. } dV < 0 (dp > 0)
+\]
+y $V$ drecrece con $p$ subiendo.
+
+\[
+	\underbrace{p}_{\text{intensiva}} \underbrace{dV}_{\text{extensiva}} = 
+	dW \qquad \qquad p>0 \text{ siempre }
+\]
 
 Para el sistema magnético si $ H > 0 $ entonces $ dM > 0 $
-\[=\]
+\[
+	dU = dQ + H dM
+\]
+donde el segundo miembro es el trabajo magnético realizado por el sistema.
 
 Si el sistema se ordena $dM>0$ y baja su energía y por ende hace trabajo.
 \notamargen{Este sistema hace trabajo no mecánico.}
@@ -1176,7 +1462,12 @@ Si el sistema se ordena $dM>0$ y baja su energía y por ende hace trabajo.
 \subsection{Comentarios varios [mover]}
 
 Los efectos de la estadística cuántica surgen de la indistinguibilidad de las partículas.
-\[=\]
+\[
+	\frac{\lambda^3}{v} \ll 1 \text{(Clásico)}
+\]
+\[
+	\frac{\lambda^3}{v} \approx 1 \text{(Cuántico)}
+\]
 Cuando $\lambda^3/v \approx 1$ surgen efectos cuánticos y tiene importancia la estadística de las
 partículas (BE o FD).
 
@@ -1185,11 +1476,54 @@ Para un sistema de cuasipartículas es $\mu=0$. En general,
 	\mu = \mu(T)
 \]
 es un valor único para el sistema y depende de la temperatura.
-\[=\]
-\[=\]
-\[=\]
+\begin{itemize}
+ \item gas ideal
+ \subitem clásico : partículas no interactuantes. $T$ alta y $v$ alto.
+ \subitem cuántico : partículas no interactuantes. $T$ baja y $v$ bajo.
+ \item bosones 
+ \subitem partículas
+ \subitem cuasipartículas : no tienen masa. $N$ no está fijo.
+ \item fermiones 
+ \subitem partículas
+\end{itemize}
 
-RESTA UNA HOJA DE EXPRESIONES Y CUENTAS QUE DEJAMOS PARA EL futuro APÉNDICE.
+
+\subsection{Para apéndice [mover]}
+
+\[
+	\Gamma \left( m +\frac{1}{2} \right) = \left( m -\frac{1}{2} \right) \left( m -\frac{3}{2} \right)
+	... \frac{3}{2} \cdot \frac{1}{2} \cdot \Gamma(1/2), m \in \mathbb{N}
+\]
+\[
+	\Gamma(3/2) = \Gamma(1+ 1/2) =\frac{1}{2} \Gamma(1/2) = \frac{\pi^{1/2}}{2}
+\]
+
+Calculando momentos permitidos en una caja es de lo más divertido y resulta 
+\[
+	\frac{V}{h^3} d|\vb{p}| = 1 
+\]
+donde $ d\vb{p} = dx \hat{x} + dy \hat{y}+ dz \hat{z}$ y $ d|\vb{p}| = dx dy dz $   en cartesianas.
+En cambio en esféricas es
+\[
+	4 \pi p^2 \frac{V}{h^3} dp = 1
+\]
+\[
+	1 = \frac{ V \hbar dk \hbar^2 k^2 4 \pi  }{ h^3 } = \frac{V 4\pi k^2 dk}{ (2\pi)^3 }
+\]
+
+Para pasaje de $\sum_\vb{p}$ a $\int d^3p d^3q $ utilizamos los siguientes 
+\[
+	dp_x dx  = h \qquad \text{ Incertidumbre }
+\]
+y entonces 
+\[
+	d^3p d^3x = h^3 \quad \to \quad \frac{1}{h^3 }d^3p d^3x = 1 
+\]
+y parece que 
+\[
+	\frac{V}{h^3} \int d^3 p = 1 
+\]
+\notamargen{Anoté que no estoy seguro de esta última cuenta, en lápiz tenue.}
 
 % \bibliographystyle{CBFT-apa-good}	% (uses file "apa-good.bst")
 % \bibliography{CBFT.Referencias} % La base de datos bibliográfica
