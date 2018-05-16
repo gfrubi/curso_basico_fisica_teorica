@@ -1,7 +1,7 @@
 	%###########################################################################
 	%
 	%	Hoja de estilo para el Curso Básico de Física Teórica
-	%	v 1.1 [Diciembre 2015]
+	%	v 1.5 [Abril 2018]
 	%
 	%
 	%###########################################################################
@@ -11,6 +11,16 @@
 	% Es un trabajo en progreso de tal manera que son esperables cambios a medida
 	% que surja la necesidad de nuevas estructuras y macros.
 	
+	% Se fixeó el asunto de tener mejores versiones bold de las cantidades vectoriales
+	
+	
+	\usepackage{fixmath} % Para caracteres en negrita
+	% Con este usamos 'mathbold'
+%   	\usepackage[bold-style=TeX]{unicode-math}
+  	\usepackage[ math-style=TeX, bold-style=ISO ]{unicode-math}
+% 	Este package es el que configura cómo salen las cosas en negrita, y en general
+% 	en math mode. Conviene usar 'symbf' en lugar de 'mathbf'
+%	En DAS funciona un setup basado en unicode-math con 'symbf' y acá en el depto no funciona!
 	
 	%###########################################################################
 	%		TIPOGRAFÍAS para la hoja cls
@@ -52,20 +62,55 @@
 	\newcommand{\dpar}[3][\hspace{-0.05em}]{\frac{\partial^{#1} {#2}}{\partial {#3}^{#1}}}
 	\newcommand{\dtot}[3][\hspace{-0.05em}]{\frac{d^{#1} {#2}}{d {#3}^{#1}}}
 	
+	% Derivada parcial evaluada de #2 con respecto a #3 con #4 constante (#1 es opcional)
+	% utilizando barra a la derecha
+	\newcommand{\dpare}[4][\hspace{-0.05em}]{ \left.\frac{\partial^{#1} {#2}}{\partial {#3}^{#1}}\right|_{#4} }
+	
+	% Entorno frac con paréntesis ajustables externos
+	\newcommand{\Frac}[2]{ \left( \frac{ #1 }{ #2 } \right) }
+
+	% Sumatoria con límites
+	\newcommand{\Sum}[2]{ \sum_{#1}^{#2}}
+	
 	% Para poner índices a tensores
 	\def\hx#1.#2.{_{#1}^{#2}}
 	
+	% Para ahorrar tipeo
+	\newcommand{\vp}{\varphi}
+	
+	% Vectores y versores
+ 	\newcommand{\rver}{\:\hat{r}}
+	\newcommand{\phiver}{\:\hat{\vp}}
+ 	\newcommand{\thetaver}{\:\hat{\theta}}
+ 	\newcommand{\xver}{\:\hat{x}}
+ 	\newcommand{\yver}{\:\hat{y}}
+ 	\newcommand{\zver}{\:\hat{z}}
+	
 	% Boldface para modo matemático y operadores varios
-	\newcommand{\vb}[1]{\ifmmode\mathbf{#1}\else$\mathbf{#1}$\fi} % Vector
+% 	\newcommand{\vb}[1]{\ifmmode\mathbf{#1}\else$\mathbf{#1}$\fi} % Vector usando mathbf
+	\newcommand{\vb}[1]{\ifmmode\symbf{#1}\else$\symbf{#1}$\fi} % Vector usando mathbf
+	\newcommand{\vB}[1]{\ifmmode\mathbold{#1}\else$\mathbold{#1}$\fi} % Vector usando mathbold 
+	
+	\newcommand{\dotvb}[1]{ \kern0.7ex \raisebox{1ex}\cdot \kern-1.1ex\vb{ #1 } } % Derivada temporal del vector
+	
+	\newcommand{\vS}[1]{\ifmmode\boldsymbol{#1}\else$\boldsymbol{#1}$\fi} % Vector usando boldsymbol
+	
+	
 	\newcommand{\divem}[1]{\mathbf{\nabla}\mathbf{\cdot}\mathbf{#1}} % Divergencia
-	\newcommand{\rotorm}[1]{\mathbf{\nabla}\times{#1}} % Rotor
+	\newcommand{\rotorm}[1]{\mathbf{\nabla}\times \vb{#1}} % Rotor
 	\newcommand{\lapm}[1]{\nabla^2{#1}} % Laplaciano
 	\newcommand{\dparbis}[2]{\frac{\partial}{\partial #2}\left[ #1 \right]}
 	\newcommand{\dparcru}[3]{\frac{\partial^2 #1}{\partial #3\partial #2}} % Derivada parcial 2da cruzada
 	\newcommand{\ddpar}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+	\newcommand{\Nabla}{\boldsymbol{\nabla}} % Nabla vectorial
+	\newcommand{\pe}[2]{\vb{#1} \cdot \vb{#2}}
+	\newcommand{\pv}[2]{\vb{#1} \times \vb{#2}}
+	\newcommand{\re}{\mathfrak{ R }}
+	\newcommand{\im}{\mathfrak{ I }}
+	
 	
 	% Una buena ´e´ de Euler
-	\newcommand{\euler}{\mathrm{e}}
+	\newcommand{\euler}{\:\mathrm{e}}
 	
 	% Para mecánica clásica
 	\newcommand{\Lag}{\mathscr{L}} % Lagrangiano screen
@@ -89,6 +134,11 @@
 	\usepackage{marginnote}
 	\usepackage[margin=10pt,font=small,labelfont=bf,labelsep=quad]{caption}
 	\usepackage{tocloft}
+	\usepackage{rotating}
+	\usepackage{braket} % Para quantum
+	\usepackage{multirow}
+	
+
 	
 	%###########################################################################
 	%		ENTORNOS PERSONALIZADOS
