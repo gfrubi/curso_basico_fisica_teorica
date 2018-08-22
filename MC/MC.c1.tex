@@ -5,10 +5,7 @@
 	\usepackage{amssymb}
 	\usepackage{graphicx}
 	\usepackage{libertine}
-
-  	
 	\usepackage{lipsum}
-
 	\usepackage[numbers]{natbib}
 	\setcitestyle{square}
 
@@ -313,6 +310,7 @@ siendo el primer término del RHS el momento angular orbital y el segundo el mom
 % 	\vb{r}_i - \vb{r}_j \parallel F_{ij}.
 % \]
 
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Trabajo y energía}
 
 Consideremos una partícula de masa $ m $ que se mueve sobre una cierta trayectoria suave $\vb{x}(t)$, ver {Figura} 
@@ -408,11 +406,12 @@ y pasando de miembros se tiene
 que viene a significar que la cantidad $ E = T + V $ (la energía mecánica) se conserva si la fuerza $\vb{F}$ 
 proviene de un potencial $V$. 
 Por dicha razón, las fuerzas para las cuales se verifica \eqref{fuerza_prov_potencial} se llaman {\it fuerzas
-conservativas}. En una dimensión, cualquier $ F(x) $ se puede hacer provenir de un potencial si verifica ser integrable,
-es decir si podemos definir
-\[
+conservativas}. En una dimensión, cualquier $ F(x) $ se puede hacer provenir de un potencial si verifica ser
+integrable, es decir si podemos definir
+\be
 	V(x) = \int F(x) \: dx.
-\]
+	\label{potencial_1d}
+\ee
 Para tres dimensiones no cualquier $ F(\vb{x}) $ es conservativa.
 
 El signo negativo en \eqref{fuerza_prov_potencial} hace que la cantidad conservada sea $T+V$ en lugar de $T-V$.
@@ -462,7 +461,7 @@ necesario que
  donde el operador $\nabla$ se toma con respecto a las coordenadas de la partícula $i$ en cuestión.
 \end{itemize}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\begin{center}
 	\includegraphics[width=0.75\textwidth]{images/fig_mc_work_system.pdf}	
 	\end{center}
@@ -512,6 +511,132 @@ En estos casos
 \[
 	\Delta E = \sum_{i=1}^N ( \Delta T_i - \Delta V_i ) + \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \Delta V_{ij}
 \]
+
+
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\begin{ejemplo}{\bfseries Análisis energético de un potencial }
+
+\label{ejemplo_analisis_potencial}
+Dada una fuerza 1D 
+\[
+	F(x) = -k x + \frac{a}{x^3} ,	\qquad \qquad a > 0
+\]
+se realiza un análisis del potencial resultante y de la energía.
+
+\cajacostado{12cm}{12.4cm}{
+La fuerza $-kx$ es una fuerza restitutiva mientras que $a/x^3$ es una fuerza
+repulsiva pués $a > 0$. 
+% También podríamos decir que se tiene:
+% \[
+% 	\partial \Psi = 0
+% \]
+}
+
+\vspace*{1mm}
+A partir de esta fuerza, que es la del oscilador armónico 1D sumada a una perturbación controlada por el parámetro 
+$a$, procedemos a calcular el potencial, a través de la relación \eqref{potencial_1d} de modo que (a menos de una 
+constante aditiva que no interesa aquí) se obtiene
+\[
+	V(x) = \frac{k}{2} x^2 + \frac{a}{2 x^2}
+\]
+siendo la energía total 
+\[
+	E = T + V( x ), 
+\]
+la cual es una cantidad conservada.
+% Para analizar el movimiento bajo este potencial consideraremos tres relaciones diferentes entre los parámetros $k,a$ 
+% para poder graficar $ V(x) $. Consideraremos tres casos numéricos $ k = 100 a, 20 a, 5 a $ (dado que $k$ y $a$ son 
+% magnitudes dimensionalmente diferentes es evidente que estos números 100, 20 y 5 tienen unidades, aunque no interesan 
+% para este análisis).
+
+Para analizar el movimiento bajo este potencial dividimos ambos miembros sobre $ a $ y se define $ v \equiv V/a$ para 
+considerar tres casos representativos $ k / a = 5, 20, 100 $. Este potencial $ v $ es una especie de potencial por 
+unidad de $ a $. Consecuentemente, tendremos una energía reescalada $ e = t + v $.
+
+Para el caso $ k / a = 100 $ la Figura \ref{fig_mc_problema2_1} muestra la gráfica de $ v $ junto con la de cada 
+uno de los términos que componen este potencial; el término $k/(2a) x^2$ (cuadrático) y $1/(2x^2)$ (una ley de potencias 
+de exponente -2). En la zona de $ x $ pequeña domina la ley de potencias mientras que para $ x $ grande domina la 
+cuadrática. 
+
+\begin{figure}[!ht]
+	\begin{center}
+	\includegraphics[width=0.85\textwidth]{images/fig_mc_problema2_1.pdf}	
+	\end{center}
+	\vspace*{-5mm}
+	\caption{Gráfico del potencial $v=V(x)/a$ y energía $e=E/a$ escalados para el ejemplo del oscilador perturbado 
+	($ k/a $= 100).}
+	\label{fig_mc_problema2_1}
+\end{figure} 
+
+También está indicada una línea de $ e $ constante que define la energía total $t + v$. Dada la restricción $ e = t + 
+v$, la energía cinética $t$ está representada por la distancia vertical entre $e$ y $v$ para todo $x$ comprendido entre 
+los puntos indicados por cuadrados azules. Estos son aquellos puntos para los cuales $t=0$ (la velocidad es nula) y 
+definen por ende un punto de cambio de movimiento; son los llamados {\it turning points} (puntos de retroceso). 
+En la figura se indica con una doble flecha vertical la magnitud de $t$ para $x =$ 0.4.
+
+Las regiones por fuera de los puntos de retroceso están prohibidas puesto que $ t < 0 $ allí.
+El movimiento posible para este potencial es entonces acotado y se halla dentro del intervalo definido por dichos 
+puntos.
+
+La línea vertical punteada $x=0.31622$ indica el mínimo del potencial (que sale desde $ dV(x)/dx = 0 $ y es 
+equivalente por ello a la condición $ F(x)= 0 $). Ese punto es, debido a la forma particular de $F$, donde son iguales 
+los aportes del oscilador (término cuadrático) y de su perturbación (ley de potencias).
+
+A medida que $ a $ es más importante ($k/a$ disminuye) la parte $ 1 / x^2 $ del potencial actúa hasta valores de $ x $ 
+mayores, como puede verse en la Figura XXX donde aparecen graficado $v$ para los casos $ k/a = 100, 20, 5 $.
+
+\notamargen{Poner la cuenta genérica en las notas. Why not?. FALTA un gráfico.}
+
+Para una partícula que se mueva bajo este potencial la energía cinética
+\[
+	T = \frac{1}{2} m \dot{x}^2 = E - \frac{k}{2} x^2 - \frac{a}{2 x^2},
+\]
+permite llegar a la integral de la trayectoria
+\[
+% 	\sqrt{m} \: \int \left[ 2E  - kx^2 - \frac{a}{x^2} \right]^{-1/2} dx = \int \; dt.
+	\sqrt{m} \: \int \frac{1}{ \left[ 2E - kx^2 - a/x^2 \right]^{1/2} } \: dx = \int \; dt.
+\]
+
+La existencia de solución cerrada para esta integral dependerá, por supuesto, de la forma del potencial $V(x)$.
+En este caso particular el reemplazo $ u = x^2 $ permite escribir el argumento de la raíz como una diferencia de
+cuadrados merced a un nuevo reemplazo $ y = u - E/k $. 
+Si se integra entre $ x_0 = x(t=0) $ y $ x = x(t) $ se obtiene 
+\[
+	\frac{1}{2}\sqrt{\frac{m}{k}} \int_{x_0^2 - E/k}^{{x^2 - E/k}} \frac{1}{\sqrt{C^2 - y^2}} \; dy = t - t_0
+\]
+donde la constante es $ C = \sqrt{E^2 - ka}/k $.
+
+La solución de esta integral es del tipo $ \arcsin(y/|C|) $ de manera que obtenemos
+\[
+	x^2 = \frac{\sqrt{E^2 - ak}}{k} \: \sin 
+	\left[ \sqrt{4k/m}(t-t_0) + \arcsin ( (kx_0^2- E)/\sqrt{E^2 -ak }) \right] + \frac{E}{k}.
+\]
+
+Si se supone ahora que $ \dot{x}_0 = 0 $ (la cinética es nula en el instante $t=0$) resulta $ \arcsin(1) = \pi/2 $ 
+y entonces 
+\[
+	x^2 = \frac{\sqrt{E^2 - ak}}{k} \: \cos \left[ \sqrt{4k/m}(t-t_0) \right] + \frac{E}{k},
+\]
+o bien 
+\[
+	x = \sqrt{ \frac{E}{k} } \left( 1 + \sqrt{1 - ak/E^2}  \: \cos \left[ 2\sqrt{k/m}(t-t_0) \right] \right)^{1/2}
+\]
+donde hemos tomado el valor positivo de la raíz porque en este problema es $ x > 0 $ .
+
+El caso límite $ a = 0 $ recupera el oscilador armónico usual, como era de esperarse, pues en este caso se tiene
+\[
+	\underset{(a = 0)}{x} = \sqrt{ \frac{2E}{k} } \left( \cos \left[ \sqrt{\frac{k}{m}}(t-t_0) \right] \right),
+\]
+donde se ha utilizado la fórmula trigonométrica para el semiángulo.
+
+\notamargen{Completar esta solución. Ver en práctica?.
+Lo de $E=E(a)$ no lo entendí.}
+
+
+\end{ejemplo}
+
+
 
 
 % =================================================================================================
@@ -571,172 +696,292 @@ o bien
 \]
 
 % =================================================================================================
-\section{Sistemas de coordenadas}
+\section{Velocidad y aceleración en coordenadas cilíndricas y esféricas}
 % =================================================================================================
 
-\subsection{Coordenadas polares}
+En la resolución de los problemas dinámicos que surgen de las ecuaciones de Newton la igualdad vectorial involucrada debe,
+en general, escribirse en algún sistema de coordenadas apropiado. 
+Esto implica para la aceleración la doble derivada con respecto al tiempo del vector de posición $ \vb{x}(t) $ en las
+coordenadas en las cuales se halle escrito. 
 
-La gran ventaja de las coordenadas cartesianas es que los versores $ \hat{i}, \hat{j}, \hat{k}$ no varían con el tiempo,
-entonces
+Obviando el sistema cartesiano rectangular usual $(x,y,z)$, los dos sistemas de coordenadas más sencillos son el de
+coordenadas cilíndricas $(r,\varphi,z)$ y el de coordenadas esféricas $(r,\theta,\varphi)$. Los problemas más sencillos
+de la dinámica implican geometrías donde estos sistemas son apropiados. Asimismo, muchas geometrías más complejas pueden
+quizás en primera aproximación modelarse con estas coordenadas.
+
+Así, por ejemplo, un vector genérico en términos de la base de versores cilíndricos $(\hat{r},\hat{\varphi},\hat{z})$ será
 \[
-	\vb{r}(t) = x \hat{i} + y \hat{j}
+	\vb{V}(t) = r \hat{r} + \varphi \hat{\varphi} + z \hat{z},
 \]
-lleva a que 
+de manera que su derivada con respecto al tiempo implica la derivación de cada coordenada y cada versor.
+
+La gran ventaja de las coordenadas cartesianas es que los versores $ \hat{ x }, \hat{ y }, \hat{ z }$ tienen su orientación
+constante para cualquier punto del espacio, razón por la cual no varían con el tiempo. Entonces, en general, resulta 
+conveniente evaluar las derivadas de los versores que sí varían con el tiempo (como por ejemplo $\hat{r}$) en términos de
+su descomposición en cartesianas, puesto que sólo hay que derivar el coeficiente que lo acompaña.
+
+Para coordenadas cartesianas, las fórmulas de velocidad y aceleración son triviales. A partir del vector de posición
 \[
-	\vb{v} = \dtot{\vb{r}}{t} = \dot{x}\hat{i} + \dot{y}\hat{j}
+	\vb{x}(t) = x \hat{x} + y \hat{y}  + z\hat{z},
+\]
+se tienen 
+\[
+	\vb{v}(t) \equiv \dtot{\vb{x}}{t}(t) = \dot{\vb{x}}(t) = \dot{x} \hat{x} + \dot{y} \hat{y}  + \dot{z}\hat{z},
 \]
 \[
-	\vb{r} = r \:\hat{r}
+	\vb{a}(t) \equiv \dtot[2]{\vb{x}}{t}(t) = \ddot{\vb{x}}(t) = \ddot{x} \hat{x} + \ddot{y} \hat{y}  + \ddot{z} \hat{z},
 \]
-y la derivada temporal se hace con la regla de Leibniz
+donde con el objeto de no sobrecargar la notación no se ha explicitado la dependencia temporal en las coordenadas.
+
+A continuación se deducen las fórmulas de velocidad y aceleración para las coordenadas cilíndricas y esféricas a partir de
+un vector de posición $ \vb{x}(t) $ del origen\footnote{Un vector del origen tiene su base anclada en el origen del sistema
+de coordenadas lo que causa que no tenga componentes angulares en los sistemas cilíndrico y esférico. Esta simplificación
+es importante y en realidad si no fuera aplicable la utilización de estos sistemas tal vez pierda su razón de ser.}.
+
+
+\subsection{Coordenadas cilíndricas}
+
+% La gran ventaja de las coordenadas cartesianas es que los versores $ \hat{i}, \hat{j}, \hat{k}$ no varían con el tiempo,
+% entonces
+% \[
+% 	\vb{r}(t) = x \hat{i} + y \hat{j}
+% \]
+% lleva a que 
+% \[
+% 	\vb{v} = \dtot{\vb{r}}{t} = \dot{x}\hat{i} + \dot{y}\hat{j}
+% \]
+Un vector de posición del origen es 
 \[
-	\dtot{\vb{r}}{t} = \dtot{r}{t} \:\hat{r} + r \:\dtot{\hat{r}}{t}
+	\vb{x}(t) = r \:\hat{r} + z \:\hat{z},
 \]
-y para evaluar la evolución temporal pasamos la expresión a cartesianas según
+y la derivada temporal se hace con la regla de Leibniz en el caso del primer término de la derecha, 
+\[
+	\dtot{\vb{x}}{t} = \dtot{r}{t} \:\hat{r} + r \:\dtot{\hat{r}}{t} + \dtot{z}{t} \hat{z}
+\]
+y para evaluar la derivada temporal del versor consideramos la descomposición 
 \[
 	\hat{r} = \cos \varphi \:\hat{x} + \sin \varphi \:\hat{y}
 \]
 \[
 	\hat{\varphi} = -\sin \varphi  \:\hat{x} + \cos  \varphi \:\hat{y}
 \]
+que lleva a 
+\[
+	\dtot{\hat{r}}{t} = - \sin \varphi \: \dot{ \varphi } \:\hat{x} + \cos \varphi \: \dot{ \varphi } \:\hat{y} =
+	\dot{\vp} \: \hat{\vp}
+\]
+y entonces 
+\[
+	\dtot{\vb{x}}{t} = \dot{r} \:\hat{r } + r \:\dot{\vp} \: \hat{\vp} + \dot{z} \:\hat{z}.
+\]
+% que se puede escribir como 
+% \[
+% 	\dtot{\vb{r}}{t} = \dot{r} \: \hat{r } + r \dot{\vp} \: \hat{\vp} = \dot{\vb{r}}
+% \]
+% y extraemos de conclusión que 
+% \[
+% 	\dtot{\hat{r}}{t} = \dot{\vp} \: \hat{\vp}
+% \]
 
+Para la aceleración hay que derivar la velocidad con respecto al tiempo
 \[
-	\dtot{\vb{r}}{t} = \dot{r} \hat{r } + r( - \sin \vp \dot{\vp} \:\hat{x} + \cos \vp \dot{\vp} \:\hat{y} )
+	\ddot{\vb{x}} = \dtot{}{t} ( \dot{r} \: \hat{r} + r\dot{\vp} \: \hat{\vp} + \dot{z} \:\hat{z} ) 
 \]
-que se puede escribir como 
 \[
-	\dtot{\vb{r}}{t} = \dot{r} \: \hat{r } + r \dot{\vp} \: \hat{\vp} = \dot{\vb{r}}
+	\ddot{\vb{x}} = \ddot{r} \:\hat{r} + \dot{r} \: \dtot{\hat{r}}{t} + \dot{r} \: \dot{\vp} \: \hat{\vp}
+	+ r \left( \ddot{\vp} \: \phiver + \dot{\vp} \: \dtot{\hat{\vp}}{t} \right) + \ddot{z} \:\hat{z}
 \]
-y extraemos de conclusión que 
+y utilizando 
 \[
-	\dtot{\hat{r}}{t} = \dot{\vp} \: \hat{\vp}
+	\dtot{\hat{\vp}}{t} = - \dot{ \vp } ( \cos \vp \:\hat{x} + \sin  \vp \:\hat{y} ) = - \dot{\vp} \: \hat{r}
+\]
+finalmente se arriba a
+\[
+	\ddot{\vb{x}} = ( \ddot{r} - r\dot{\vp}^2 ) \rver + ( r\ddot{\vp} + 2 \dot{r} \dot{\vp} ) \phiver + \ddot{z} \:\hat{z}.
 \]
 
-Luego, para la aceleración hay que derivar la velocidad con respecto al tiempo
-\[
-	\ddot{\vb{r}} = \dtot{}{t} ( \dot{r} \hat{r} + r\dot{\vp} \hat{\vp} ) 
-\]
-\[
-	\ddot{\vb{r}} = \dtot{\dot{r}}{t} \hat{r} + \dot{r}\dtot{\hat{r}}{t} + \dtot{r}{t} \dot{\vp} \hat{\vp}
-	+ r \left( \dtot{\dot{vp}}{t}\phiver + \dot{\vp}\dtot{\phiver}{t} \right)
-\]
-\[
-	\ddot{\vb{r}} = ( \ddot{r} - r\dot{\vp}^2 ) \rver + ( r\ddot{\vp} + 2 \dot{r} \dot{\vp} ) \phiver
-\]
+Para problemas de dos dimensiones suele utilizarse un sistema coordenado, conocido como coordenadas polares, que es el de 
+cilíndricas con $ z \equiv 0 $. Las expresiones de velocidad y aceleración polares correspondientes serán las obtenidas en esta sección
+luego de {\it borrar} la coordenada $z$.
+
 \subsection{Coordenadas esféricas}
 
+Para el sistema esférico la deducción de la equivalencia cartesiana de los versores es un poco más trabajosa que en el sistema cilíndrico (donde en 
+realidad estos versores viven en un plano $z$ cte.) y el álgebra implicado es algo engorroso. La expresión de los versores es
 \[
-	\rver = \cos\vp \sin\theta\xver + \sin\vp\sin\theta\yver + \cos\theta\zver
+	\rver = \cos\vp \sin\theta\xver + \sin\vp\sin\theta\yver + \cos\theta\zver,
 \]
 \[
-	\phiver = -\sin\vp \xver + \cos\vp \yver
+	\phiver = -\sin\vp \xver + \cos\vp \yver,
 \]
 \[
-	\thetaver = \cos\theta \cos\vp \xver + \cos\theta\sin\vp\yver - \sin\theta\zver
+	\thetaver = \cos\theta \cos\vp \xver + \cos\theta\sin\vp\yver - \sin\theta\zver.
 \]
 
+Un vector de posición es simplemente
 \[
-	\vb{r} = r \rver
+	\vb{x} = r \rver
 \]
+aunque en el $\rver$ está {\it escondida} la dependencia angular. Consignaremos a continuación solamente las expresiones finales para la
+velocidad y aceleración, que son respectivamente
 \[
-	\vb{v} = \dot{r} \rver + r\dot{\theta}\thetaver + r\dot{\vp}\sin\theta\phiver
+	\vb{v} = \dot{\vb{x}} = \dot{r} \rver + r\dot{\theta}\thetaver + r\dot{\vp}\sin\theta\phiver
 \]
-\begin{multline*} % No puedo usar \vb porque no se da cuenta que multline ES modo matemático
-	\symbf{a} = ( \ddot{r} - r\dot{\theta}^2 - r\dot{\vp}^2 \sin^2 \theta )\rver +
-	( r\ddot{\theta} + 2\dot{r}\dot{\theta} - r\dot{\vp}^2 \sin \theta \cos\theta )\thetaver + \\
-	( r\ddot{\vp}\sin\theta + 2\dot{r}\dot{\vp}\sin\theta + 2r\dot{\theta}\dot{\vp}\cos\theta )\phiver 
+\begin{multline*} % \vb no se da cuenta que multline ES modo matemático (por ello el .\ inicial)
+	\!\: \vb{a} = \ddot{\vb{x}} = ( \ddot{r} - r\dot{\theta}^2 - r\dot{\vp}^2 \sin^2 \theta )\rver +
+	( r\ddot{\theta} + 2\dot{r}\dot{\theta} - r\dot{\vp}^2 \sin \theta \cos\theta )\thetaver \: + \\
+	( r \ddot{\vp}\sin\theta + 2 \: \dot{r} \: \dot{\vp} \sin\theta + 2 \: r \:\dot{\theta} \:\dot{\vp} \cos\theta )\phiver 
 \end{multline*}
 	
-\subsection{Rotación del sistema de coordenadas}
 
-Un vector de acuerdo a dos sistemas de coordenadas en el plano,
+% =================================================================================================
+\section{Transformación entre sistemas en rotación}
+% =================================================================================================
+
+Otro tipo de transformación común entre sistemas de coordenadas (en el plano) que comparten origen es la rotación.
+
+Suponiendo un sistema de coordenadas $(x,y)$ fijo (que llamaremos ``inercial'') de origen $O$ y otro de coordenadas $(x',y')$, que está rotando 
+en torno a ese origen (sistema ``móvil''), interesa ver qué consecuencias tiene sobre la velocidad y aceleración de un vector de posición \vb{A},
+el hecho de determinarlas desde uno u otro sistema. Si bien hablamos de un sistema {\it fijo}, en realidad ambos se hallan en rotación entre sí. 
+
+Como se ve en la FIGURA XXX 
+\notamargen{Figura de la rotación}
+la posición instantánea entre sistemas está determinada por el ángulo $\theta(t)$ y, dado que ambos sistemas comparten el origen, los mismos son 
+coincidentes en $\theta = 0$. 
+% Como el sistema en rotación varía la posición de sus ejes con el tiempo, sus versores asociados $(\xver', \yver')$ 
+% también variarán con el tiempo (pese a que son cartesianos).
+
+Dado que los sistemas no se hallan entre sí a velocidad constante\footnote{Aún en el caso de $ \theta(t) = cte.$ la velocidad no es constante como 
+vector puesto que cambia de dirección todo el tiempo.} es patente que las ecuaciones de Newton se verán modificadas.
+Para un vector \vb{A} constante con respecto al sistema inercial, cualitativamente esperaríamos observarlo desde el sistema móvil en alguna 
+suerte de movimiento dado por el efecto dinámico de la rotación\footnote{Si estoy montado en el caballo de madera de una calesita veré a mi abuela, 
+que me espera inmóvil a un lado, como dotada de movimiento.}. Veamos qué surge de la cuenta algebraica.
+
+El mismo vector de acuerdo a los dos sistemas de coordenadas en el plano, es
 \[
-	\vb{A} = A_x\xver + A_y\yver \qquad \qquad \vb{A}' = A_x'\xver' + A_y'\yver'
+	\vb{A}(t) = A_x\xver + A_y\yver         \qquad\qquad               \vb{A}'(t) = A_x'\xver' + A_y'\yver'
 \]
+donde las coordenadas primadas refieren al sistema móvil. Nótese que los versores asociados en ambos casos $(\xver, \yver)$ y $(\xver', \yver')$ 
+son constantes, esto es, no dependen del tiempo. Que ambos sistemas se hallen en rotación entre sí no es intrínseco de alguno de ellos.
+Un observador del sistema primado ve a sus ejes fijos mientras que en las medidas que realiza sobre \vb{A} verá una dinámica particular. 
+
+Si consideramos la variación temporal de \vb{A}' pero como es vista desde el sistema inercial resulta 
 \[
 	\left. \dtot{\vb{A}}{t} \right|_\text{inercial} = 
-	\dot{A_x'}\xver' + \dot{A_y'}\yver' + A_x'\dot{\xver'} + A_y\dot{'\yver'}
+	\dot{A_x'} \xver' + A_x'\dot{\xver'} + \dot{A_y'}\yver' + A_y' \dot{\yver'},
 \]
-pero como la situación geométrica es la misma que la cuenta de polares, se tiene 
+porque para un observador en el sistema inercial se mueven las componentes del vector y los versores.
+
+\notamargen{Esta notación es oscura, habría que ver una mejor manera de explicar esto.}
+
+La variación temporal de los versores la conocemos porque es la misma situación geométrica que la encontrada para el caso de los 
+versores cilíndricos $(\rver,\phiver)$. Podemos hallar la equivalencia
 \[
-	\dtot{\xver'}{t} = \dot{\theta} \yver' \qquad \qquad 
-	\dtot{\yver'}{t} = -\dot{\theta} \xver'
+	\dtot{\hat{x}'}{t} = \dot{\theta} \yver'         \qquad \qquad          \dtot{\hat{y}'}{t} = -\dot{\theta} \xver'.
 \]
 
-\[
-	\left. \dtot{\vb{A}}{t} \right|_\text{fijo} = \left. \dtot{\vb{A}}{t} \right|_\text{móvil}
-	+ A_x' \dot{\theta}\yver' - A_y'\dot{\theta}\xver'
-\]
-donde 
-\[
-	\left. \dtot{\vb{A}'}{t} \right|_\text{móvil} \equiv \sum_i \dtot{A_i'}{t} \: \hat{e_i}'
-\]
+Desde el sistema móvil los versores son por supuesto constantes (el sistema móvil no es consciente de su movimiento) de modo 
+que 
 \[
 	\left. \dtot{\vb{A}}{t} \right|_\text{móvil} = \dot{A_x'}\xver' + \dot{A_y'}\yver'
 \]
+y entonces
 \[
-	\vb{\omega} = \dot{\theta} \zver
+	\left. \dtot{\vb{A}}{t} \right|_\text{fijo} = \left. \dtot{\vb{A}}{t} \right|_\text{móvil}
+	+ A_x' \dot{\theta}\yver' - A_y'\dot{\theta}\xver'.
 \]
+% donde 
+% \[
+% 	\left. \dtot{\vb{A}'}{t} \right|_\text{móvil} \equiv \sum_i \dtot{A_i'}{t} \: \hat{e_i}'
+% \]
+% \[
+% 	\left. \dtot{\vb{A}}{t} \right|_\text{móvil} = \dot{A_x'}\xver' + \dot{A_y'}\yver'
+% \]
+
+Si definimos
 \[
-	\vb{\omega}\times\vb{A}' = \dot{\theta} \times ({A_x'}\xver' + {A_y'}\yver') =
-	A_x' \dot{\theta}\yver' - A_y'\dot{\theta}\xver'
+	\vb{\omega} = \dot{\theta} \zver,
 \]
+entonces resulta que
+\[
+	\vb{\omega}\times\vb{A}' = \dot{\theta} \zver \times ({A_x'}\xver' + {A_y'}\yver') =
+	A_x' \dot{\theta}\yver' - A_y'\dot{\theta}\xver'.
+\]
+
+Volviendo a la derivada de \vb{A} tenemos
 \[
 	\left. \dtot{\vb{A}}{t} \right|_\text{fijo} = \left. \dtot{\vb{A}}{t} \right|_\text{móvil}
 	+ \vb{\omega} \times \vb{A}'
 \]
+que nos da la variación temporal de un vector \vb{A} visto desde un sistema fijo en términos de lo que se mediría
+en un sistema (móvil) que está en rotación respecto al primero.
+
+Si ahora la especializamos para un vector de posición \vb{x}, obtenemos la velocidad  
 \[
-	\left. \vb{v} \right|_\text{fijo} = \left. \vb{v} \right|_\text{móvil} + \vb{\omega} \times \vb{r}'
+	\left. \vb{v} \right|_\text{fijo} = \left. \vb{v} \right|_\text{móvil} + \vb{\omega} \times \vb{x}',
 \]
+donde 
 \[
-	\left. \vb{v} \right|_\text{móvil} = \dot{x'}\xver' + \dot{y}\yver' 
-\]
-\[
-	\vb{a} = \left. \dtot{\vb{v}}{t} \right|_\text{fijo} = \left. \dtot{\vb{v}}{t} \right|_\text{móvil} +
-	\vb{\omega} \times \dtot{\vb{r}}{t}
+	\left. \vb{v} \right|_\text{móvil} = \dot{x}' \xver' + \dot{y}' \yver' 
 \]
 
+Asimismo, la aceleración se obtiene aplicando la relación al vector $\vb{v} \equiv d\vb{x}/dt$, de manera que 
+tendremos
 \[
-	\vb{a} = \dtot{}{t}\left[ \left. \dtot{\vb{r}}{t} \right|_\text{móvil} + \vb{\omega}\times\vb{r} \right] +
-	\vb{\omega} \times \left[ \left. \vb{v} \right|_\text{móvil} +	\vb{\omega}\times\vb{r} \right]
+	\left. \vb{a} \right|_\text{fijo} = \left. \dtot{\vb{v}}{t} \right|_\text{fijo} = \left. \dtot{\vb{v}}{t} \right|_\text{móvil} +
+	\vb{\omega} \times \vb{v}'
+\]
+\[
+	\left. \vb{a} \right|_\text{fijo} = 
+	\dtot{}{t}\left[ \left. \dtot{\vb{x}}{t} \right|_\text{móvil} + \vb{\omega}\times\vb{x}' \right] +
+	\vb{\omega} \times \left[ \left. \vb{v} \right|_\text{móvil} +	\vb{\omega}\times\vb{x}' \right]
 \]
 
+Ahora procedemos a trabajar las expresiones dentro del primer corchete, empezando por la derivada temporal de la velocidad
+en el sistema móvil,
 \[
-	\dtot{}{t}\left.( \dot{x'}\xver' + \dot{y'}\yver' )\right|_\text{móvil} = 
-	\ddot{x'}\xver' + \ddot{y'}\yver' \equiv \left. \vb{a} \right|_\text{móvil}
+	\left. \vb{a} \right|_\text{móvil} \equiv  
+	\dtot{}{t}\left.( \dot{x}' \xver' + \dot{y}' \yver' )\right|_\text{móvil} = \ddot{x}' \xver' + \ddot{y}' \yver'
 \]
+y continuando con el término 
 \[
-	\left.\vb{\omega}\times\vb{r}\right|_\text{móvil} = \omega y' \xver' - \omega x' \yver'
+	\left.\vb{\omega}\times\vb{x}'\right|_\text{móvil} = \omega x' \yver' - \omega y' \xver' ,
+\]
+cuya derivada es
+\[
+	\dtot{}{t}\left.\vb{\omega}\times\vb{x}\right|_\text{móvil} = 
+	-( \dot{\omega} y' + \omega \dot{y}' )\xver' + ( \dot{\omega} x' + \omega \dot{x}' )\yver' =
+	\left. \vb{\omega} \times\vb{v}'\right|_\text{móvil} + \left.\dot{\vb{\omega}} \times\vb{x}'\right|_\text{móvil}
 \]
 
+Juntando todo resulta
 \[
-	\dtot{}{t}\left.\vb{\omega}\times\vb{r}\right|_\text{móvil} = 
-	( \dot{\omega} y' + \omega \dot{y}' )\xver' + ( \dot{\omega} x' + \omega \dot{y'} )\yver'
+	\left. \vb{a}\right|_\text{fijo} = \left. \vb{a}\right|_\text{móvil} 
+	+ \left.\dot{\vb{\omega}} \times\vb{x}'\right|_\text{móvil} + 2 \:\vb{\omega}\times\vb{v'} + \vb{\omega}
+	\times (\vb{\omega} \times \vb{x}')
 \]
+donde el tercero es la aceleración de Coriolis y el cuarto la aceleración centrípeta.
+
+Las leyes de Newton observadas desde el sistema fijo serán 
+% Llamando $ \alpha = \dot{\omega} = \dtot{\omega}{t}$ resulta 
 \[
-	\left. \vb{a}\right|_\text{fijo} = \left. \vb{a}\right|_\text{móvil} +
-	\dot{\omega}y'\xver'- \dot{\omega}x'\yver' + 2\vb{\omega}\times\vb{v'} + \vb{\omega}
-	\times (\vb{\omega} \times \vb{r})
+	\vb{F} = m\vb{a} = m \left. \vb{a}\right|_\text{móvil} + m \: \dot{ \vb{\omega} } \times \vb{r} + 4 \: m \: 
+	\vb{\omega}\times\vb{v'} + m \: [  \vb{\omega} \times (\vb{\omega}\times\vb{r} )]
 \]
-donde el segundo término del RHS es $ \dot{\vb{\omega}} \times \vb{r}$, el tercero la aceleración de Coriolis y el 
-cuarto la aceleración centrípeta.
-Llamando $ \alpha = \dot{\omega} = \dtot{\omega}{t}$ resulta 
+que se pueden reacomodar como  
 \[
-	\vb{F} = m\vb{a} = m \left. \vb{a}\right|_\text{móvil} + m \alpha \times \vb{r} + 4m 
-	\vb{\omega}\times\vb{v'}+m[  \vb{\omega} \times (\vb{\omega}\times\vb{r} )]
+	m \left. \vb{a}\right|_\text{fijo} = 
+	\vb{F} - m \left. \vb{a}\right|_\text{móvil} - m \: \dot{\vb{\omega}} \times \vb{r} - 4 \: m \: \vb{\omega}\times\vb{v'} -
+	m \: [\vb{\omega} \times(\vb{\omega}\times\vb{r})]
 \]
-que reacomodado de otra manera es 
-\[
-	\vb{F} - m \alpha \times \vb{r} - 4m \vb{\omega}\times\vb{v'} - m[\vb{\omega} \times(\vb{\omega}\times\vb{r})]
-	= m \left. \vb{a}\right|_\text{fijo}
-\]
-y ahora en el LHS tenemos la fuerza $\vb{F}$ que es la única que produce par de acción y reacción, y los términos de 
+donde ahora en el RHS tenemos la fuerza $\vb{F}$ que es la única que produce par de acción y reacción, y los términos de 
 fuerza lineal, de Coriolis y centrífuga.
-Si $\omega = cte.$ entonces la fuerza lineal es nula.
 
-% Como ejemplo citamos \cite{einstein}.
-% O bien \cite{example}.
-% Tal vez \citep{Aspnes:1973}
+Si $\vb{\omega} = cte.$ entonces la fuerza lineal es nula.
+
+\notamargen{Está un poco inconsistente la notación utilizada, con lo de móvil y la prima. La carpeta tiene muchos
+typos.
+El 'Problema' de la hoja 5R no lo entiendo}
 
 \begin{notasfinales}
 
