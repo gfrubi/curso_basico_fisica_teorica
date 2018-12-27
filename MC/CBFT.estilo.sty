@@ -97,7 +97,8 @@
 	\newcommand{\vS}[1]{\ifmmode\boldsymbol{#1}\else$\boldsymbol{#1}$\fi} % Vector usando boldsymbol
 	
 	
-	\newcommand{\divem}[1]{ {\nabla}\mathbf{\cdot}\mathbf{#1}} % Divergencia
+% 	\newcommand{\divem}[1]{ {\nabla}\mathbf{\cdot}\mathbf{#1}} % Divergencia
+	\newcommand{\divem}[1]{ {\nabla}\symbf{\cdot}\symbf{#1}} % Divergencia
 	\newcommand{\rotorm}[1]{ {\nabla}\times \vb{#1}} % Rotor
 	\newcommand{\lapm}[1]{\nabla^2{#1}} % Laplaciano
 	\newcommand{\dparbis}[2]{\frac{\partial}{\partial #2}\left[ #1 \right]}
@@ -112,6 +113,10 @@
 	
 	% Una buena ´e´ de Euler
 	\newcommand{\euler}{\:\mathrm{e}}
+	
+	
+	% Un signo menos más pequeño
+	\newcommand{\minus}{\scalebox{0.65}[1.0]{$-$}}
 	
 	% Para mecánica clásica
 	\newcommand{\Lag}{\mathscr{L}} % Lagrangiano screen
@@ -144,6 +149,8 @@
 	\usepackage[pscoord]{eso-pic}
 	% The zero point of the coordinate systemis the lower left corner of the page (the default).
 	\usepackage[absolute]{textpos}
+	\usepackage{nicefrac}
+	\usepackage{makeidx} % Para el índice final
 
 	
 

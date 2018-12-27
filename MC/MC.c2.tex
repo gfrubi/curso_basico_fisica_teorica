@@ -16,7 +16,6 @@
 
 	\usepackage{CBFT.estilo} % Cargo la hoja de estilo
 	
-
 	% Tipografías
 	% \setromanfont[Mapping=tex-text]{Linux Libertine O}
 	% \setsansfont[Mapping=tex-text]{DejaVu Sans}
@@ -36,46 +35,42 @@
 \chapter{Mecánica lagrangiana}
 
 % =================================================================================================
-\section{Principio de los trabajos virtuales}
+\section{Principio de los trabajos virtuales}\index{Trabajos virtuales, principio de}
 % =================================================================================================
-Escribimos las ecuaciones de Newton para un sistema de partículas,
+Las ecuaciones de Newton para un sistema de $N$ partículas,
 \notamargen{Esto es sumamente sketchi, debemos leer la carpeta de la cursada y luego la
 teoría.}
 \[
-	m_i \vb{a}_i = \vb{F}_i = \vb{F}_i^a + \vb{F}_i^v
+	m_i \vb{a}_i = \vb{F}_i^a + \vb{F}_i^v
 \]
-pero sabiendo que el momento viene de las fuerzas aplicadas,
+dan cuenta de que sobre cada partícula actúan, en principio, fuerzas externas aplicadas $ \vb{F}_i^a $
+y fuerzas de vínculo $ \vb{F}_i^v $. Expresando la aceleración en función de la derivada temporal del momento  
+$ \dot{\vb{p}}_i = m_i \vb{a}_i$ resulta 
 \[
-	m_i \vb{a}_i = \dot{\vb{P}}_i
+	\dot{\vb{p}}_i - \vb{F}_i^a - \vb{F}_i^v = 0,
 \]
-de manera que 
+y entonces, multiplicando cada término por un desplazamiento virtual $ \delta\vb{x}_i $ se tiene
 \[
-	\dot{\vb{F}}_i - \vb{F}_i^a - \vb{F}_i^v = 0,
+	\sum_i^N \left( \dot{\vb{p}}_i - \vb{F}_i^a - \vb{F}_i^v \right) \cdot \delta\vb{x}_i  = 0.
 \]
-y entonces, sumando en las $N$ partículas del sistema
-\[
-	\sum_i^N \left( \dot{\vb{P}}_i - \vb{F}_i^a - \vb{F}_i^v \right) \cdot \delta\vb{r}_i  = 0
-\]
-donde $\delta\vb{r}_i$ son desplazamientos virtuales. Si hacemos estos desplazamientos
-compatibles con los vínculos
-\[
-	\sum_i^N \left( \dot{\vb{P}}_i - \vb{F}_i^a \right) \cdot \delta\vb{r}_i - 
-	\sum_i^N  \vb{F}_i^v  \cdot \delta\vb{r}_i  = 0
-\]
-donde el último término es nulo debido a que la fuerza de vínculos son perpendiculares
-a los desplazamientos virtuales, es decir 
-\[
-	\vb{F}_i^v \perp \delta\vb{r}_i
-\]
-si es que, por supuesto, los $\delta\vb{r}_i$ son compatibles con los vínculos.
 
-Esto nos deja entonces, el Principio de los Trabajos Virtuales,
+\notamargen{Explicar qué es este principio y qué es un desplazamiento virtual.}
+Si hacemos estos desplazamientos {\it compatibles} con los vínculos nos quedamos con
+\be
+	\sum_i^N \left( \dot{\vb{p}}_i - \vb{F}_i^a \right) \cdot \delta\vb{x}_i = 0,
+% 	- \sum_i^N  \vb{F}_i^v  \cdot \delta\vb{x}_i  = 0
+	\label{principio_virtual_work}
+\ee
+puesto que las fuerzas de vínculo son siempre perpendiculares a los desplazamientos virtuales, es decir 
 \[
-	\sum_i^N \left( \dot{\vb{P}}_i - \vb{F}_i^a \right) \cdot \delta\vb{r}_i = 0 
+	\vb{F}_i^v \perp \delta\vb{x}_i.
 \]
-donde como son independientes entonces se sigue que
+
+La expresión \eqref{principio_virtual_work} es el llamado {\it Principio de los Trabajos Virtuales},
+y dada la independencia admitida en los desplazamientos virtuales $ \delta \vb{x}_i $, se sigue que la
+sumatoria en \eqref{principio_virtual_work} es nula porque cada término es nulo, es decir
 \[
-	\dot{\vb{P}}_i - \vb{F}_i^a = 0 \quad \forall i
+	\dot{\vb{p}}_i - \vb{F}_i^a = 0 \quad \forall i
 \]
 
 \begin{notas}{Relación vínculos y desplazamientos:}
@@ -83,318 +78,734 @@ El hecho de que la fuerza de vínculo sea perpendicular a los desplazamientos pu
 verse a partir de que la ecuación de vínculo en un sistema toma la forma
 \notamargen{¿Y esta magia? Hay que aclarar realmente que sea así como se dice que es.}
 \[
-	f(\vb{r}_i) - K = 0 
+	f(\vb{x}_i) - K = 0 
 \]
 luego, derivando implícitamante cada ecuación y sumando (si se nos permite un pequeño
 abuso de notación)
 \[
-	\sum_i^N \dpar{f}{\vb{r}_i} d\vb{r}_i = 0 
+	\sum_i^N \dpar{f}{\vb{x}_i} d\vb{x}_i = 0 
 \]
 pero esto no es otra cosa que
 \[
-	\nabla f \cdot \vb{\delta r} = 0
+	\nabla f \cdot \vb{\delta x} = 0
 \]
-donde debemos entender al gradiente y al vector $\vb{\delta r}$ como $N$ dimensionales.
+donde debemos entender al gradiente y al vector $\vb{\delta x}$ como $N$ dimensionales.
 \end{notas}
 
 % =================================================================================================
 \section{Construcción del lagrangiano}
 % =================================================================================================
 
-Consideremos un sistema de $N$ partículas, $k$ ecuaciones de vínculo y por ende $3N - k$ grados de libertad
-(estamos en 3 dimensiones).
+Consideremos un sistema de $N$ partículas, $k$ ecuaciones de vínculo 
+\begin{eqnarray*}
+	& f_1(\vb{x}_1, \vb{x}_2,...,\vb{x}_n,t) = K_1  \\ 
+	& ... ... ... \\
+	& f_k(\vb{x}_1, \vb{x}_2,...,\vb{x}_n,t) = K_k 
+\end{eqnarray*}
+y por ende $3N-k$ grados de libertad (suponiendo que nos hallamos en 3 dimensiones).
 
-Tenemos $N$ relaciones
+Tenemos $N$ relaciones del tipo 
+\be
+	\vb{x}_i = \vb{x}_i(q_1,q_2,...,q_{3N-k},t)
+	\label{x_part}
+\ee
+que significa que la posición de la partícula $i$-ésima depende en principio de las $3N-k$ coordenadas
+generalizadas y del tiempo. Una variación tendrá la forma
 \[
-	\vb{r}_i = \vb{r}_i(q_1,q_2,...,q_{3N-k},t)
+	\delta \vb{x}_i =  \sum_{j=1}^{3N-k} \left( \dpar{\vb{x}_i}{q_j} \right) \delta q_j + 
+	\dpar{\vb{x}_i}{t}\delta t
 \]
-entonces una variación serán
+y suponiéndola un desplazamiento virtual el último término se anula puesto que $\delta t=0$ en ese
+caso y entonces
 \[
-	\delta \vb{r}_i =  \sum_{j=1}^{3N-k} \left( \dpar{\vb{r}_i}{q_j} \right) \delta q_j + 
-	\dpar{\vb{r}_i}{t}\delta t
-\]
-donde el último $\delta t$ es nulo por ser un desplazamiento virtual de manera que
-\[
-	\delta \vb{r}_i =  \sum_{j=1}^{3N-k} \left( \dpar{\vb{r}_i}{q_j} \right) \delta q_j.
+	\delta \vb{x}_i =  \sum_{j=1}^{3N-k} \left( \dpar{\vb{x}_i}{q_j} \right) \delta q_j.
 \]
 
-Por otro lado
+Por otro lado, del principio de los trabajos virtuales \eqref{principio_virtual_work} es
 \[
-	\sum_i^N \dot{\vb{P}}_i \cdot \delta \vb{r}_i - \sum_i^N  \vb{F}_i^a \cdot \delta \vb{r}_i = 0
+	\sum_i^N \dot{\vb{p}}_i \cdot \delta \vb{x}_i - \sum_i^N  \vb{F}_i^a \cdot \delta \vb{x}_i = 0
 \]
 y se puede reescribir el primer término como
 \[
-	\dot{\vb{P}}_i \cdot \delta \vb{r}_i = m_i \dtot{\vb{v}_i}{t}\sum_{j=1}^{3N-k} 
-	\left( \dpar{\vb{r}_i}{q_j} \right) \delta q_j
+	\dot{\vb{p}}_i \cdot \delta \vb{x}_i = m_i \dtot{\vb{v}_i}{t} \cdot \sum_{j=1}^{3N-k} 
+	\left( \dpar{\vb{x}_i}{q_j} \right) \delta q_j,
 \]
 resultando
-\[
-	\sum_i^N m_i \dtot{\vb{v}_i}{t} \cdot \sum_{j=1}^{3N-k} \left( \dpar{\vb{r}_i}{q_j} \right)
-	\delta q_j - \sum_i^N  \vb{F}_i^a \cdot \delta \vb{r}_i = 0
-\]
+\be
+	\sum_i^N m_i \dtot{\vb{v}_i}{t} \cdot \sum_{j=1}^{3N-k} \left( \dpar{\vb{x}_i}{q_j} \right)
+	\delta q_j - \sum_i^N  \vb{F}_i^a \cdot \delta \vb{x}_i = 0
+	\label{virtual_work_2}
+\ee
 
 La idea ahora es reescribir todo en términos más convenientes, para que aparezca un término multiplicado
 a una variación arbitraria. De esta manera quedará una sumatoria de un sumando multiplicado por una
 variación igualada a cero. No cabe otra posibilidad que el sumando sea nulo para cada índice de la suma.
 \notamargen{Escrito muy mal este texto. La idea es clara, no obstante: hay que purificarla}
 
-Consideremos la derivada total de 
+Consideremos en primer lugar la derivada total del producto siguiente
 \[
-	\frac{d}{dt}\left( m_i\vb{v}_i\dpar{\vb{r}_i}{q_j} \right) =
-	m_i \dtot{\vb{v}_i}{t}\dpar{\vb{r}_i}{q_j} + m_i \vb{v}_i \frac{d}{dt}\left(\dpar{\vb{r}_i}{q_j}\right).
+	\frac{d}{dt}\left( m_i\vb{v}_i \cdot \dpar{\vb{x}_i}{q_j} \right) =
+	m_i \dtot{\vb{v}_i}{t} \cdot \dpar{\vb{x}_i}{q_j} + m_i \vb{v}_i 
+	\cdot \frac{d}{dt}\left(\dpar{\vb{x}_i}{q_j}\right),
 \]
-Pero la diferencial del vector $\vb{r}_i$ es (notemos que no es una variación)
+y en segundo lugar la velocidad de cada partícula, que proviene de la derivada total de cada ecuación 
+\eqref{x_part} y resulta
+% )Pero la diferencial del vector $\vb{x}_i$ es (notemos que no es una variación)
+% \[
+% 	d\vb{x}_i = \sum_{j=1}^{3N-k} \left( \dpar{\vb{x}_i}{q_j} \right) dq_j + \dpar{\vb{x}_i}{t} dt
+% \]
+% y entonces
 \[
-	d\vb{r}_i = \sum_{j=1}^{3N-k} \left( \dpar{\vb{r}_i}{q_j} \right) dq_j + \dpar{\vb{r}_i}{t} dt
-\]
-y entonces
-\[
-	\dot{\vb{r}}_i = \vb{v}_i = \sum_{j=1}^{3N-k} \left( \dpar{\vb{r}_i}{q_j} \right)
-	\dot{q}_j + \dpar{\vb{r}_i}{t}.
-\]
-La derivada de la velocidad de la partícula $i$-ésima respecto a la coordenada $l$-ésima es
-\[
-	\dpar{\vb{v}_i}{\dot{q}_l} = \dpar{\vb{r}_i}{q_l} =
-	\frac{\partial \vb{r}_i/\partial t}{\partial q_l/\partial t}.
-\]
-Si derivamos nuevamente
-\[
-	\frac{\partial}{\partial q_l} \left( \dtot{\vb{r}_i}{t} \right) =
-	\dpar{\vb{v}_i}{q_l} = \sum_{j=1}^{3N-k} \dparcru{\vb{r}_i}{q_j}{q_l} \dot{q}_j + 
-	\dparcru{\vb{r}_i}{t}{q_l}.
-\]
-\[
-	\frac{d}{dt} \left( \dpar{\vb{r}_i}{q_l} \right) = 
-	\frac{d}{dt} \left( \sum_{j=1}^{3N-k} \dparcru{\vb{r}_i}{q_j}{q_l} dq_j +
-	\dparcru{\vb{r}_i}{t}{q_l} dt \right) 
-\]
-de tal manera que 
-\[
-	\frac{d}{dt} \left( \dpar{\vb{r}_i}{q_l} \right) = \dpar{\vb{v}_i}{q_l}
+	\vb{v}_i = \dtot{\vb{x}_i}{t} = \sum_{j=1}^{3N-k} \left( \dpar{\vb{x}_i}{q_j} \right)
+	\dot{q}_j + \dpar{\vb{x}_i}{t}.
 \]
 
-Volvemos ahora a la eq III y 
+A partir de esta última es claro ver que la derivada de la velocidad de la partícula $i$-ésima respecto a la coordenada 
+$l$-ésima es
+\be
+	\dpar{\vb{v}_i}{\dot{q}_l} = \dpar{\vb{x}_i}{q_l}.
+	\label{relacion_derivadas}
+\ee
+\notamargen{Una manera menmotécnica de recordar esto es con el siguiente esquema:
 \[
-	\sum_i^N \sum_{j=1}^{3N-k} \left[ 
-	\frac{d}{dt} \left( m_i \vb{v}_i \dpar{\vb{r}_i}{q_j} \right) - 
-	m_i \vb{v}_i \frac{d}{dt}\left( \dpar{\vb{v}_i}{q_j} \right) \right] \delta q_j
+	\dpar{\vb{v}_i}{\dot{q}_l} = \frac{\partial \vb{x}_i/\partial t}{\partial q_l/\partial t} =
+	\dpar{\vb{x}_i}{q_l}.
 \]
-y este corchete lo reescribimos como 
+}
+La ecuación de la velocidad se puede derivar otra vez, con respecto a $q_l$, obteniéndose
 \[
-	\sum_i^N \sum_{j=1}^{3N-k} \left[ 
-	\frac{d}{dt} \left( m_i \vb{v}_i \dpar{\vb{v}_i}{\dot{q}_j} \right) -
-	m_i \vb{v}_i \dpar{\vb{v}_i}{q_j} \right] \delta q_j
+	\dpar{\vb{v}_i}{q_l} = \frac{\partial}{\partial q_l} \left( \dtot{\vb{x}_i}{t} \right) =
+	\sum_{j=1}^{3N-k} \dparcru{\vb{x}_i}{q_j}{q_l} \dot{q}_j + 
+	\dparcru{\vb{x}_i}{t}{q_l},
+\]
+y se puede ver que invirtiendo el orden de derivación, esto significa que 
+\[
+	\dpar{\vb{v}_i}{q_l} = \frac{d}{dt} \left( \dpar{\vb{x}_i}{q_l} \right).
 \]
 
+\notamargen{El hecho de que se pueda sacar fuera la derivada temporal y pasar adentro la derivada
+con respecto a la coordenada generalizada $q$ puede verse haciendo la cuenta de manera explícita.}
+% 
+% \[
+% 	\frac{d}{dt} \left( \dpar{\vb{x}_i}{q_l} \right) = 
+% 	\frac{d}{dt} \left( \sum_{j=1}^{3N-k} \dparcru{\vb{x}_i}{q_j}{q_l} dq_j +
+% 	\dparcru{\vb{x}_i}{t}{q_l} dt \right) 
+% \]
+% de tal manera que 
+% \[
+% 	\frac{d}{dt} \left( \dpar{\vb{x}_i}{q_l} \right) = \dpar{\vb{v}_i}{q_l}
+% \]
+
+Volviendo ahora a \eqref{virtual_work_2} y usando los resultados recientes tenemos
 \[
-	\sum_i^N \sum_{j=1}^{3N-k} \left\{ 
+	\sum_i^N \sum_{j=1}^{3N-k} 
+	\left[ \frac{d}{dt} \left( m_i \vb{v}_i \dpar{\vb{x}_i}{q_j} \right) - 
+	m_i \vb{v}_i \frac{d}{dt}\left( \dpar{\vb{x}_i}{q_j} \right) \right] \delta q_j
+	- \sum_i^N  \vb{F}_i^a \cdot \delta \vb{x}_i = 0
+\]
+donde modificaremos el corchete expresando derivadas con respecto a la posición $\vb{x}$ en términos
+de derivadas con respecto a la velocidad $\vb{v}$, de manera que 
+\[
+	\left[ \frac{d}{dt} \left( m_i \vb{v}_i \dpar{\vb{v}_i}{\dot{q}_j} \right) -
+	m_i \vb{v}_i \dpar{\vb{v}_i}{q_j} \right]
+\]
+y usando el {\it trick} usual
+\[
+	\vb{v} \dpar{\vb{v}}{q} = \frac{1}{2} \dpar{ \vb{v}^2 }{q} 
+\]
+resulta
+\[
+	\left\{ 
 	\frac{d}{dt} \left[ \frac{\partial}{\partial \dot{q}_j} \left( \frac{m_i}{2} \vb{v}_i^2 \right) \right] - 
-	\frac{\partial}{\partial q_j} \left( \frac{m_i}{2} \vb{v}_i^2 \right) \right\} \delta q_j
+	\frac{\partial}{\partial q_j} \left( \frac{m_i}{2} \vb{v}_i^2 \right) \right\}
 \]
 
-Ahora introducimos la sumatoria en $i$ hacia adentro de ambos términos,
+Es hora ya de introducir la sumatoria en $i$ hacia el interior del corchete, y la ecuación original es ahora 
 \[
 	\sum_{j=1}^{3N-k} \left\{ 
 	\frac{d}{dt} \left[ \frac{\partial}{\partial \dot{q}_j}
 	\left( \sum_i^N \frac{m_i}{2} \vb{v}_i^2 \right) \right] 
-	-  \frac{\partial}{\partial q_j} \left( \sum_i^N \frac{m_i}{2} \vb{v}_i^2 \right) \right\} \delta q_j
+	- \frac{\partial}{\partial q_j} \left( \sum_i^N \frac{m_i}{2} \vb{v}_i^2 \right) \right\} \delta q_j
+	- \sum_i^N  \vb{F}_i^a \cdot \delta \vb{x}_i = 0
 \]
-de modo que dentro de los paréntesis resulta $T$, luego 
+y dentro de los paréntesis ha aparecido la energía cinética $T$. La sumatoria en $j$ no era otra cosa que la suma 
+de las derivadas de los momentos, y entonces
 \[
-	\sum_i^N \dot{\vb{P}}_i \cdot \delta \vb{r}_i = 
-	\sum_{j=1}^{3N-k} \left\{ \frac{d}{dt} \left[ \frac{\partial}{\partial \dot{q}_j} \left( T \right) \right] - 
-	\frac{\partial}{\partial q_j} \left( T \right) \right\} \delta q_j
+	\sum_i^N \dot{\vb{p}}_i \cdot \delta \vb{x}_i =
+	\sum_{j=1}^{3N-k} \left\{ \frac{d}{dt} \left[ \frac{\partial T}{\partial \dot{q}_j} \right] -
+	\frac{\partial T}{\partial q_j} \right\} \delta q_j = \sum_i^N  \vb{F}_i^a \cdot \delta \vb{x}_i.
 \]
+
+Escribiendo la variación $\delta\vb{x}$ en términos de $\delta q$ a través de 
 \[
-	\sum_i^N \dot{\vb{P}}_i \cdot \delta \vb{r}_i = 
-	\sum_{j=1}^{3N-k} \sum_i^N \vb{F}_i^a \cdot \dpar{\vb{r}_i}{q_j} \delta q_j =  
-	\sum_{j=1}^{3N-k} \sum_i^N Q_j \delta q_j
+	\delta\vb{x}_i = \sum_{j=1}^{3N-k} \dpar{\vb{x}_i}{q_j}\delta q_j
+\]
+se llega a 
+\[
+	\sum_{j=1}^{3N-k} \sum_i^N \left( \vb{F}_i^a \cdot \dpar{\vb{x}_i}{q_j} \right) \: \delta q_j =  
+	\sum_{j=1}^{3N-k} \sum_i^N Q_j \: \delta q_j
 \]
 siendo $Q_j$ la fuerza generalizada. Entonces
+\be
+	\sum_{j=1}^{3N-k} \left\{ \frac{d}{dt}
+	\left[ \frac{\partial T}{\partial \dot{q}_j} \right] - \frac{\partial T}{\partial q_j} - Q_j \right\} \delta q_j =  0
+	\label{eq_el_0}
+\ee
+% y dado que las variaciones $\delta q_j$ son independientes se sigue que 
+
+Si suponemos que las fuerzas son conservativas, provienen de un potencial, entonces 
+\[
+	\vb{F}_i^a = -\dpar{V(\{ \vb{x}_j \})}{\vb{x}_i}
+\]
+y expresando la fuerza $Q_j$ en términos del potencial $V$
+\[
+	Q_j = \vb{F}_i^a \cdot \dpar{\vb{x}_i}{q_j} = -\dpar{V}{\vb{x}_i} \cdot \dpar{\vb{x}_i}{q_j} = -\dpar{V}{q_j},
+\]
+que reemplazado en la ecuación 
 \[
 	\sum_{j=1}^{3N-k} \left\{ \frac{d}{dt}
-	\left[ \frac{\partial}{\partial \dot{q}_j} \left( T \right) \right] - \frac{\partial}{\partial q_j}
-	\left( T \right) - Q_j \right\} \delta q_j =  0.
+	\left[ \frac{\partial T}{\partial \dot{q}_j} \right] - \frac{\partial}{\partial q_j} \left( T - V \right) \right\} \delta q_j =  0.
 \]
-
-Si suponemos que las fuerzas son conservativas entonces 
+% \[
+% 	Q_j \: \delta q_j = -\dpar{V}{q_j} \: \delta q_j
+% \]
+% y como $V=V(\vb{x}_1,...,\vb{x}_n)$ se tiene 
+% \[
+% 	V = \sum_i^N  \dpar{V}{r_i} \delta \vb{x}_i = \dpar{V}{\vb{x}_i} \cdot \dpar{\vb{x}_i}{q_j} \delta q_j =
+% \]
+% pero 
+% \[
+% 	Q_j = - \dpar{V}{q_j}
+% \]
+% y entonces 
+% \[
+% 	\sum_{j=1}^{3N-k} \left\{ 
+% 	\frac{d}{dt} \left( \dpar{T}{\dot{q}_j} \right) - \frac{\partial}{\partial q_j}
+% 	\left( T - V \right) \right\} \delta q_j =  0.
+% \]
+Dado que $ V = V(\vb{x}_1,...,\vb{x}_N) = V( \{ q_j \} )$ (no depende de las velocidades generalizadas $ \dot{q}_j $) se puede escribir 
 \[
-	Q_j \delta q_j = -\dpar{V}{q_j}\delta q_j
+	\sum_{j=1}^{3N-k} \left\{ \frac{d}{dt}
+	\left[ \frac{\partial}{\partial \dot{q}_j} \left( T - V \right) \right] - 
+	\frac{\partial}{\partial q_j} \left( T - V \right) \right\} \delta q_j =  0.
 \]
-y como $V=V(\vb{r}_1,...,\vb{r}_n)$ se tiene 
-\[
-	V = \sum_i^N  \dpar{V}{r_i} \delta \vb{r}_i = \dpar{V}{\vb{r}_i} \cdot \dpar{\vb{r}_i}{q_j} \delta q_j =
-\]
-pero 
-\[
-	Q_j = - \dpar{V}{q_j}
-\]
-y entonces 
-\[
-	\sum_{j=1}^{3N-k} \left\{ 
-	\frac{d}{dt} \left( \dpar{T}{\dot{q}_j} \right) - \frac{\partial}{\partial q_j}
-	\left( T - V \right) \right\} \delta q_j =  0.
-\]
-
-Definimos como 
+y definiendo al lagrangiano\index{Lagrangiano} $\Lag$ como 
 \[
 	\Lag \equiv T - V
 \]
-y entonces podemos escribir
+\notamargen{El $\Lag$ es función del conjunto $(\{ q_j \}, \{ \dot{q}_j \}, t)$.}
+se arriba a
 \[
 	\sum_{j=1}^{3N-k} \left[
 	\frac{d}{dt} \left( \dpar{\Lag}{\dot{q}_j} \right) -  \dpar{\Lag}{q_j} \right] \delta q_j =  0.
 \]
 
-Si existieran fuerzas que no provienen de un potencial entonces
+Si existieran fuerzas que no provienen de un potencial (no conservativas) entonces
 \[
-	Q_j + Q_j^{NC} = -\dpar{V}{q_j} + Q_j^{NC}
+	Q_j + Q_j^{NC} = -\dpar{V}{q_j} + Q_j^{NC},
 \]
-y finalmente 
+y las ecuaciones adquieren un término extra 
 \[
 	\sum_{j=1}^{3N-k} \left[
-	\frac{d}{dt} \left( \dpar{\Lag}{\dot{q}_j} \right) -  \dpar{\Lag}{q_j} \right] \delta q_j = 
-	\sum_{j=1}^{3N-k} Q_j^{NC} \delta q_j
+	\frac{d}{dt} \left( \dpar{\Lag}{\dot{q}_j} \right) - \dpar{\Lag}{q_j} - Q_j^{NC} \right] \delta q_j = 0.
 \]
 
-Como esto vale para todo grado de libertad $l$ llegamos a
+Como esto vale para todo grado de libertad $j$, puesto que las variaciones son independientes, llegamos a
 \[
 	\frac{d}{dt} \left( \dpar{\Lag}{\dot{q}_j} \right) -  \dpar{\Lag}{q_j} = Q_j^{NC}
 \]
-que son las ecuaciones de Euler-Lagrange. Este es el resultado más importante del capítulo.
+que son las ecuaciones de Euler-Lagrange con presencia de fuerzas no conservativas. 
+Este es el resultado más importante del capítulo.
+\notamargen{No sé si es la primera vez que aparecen. De serlo habría que remarcarlo como es debido, tal vez
+recuadrar}
+
+\subsection{Algunos ejemplos del lagrangiano}
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\begin{ejemplo}{\bfseries Aro acelerado }
+
+\notamargen{Falta ilustración del aro y sistema coordenado.}
+
+Supongamos un aro horizontal en una mesa sin rozamiento. Tiene un único grado de libertad.
+
+El vínculo es
+\[
+	(x - \nicefrac{1}{2} \: at^2)^2 + (y-y_0 )^2 = \ell^2
+\]
+y las posiciones instantáneas de la masa $ m $
+\[
+	x = \frac{1}{2}at^2 - \ell \cos(\vp) \qquad  y = y_0 + \ell \sin(\vp)
+\]
+
+Es conveniente utilizar el ángulo $\vp$ como coordenada generalizada. Pero $\vp$ está solidaria al aro.
+Eso no es un problema siempre que el $\Lag$ esté medido en un sistema inercial.
+
+En este caso no hay potencial pero como $\vp$ es una coordenada vista en un sistema no inercial, aparecerán
+las fuerzas ficticias asociadas al movimiento.
+Serán
+\[
+	\dot{x} = at + \ell \sin(\vp) \dot{\vp} \qquad \dot{y} = \ell \cos(\vp) \dot{vp}
+\]
+y luego 
+\[
+	\Lag = T = \frac{1}{2} m (\dot{x}^2 + \dot{y}^2 ) = \frac{1}{2} m
+	(a^2 t^2 + 2at\ell\sin(\vp)\dot{\vp}+\ell^2\dot{\vp}^2)
+\]
+\notamargen{La $T$ del $\Lag$ es la vistda desde un sistema INERCIAL siempre; en todo caso leugo aparecen
+las fuerzas ficticias necesarias. ESTO HAY QUE ESTUDIARLO Y ENTENDERLO.
+\\
+}
+Las ecuaciones de Euler-Lagrange serán 
+\[
+	\dtot{}{t}\left( \dpar{\Lag}{\dot{\vp}}\right) - \dpar{\Lag}{\vp} = 
+	m \ell^2 \ddot{\vp} + mat\ell \sin(\vp) = 0
+\]
+lo cual resulta en la ecuación de movimiento
+\[
+	\ddot{\vp} = - \frac{at}{\ell} \sin(\vp) 
+\]
+que es una ecuación que da oscilaciones, como la de un péndulo. Estas oscilaciones están causadas, claramente,
+por la aceleración $a$.
+
+
+\notamargen{El lagrangiano se dedujo de las ecuaciones de Newton, entonces debemos calcular $T,V$ de un sistema
+inercial. Acá no se entiende si lo que se hace en la carpeta está bien o no, en el sentido de que parece que al
+usar una coordenada que no es inercial estamos calculando T no inercial.? }
+
+\end{ejemplo}
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 % =================================================================================================
 \section{Invariancia del lagrangiano ante adición de una derivada total}
 % =================================================================================================
 
-Sea una función de las coordenadas y del tiempo $F=F(q_i,t)$ que sumamos al lagrangiano $\Lag$, de modo que
+
+En el ejemplo visto del sistema mecánico del aro acelerado parece que existía alguna relación entre dos 
+lagrangianos que conducían a iguales ecuaciones de movimiento. Veamos ahora el origen de esa relación.
+\notamargen{Link con el ejemplo del aro acelerado!!}
+
+Dado un lagrangiano $\Lag = \Lag(\dot{q}_i,q_i,t)$ nos construimos otro $\Lag'$ sumándole al anterior la 
+derivada total de una función arbitraria de las coordenadas y del tiempo $F=F(q_i,t)$, de modo que
 \[
-	\Lag'=\Lag + \dtot{F}{t} 
+	\Lag'(\dot{q}_i,q_i,t) = \Lag(\dot{q}_i,q_i,t)+ \dtot{F}{t}(q_i,t) .
 \]
-y las ecuaciones de Euler-Lagrange para este nuevo lagrangiano son
+
+Las ecuaciones de Euler-Lagrange 
 \[
 	\frac{d}{dt}\left(\dpar{\Lag'}{\dot{q}_j}\right) - \dpar{\Lag'}{q_j} = 0
 \]
-\[
-	\dtot{}{t}\left(\dpar{\Lag}{\dot{q}_j} + \dpar{}{\dot{q}_j}\left(\dtot{F}{t}\right)\right) -
-	\dpar{\Lag}{q_j} - \dpar{}{q_j}\left( \dtot{F}{t}\right) = 0 
-\]
-\[
-	\dtot{}{t}\left(\dpar{\Lag}{\dot{q}_j}\right) - \dpar{\Lag}{q_j} + 
-	\dtot{}{t}\left(\dpar{}{\dot{q}_j}\left(\dtot{F}{t}\right)\right) 
-	- \dpar{}{q_j}\left( \dtot{F}{t}\right) = 0 
-\]
+para este nuevo lagrangiano resultan en
+\begin{multline}
+ 	\qquad \frac{d}{dt}\left(\dpar{\Lag'}{\dot{q}_j}\right) - \dpar{\Lag'}{q_j} =
+ 	\dtot{}{t}\left(\dpar{\Lag}{\dot{q}_j}\right) - \dpar{\Lag}{q_j} + \\
+ 	\dtot{}{t}\left(\dpar{}{\dot{q}_j}\left[ \dtot{F}{t} \right]\right) 
+	- \dpar{}{q_j}\left[ \dtot{F}{t}\right] = 0 \qquad \label{ecEL_lag_suma}	
+\end{multline}
+% \[
+% 	\dtot{}{t}\left(\dpar{\Lag}{\dot{q}_j} + \dpar{}{\dot{q}_j}\left(\dtot{F}{t}\right)\right) -
+% 	\dpar{\Lag}{q_j} - \dpar{}{q_j}\left( \dtot{F}{t}\right) = 0 
+% \]
+donde aparecen las ecuaciones correspondientes al lagrangiano $\Lag$ más los dos términos del 
+renglón inferior.
+Veremos que estos se cancelan exactamente por un argumento similar al encontrado en la ecuación
+\eqref{relacion_derivadas} en la sección anterior.
+% \[
+% 	\dtot{}{t}\left(\dpar{\Lag}{\dot{q}_j}\right) - \dpar{\Lag}{q_j} + 
+% 	\dtot{}{t}\left(\dpar{}{\dot{q}_j}\left(\dtot{F}{t}\right)\right) 
+% 	- \dpar{}{q_j}\left( \dtot{F}{t}\right) = 0 
+% \]
 
-Ahora es necesario escribir la derivada total de $F$,
+Para ello es necesario expresar la derivada total de $F$,
 \[
-	\dtot{F}{t} = \sum_j^{3N-k} \dpar{F}{q_j}\dtot{q_j}{t} + \dpar{F}{t} =
-			\sum_j^{3N-k} \dpar{F}{q_j}\dot{q}_j + \dpar{F}{t}
+	\dtot{F}{t} = \sum_i^{3N-k} \left( \dpar{F}{q_i} \right) \dot{q}_i + \dpar{F}{t}
 \]
 y ver que
 \[
-	\dpar{}{\dot{q}_j}\left(\dtot{F}{t}\right) = \dpar{F}{q_j} \qquad\qquad
-	\dpar{}{q_j}\left(\dtot{F}{t}\right) = \dpar[2]{F}{q_j} \dot{q}_j + \dparcru{F}{t}{q_j} 
+	\dpar{}{\dot{q}_j}\left[ \dtot{F}{t}\right] = \dpar{F}{q_j} \qquad\qquad
+	\dpar{}{q_j}\left[ \dtot{F}{t}\right] = \dpar[2]{F}{q_j} \dot{q}_j + \dparcru{F}{t}{q_j} 
 \]
 
-Luego, usando esta información, resulta que los términos que surgen de la adición de la derivada total de $F$ resultan 
-ser
-\[
-	\dtot{}{t}\left( \dpar{}{\dot{q}_j}\left(\dtot{F}{t}\right)\right) - 
-	\dpar{}{q_j}\left( \dtot{F}{t}\right) = \dtot{}{t}\left( \dpar{F}{q_j} \right) - 
-	\dpar{}{q_j}\left( \dtot{F}{t}\right)
-\]
-\[
-	\dtot{}{t}\left( \dpar{F}{q_j} \right) - \dpar{}{q_j}\left( \dtot{F}{t}\right) =
-	\dpar[2]{F}{q_j} \dot{q}_j + \dparcru{F}{q_j}{t} - \dpar{}{q_j}\left( \dtot{F}{t}\right)
-\]
-y si aceptamos que $F$ es de clase C$^2$ se tiene
-\[
-	\dpar[2]{F}{q_j} \dot{q}_j + \dparcru{F}{q_j}{t} - \dpar{}{q_j}\left( \dtot{F}{t}\right)=0
-\]
-de modo que las ecuaciones de Euler Lagrange no se modifican si añadimos una derivada total respecto del tiempo de una 
-función de $q_j,t$.
+Usando explícitamente estos resultados en los términos extra de \eqref{ecEL_lag_suma}, se llega 
+a que 
+\begin{multline*}
+ 	\dtot{}{t}\left(\dpar{}{\dot{q}_j}\left[ \dtot{F}{t} \right]\right) 
+	- \dpar{}{q_j}\left[ \dtot{F}{t}\right] =
+	\dtot{}{t}\left( \dpar{F}{q_j} \right) - \dpar{}{q_j}\left( \dtot{F}{t}\right) = \\
+	\left\{ \dpar[2]{F}{q_j} \: \dot{q}_j + \dparcru{F}{q_j}{t} \right\}%- \dpar{}{q_j}\left( \dtot{F}{t}\right)
+	- \left\{ \dpar[2]{F}{q_j} \dot{q}_j + \dparcru{F}{t}{q_j} \right\} =
+	\dparcru{F}{q_j}{t} - \dparcru{F}{t}{q_j} = 0
+\end{multline*}
+% \[
+% 	\dtot{}{t}\left( \dpar{}{\dot{q}_j}\left(\dtot{F}{t}\right)\right) - 
+% 	\dpar{}{q_j}\left( \dtot{F}{t}\right) = \dtot{}{t}\left( \dpar{F}{q_j} \right) - 
+% 	\dpar{}{q_j}\left( \dtot{F}{t}\right)
+% \]
+% \[
+% 	\dtot{}{t}\left( \dpar{F}{q_j} \right) - \dpar{}{q_j}\left( \dtot{F}{t}\right) =
+% 	\dpar[2]{F}{q_j} \dot{q}_j + \dparcru{F}{q_j}{t} - \dpar{}{q_j}\left( \dtot{F}{t}\right)
+% \]
+donde la obtención del cero responde a que hemos aceptado que las derivadas cruzadas de $F$ son idénticas.
+Para ello basta con admitir que $F$ sea de clase $C^2$ (derivadas segundas continuas).
+
+Finalmente hemos comprobado que las ecuaciones de Euler Lagrange no se modifican si añadimos al lagrangiano la 
+derivada total respecto del tiempo de una función de $(q_i,t)$.
+O sea que podríamos construir infinitos lagrangianos diferentes por el añadido de una derivada total y todos
+ellos llevan a las mismas ecuaciones de movimiento.
 
 % =================================================================================================
-\section{Momentos conjugados y coordenadas cíclicas}
+\section{Momentos conjugados y coordenadas cíclicas}\index{Momentos conjugados} \index{Coordenadas cíclicas}
 % =================================================================================================
 
-El momento canónicamente conjugado a $q_j$ se define como 
-\[
-	\dpar{\Lag}{\dot{q}_j} \equiv p_j
-\]
+Dado un lagrangiano $\Lag = \Lag( q_i,\dot{q}_i, t )$ se define el momento canónicamente conjugado a $q_j$
+como 
+\be
+	p_j \equiv \dpar{\Lag}{\dot{q}_j},
+	\label{mom_canon_conj}
+\ee
 y entonces 
 \[
-	\dot{p}_j = \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_j} \right) \equiv Q_j
+	\dot{p}_j = \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_j} \right) \equiv Q_j,
 \]
 que es la fuerza generalizada en el grado de libertad $j$.
-Sea un lagrangiano $\Lag = \Lag( q_i,\dot{q}_i, t )$ entonces si no depende explícitamente
-de la coordenada $k$ será
+
+Sea ahora un lagrangiano que no depende explícitamente de la coordenada $k$, es decir 
 \[
-	\dpar{\Lag}{q_k}= 0 \qquad \rightarrow \quad \Lag = \Lag( q_1,...,q_{k-1},q_{k+1},...,q_n,\dot{q}_i, t )
+	\Lag = \Lag( q_1,...,q_{k-1},q_{k+1},...,q_n,\dot{q}_1,...\dot{q}_n, t ),
 \]
-Las ecuaciones de Euler-Lagrange resultan 
+entonces será
 \[
-	Q_k - \dpar{\Lag}{q_k} = Q_k = 0 \quad \rightarrow \;\dot{p}_k = 0 \quad \rightarrow \; p_k = cte.
+	\dpar{\Lag}{q_k}= 0 
 \]
-no existe fuerza generalizada en el grado de libertad $k$, de forma que se conserva el momento
-$p_k$ canónicamente conjugado a $q_k$.
+y como consecuencia las ecuaciones de Euler-Lagrange en la coordenada $k$-ésima resultan 
+\[
+	\dtot{}{t}\left( \dpar{\Lag}{\dot{q}_k} \right) = \dot{ p }_k = Q_k = 0 
+% 	\quad \rightarrow \;\dot{p}_k = 0 \quad \rightarrow \; p_k = cte.
+\]
+de manera que no existe fuerza generalizada en el grado de libertad $k$ y como es $\dot{p}_k = 0$, se conserva 
+el momento $p_k$ canónicamente conjugado a $q_k$.
+En estos casos se dice que la coordenada $q_k$ que no aparece en el lagrangiano, es una coordenada
+cíclica.
+
+\begin{ejemplo}{\bf Potencial central en un plano}
+
+Sea un potencial central $ V(r) $ en el plano. El lagrangiano de una partícula de masa $m$ sometida al mismo,
+y en las convenientes coordenadas polares $(r,\vp)$ es
+\[
+	\Lag = \frac{1}{2} m ( \:\dot{r}^2 + r^2 \dot{\vp}^2 ) - V(r).
+\]
+Luego, las ecuaciones de Euler-Lagrange serán, en $r$,
+\[
+	\dtot{}{t}\left( \dpar{\Lag}{\dot{r}}\right) - \dpar{\Lag}{r} =
+	m\ddot{r} - m\dot{\vp}^2r + \dtot{V}{r} = 0
+\]
+y en $\vp$
+\[
+	\dtot{}{t}\left( \dpar{\Lag}{\dot{\vp}}\right) = mr^2\ddot{\vp} = 0.
+\]
+En esta última debemos notar que $\partial \Lag / \partial \vp = 0 $ y esto significa que $\vp$ es cíclica.
+Entonces se conserva el momento canónicamente conjugado a $\vp$ puesto que verifica 
+\[
+	\dot{p}_\vp = mr^2\ddot{\vp} = 0
+\]
+lo cual lleva a que $ m r^2\dot{\vp} $ es una constante para este sistema. La moraleja es que la existencia de una 
+coordenada cíclica permite ahorrarnos una integración.
+Esto, por supuesto, para este problema no es otra cosa que la conservación del momento angular [?].
+
+\end{ejemplo}
 
 % =================================================================================================
-\section{Energía cinética de un sistema}
+\section{Momentos canónicamente conjugados y traslaciones rígidas}
 % =================================================================================================
 
-A continuación expresaremos la energía cinética de un sistema en función de coordenadas generalizadas,
-\notamargen{Este chapter es básicamente un desarrollo formal, habría que bajar con alguna aplicación
-práctica.}
+Consideremos un sistema de partículas que sufre una traslación rígida infinitesimal.
+Esta traslación se lleva a cabo a través de un desplazamiento en la coordenada $ q $ y de magnitud 
+$\delta q$ en la dirección dada por el versor $ \hat{n} $.
+% Esta coordenada justamente tiene esa propiedad: una variación de ella representa una 
+% traslación rígida.
+% ESTE COMENTARIO, que estaba en la carpeta, ahora queda un poco desplazado por la sentencia más
+% correcta con respecto a la dirección \hat{n}. Supongo que lo importante es la dirección que en
+% el caso de cartesianas la da la misma q pero que en el caso de versores que varían su dirección
+% curvilíneos, debe especificarse.
+
+En efecto, para el sistema de $ N $ partículas, la traslación rígida implica
+\[
+	q \longrightarrow q + \delta q \qquad 
+	\vb{x}_i \longrightarrow \vb{x}_i + \delta q \; \hat{n}
+\]
+La Figura \ref{traslacion_rigida} representa la situación.
+
+Luego, suponiendo una energía cinética de tipo $T_2$, el momento canónicamente conjugado $ p $ (en 
+la coordenada $q$ --cuyo subíndice omitimos--) es
+\notamargen{[¿se sabe esto a esta altura?]}
+\[
+	p = \dpar{T}{\dot{q}} = \frac{1}{2} \sum_i^N m_i \left( \dpar{\vb{v}_i^2}{\dot{q}}\right) =
+	\sum_i^N m_i \vb{v}_i \cdot \dpar{\vb{v}_i}{\dot{q}} 
+\]
+\notamargen{Hablar de vectores al cuadrado.\\}
+\notamargen{\\ Nota de cómo se manipula: uso $dv^2_i = 2 v_i dv_i$ y}
+
+La {\it forma} de la traslación rígida implica que 
+\[
+	\dpar{\vb{v}_i}{\dot{q}} = \dpar{\vb{x}_i}{q} = 
+	\lim_{\delta q \to 0} \frac{\vb{x}_i + \delta q \:\hat{n} -\vb{x}_i}{\delta q} = \hat{n}.
+\]
+\notamargen{Recodemos que $ \vb{v}_i = \dot{q}_j\dpar{\vb{x}_i}{q_j} - \dpar{\vb{x}_i}{t} $ }
+de modo que 
+\[
+	p = \sum_i^N m_i \vb{v}_i \cdot \hat{n} = \left( \sum_i^N m_i \vb{v}_i \right) \cdot \hat{n} 
+	= \vb{P} \cdot \hat{n} = P_{\hat{n}}
+\]
+
+\begin{figure}[htb]
+	\begin{center}
+	\includegraphics[width=0.6\textwidth]{images/fig_mc_tras_rig.pdf}	 
+	\end{center}
+	\caption{}
+	\label{traslacion_rigida}
+\end{figure} 
+
+Hemos arribado al resultado de que el momento canónicamente conjugado correspondiente a la coordenada
+generalizada asociada a la traslación rígida es la proyección del momento total en la dirección de ésta.
+
+Para el ejemplo trivial de la partícula libre, $T = 1/2 \; m (\dot{x}^2+ \dot{y}^2+\dot{z}^2)$, se
+tiene $ p_x = m v_x $ si la traslación es en la dirección $ \hat{x} $.
+\notamargen{Este ejemplo suma algo?}
+
+Para las fuerzas generalizadas, equivalentemente se tiene 
+\[
+	Q = \sum_i^N \vb{F}^a_i \cdot \dpar{\vb{x}_i}{q} =
+	\left( \sum_i^N \vb{F}^a_i \right) \cdot \hat{n} = \vb{F}\cdot \hat{n},
+\]
+la fuerza generalizada es la proyección de las fuerzas aplicadas en la dirección dada por $ \hat{n} $.
+
+\notamargen{Revisar porque esto no estaba tan claro. Supongo que la idea es ver que aún con presencia
+de $T_1$ esto sigue valiendo}
+La ecuación para la fuerza generalizada $Q_j$ era
+\[
+	Q_j = \frac{d}{dt}\left( \dpar{T}{\dot{q}_j} \right) - \dpar{T}{q_j}.
+\]
+Aún en el caso de que $T$ dependa de $q_j$ la traslación rígida implica que 
+$ \partial{T}/\partial{q_j} = 0 $ 
+porque es sumar un vector constante a la posición, luego $ d\vb{x}_i/dt = d(\vb{x}_i + \vb{a}) /dt$
+para todo \vb{a} constante. Entonces, para la coordenada q asociada a la traslación en $\hat{n}$
+se tiene 
+% \[
+% 	Q_j = \frac{d}{dt}\left( \dpar{T}{\dot{q}_j} \right)
+% \]
+% y en el caso de la traslación con dirección $\hat{n}$,
+\[
+	Q = \frac{d}{dt}\left( \dpar{T}{\dot{q}} \right) = \dtot{P_{\hat{n}}}{t},
+\]
+de tal manera que si en $\hat{n}$ no hay fuerza $Q$ tendremos $ d P_{\hat{n}}/dt = 0 $, es decir 
+$ P_{\hat{n}} $ conservado.
+
+\notamargen{Acá la cosa es que la traslación es una cosa que sufre el sistema pero no es dinámica.
+Es una construcción nuestra, como un cambio de sistema de referencia.}
+
+% pero el segundo término del lado izquierdo $\partial T/\partial q_j = 0$ puesto que la $T$ no se ve
+% afectada por cambiar trasladando rígidamente el sistema.
+% \[
+% 	\frac{d}{dt}(\vb{p}\cdot \hat{n}) = \vb{F}\cdot \hat{n},
+% \]
+% y esto significa que el $p_j$ se conserva si no hay fuerza en $\hat{j}$.
+
+% =================================================================================================
+\section{Momentos canónicamente conjugados y rotaciones rígidas}
+% =================================================================================================
+
+Ahora consideraremos un sistema de partículas que sufre una rotación rígida infinitesimal.
+Esta se materializa a través de un desplazamiento angular en la coordenada $ q $ de magnitud $\delta q$.
+La dirección y sentido, para cada posición $ \vb{x}_i $ vienen dadas por el producto vectorial 
+$ \hat{n} \times \vb{x}_i$.
+
+\notamargen{Esta coordenada $q$ es especial en el sentido en que representa una rotación.}
+Para un sistema de $ N $ partículas, la rotación rígida implica
+\[
+	q \longrightarrow q + \delta q |\vb{x}| \sin \alpha_i \qquad
+	\vb{x}_i \longrightarrow \vb{x}_i + \delta q \; \hat{n} \times \vb{x}_i
+\]
+La Figura \ref{rotacion_rigida} representa la situación, donde por razones de claridad se muestran
+solamente dos partículas.
+
+\begin{figure}[htb]
+	\begin{center}
+	\includegraphics[width=0.6\textwidth]{images/fig_mc_rot_rig.pdf}	 
+	\end{center}
+	\caption{}
+	\label{rotacion_rigida}
+\end{figure} 
+% Ahora es el turno de la rotación rígida. Sea coordenada que representa rotación rígida,
+% \[
+% 	\vb{r}_i \longrightarrow \vb{r}_i + \delta q (\hat{n} \times \vb{r}_i)
+% \]
+El momento canónicamente conjugado en la coordenada angular $q$ será
+\[
+	p = \dpar{T}{\dot{q}} = 
+	\sum_i^N m_i \vb{v}_i \cdot \dpar{\vb{v}_i}{\dot{q}} =
+	\sum_i^N m_i \vb{v}_i \cdot \hat{n} \times \vb{x}_i = 
+	\sum_i^N m_i \vb{v}_i \cdot ( \hat{n} \times \vb{x}_i )
+\]
+donde hemos utilizado el hecho de que 
+\[
+	\dpar{\vb{v}_i}{\dot{q}} = \dpar{\vb{x}_i}{q} = 
+	\lim_{\delta q \to 0} \frac{ \vb{x}_i +\delta q (\hat{n} \times \vb{x}_i)- 
+	\vb{r}_i}{\delta q} = \hat{n} \times \vb{x}_i. 
+\]
+
+El sumando se puede reescribir (usando $\vb{A}\cdot(\vb{B}\times\vb{C}) = 
+\vb{B}\cdot(\vb{C}\times\vb{A})$) para que aparezca explícitamente la forma buscada,
+\[
+	p = \sum_i^N m_i \vb{v}_i \cdot ( \hat{n} \times \vb{x}_i ) =
+	\sum_i^N \hat{n} \cdot ( \vb{x}_i \times m_i \vb{v}_i  ) =
+	\sum_i^N \hat{n} \cdot \vb{l}_i = \hat{n} \cdot \sum_i^N \vb{l}_i =
+	\hat{n} \cdot \vb{L}
+\]
+que significa
+\[
+	p = \hat{n} \cdot \vb{L} = L_{\hat{n}},
+\]
+el momento canónicamente conjugado en la dirección $\hat{n}$ es el momento angular total
+del sistema proyectado en esa dirección.
+% \[
+% 	|\delta q(\hat{n} \times \vb{r}_i)| = \delta q r_i \sin (\alpha)
+% \]
+% El momento canónicamente conjugado en la dirección $\hat{n}$ es el $\vb{L}$ proyectado en esa dirección.
+% \[
+% 	\frac{d}{dt}(\hat{n}\cdot\vb{L}) = \hat{n}\cdot\vb{\tau}
+% \]
+% y el $p_j$ se conserva si no hay torque.
+La fuerza generalizada será
+\[
+	Q = \sum_i^N \vb{F}^a_i \cdot \dpar{\vb{x}_i}{q} = 
+	\sum_i^N \vb{F}^a_i \cdot ( \hat{n} \times \vb{x}_i ) = 
+	\hat{n} \cdot \left( \sum_i^N \vb{x}_i \times  \vb{F}^a_i \right) = 
+	\hat{n} \cdot \sum_i^N \vb{\tau}_i = \hat{n} \cdot \vb{\Tau},
+\]
+i.e. la componente del torque en la dirección $ \hat{n} $.
+
+Asimismo, si la coordenada implica una rotación rígida entonces $ \partial{T}/\partial{q} = 0 $ 
+debido a que la energía cinética $ T $ es un escalar y es por ende invariante ante rotaciones
+(un vector rotado cambia su dirección pero no su módulo).
+Luego
+\[
+	Q = \frac{d}{dt}\left( \dpar{T}{\dot{q}} \right) = \dtot{L_{\hat{n}}}{t} = \vb{\Tau}_{\hat{n}}.
+\]
+% \[
+% 	\frac{d}{dt}\left( \hat{n}\cdot \vb{L} \right) = \hat{n}\cdot \vb{\tau}
+% \]
+\notamargen{Tal vez un ejemplo 2D ayude a aclarar un poco este tema.}
+
+Todo este análisis (traslaciones y rotaciones rígidas) vale si el potencial $V$ no depende de la
+velocidad; en caso contrario cambia la forma de los momentos canónicos. En efecto, en este caso
+es
+\[
+	p = \dpar{ \Lag }{\dot{q}} = \dpar{(T-V)}{\dot{q}}
+\]
+Volviendo al ejemplo de la partícula de masa $m$ y carga $q$ en un campo electromagnético se tendrá
+\[
+	p = m v_{\hat{n}} + \frac{q}{c} \vb{A}\cdot\hat{n},
+\]
+es decir que aparece un término extra con el potencial vector respecto del caso en que la partícula
+está libre.
+
+% =================================================================================================
+\section{Energía cinética de un sistema}\index{Energía cinética}
+% =================================================================================================
+
+Resulta útil disponer de la energía cinética de un sistema en función de coordenadas generalizadas.
+Para un sistema de $N$ partículas, es 
+\[
+	T = \frac{1}{2} \sum_i^N m_i |\vb{v}_i|^2 
+\]
+donde las posiciones de cada una de ellas se pueden expresar en términos de $k$ coordenadas generalizadas
+\[
+	\vb{x}_i = \vb{x}_i(q_1, q_2, ..., q_k, t )
+\]
+y sus respectivas velocidades serán
+\notamargen{La derivada con respecto al tiempo de la posición es la $ d/dt $ no la parcial.}
+\[
+	\vb{v}_i = \sum_j^{k}  \dpar{\vb{x}_i}{q_j} \: \dot{q}_j + \dpar{\vb{x}_i}{t}.
+\]
+\notamargen{Este chapter es básicamente un desarrollo formal, habría que bajar con alguna aplicación práctica.}
+Luego, utilizando el hecho de que $ |\vb{v}_i|^2 = \vb{v}_i \cdot \vb{v}_i $, se tiene 
 \be
-	T = \frac{1}{2} \sum_i^N m_i \vb{v}_i^2 =
-	\frac{1}{2} \sum_i^N m_i \left( \sum_j^{3n-k}  \dpar{\vb{r}_i}{q_j}\dot{q}_j + \dpar{\vb{r}_i}{t} \right)
-	\left( \sum_s^{3n-k} \dpar{\vb{r}_i}{q_s}\dot{q}_s + \dpar{\vb{r}_i}{t} \right) 
+	T = \frac{1}{2} \sum_i^N m_i \left( \sum_{j=1}^{k}  \dpar{\vb{x}_i}{q_j}\dot{q}_j + \dpar{\vb{x}_i}{t} \right)
+	\cdot \left( \sum_{s=1}^{k} \dpar{\vb{x}_i}{q_s}\dot{q}_s + \dpar{\vb{x}_i}{t} \right) 
 \label{mc_T}
 \ee
-Usando $\vb{r}_i = \vb{r}_i(q_1, ...,q_n,t)$ desarrollamos un desplazamiento real como
+y expandiendo el producto resulta
 \[
-	d\vb{r}_i = \sum_{j=1}^{3N-k} \left( \dpar{\vb{r}_i}{q_j} \right) dq_j + \dpar{\vb{r}_i}{t} dt
+	T = \frac{1}{2} \sum_i^N m_i \left[ \sum_j^{k}\sum_s^{k} \dpar{\vb{x}_i}{q_j} \cdot \dpar{\vb{x}_i}{q_s}\dot{q}_s\dot{q}_j + 
+	2 \dpar{\vb{x}_i}{t} \cdot \sum_j^{k} \dpar{\vb{x}_i}{q_j}\dot{q}_j + \left| \dpar{\vb{x}_i}{t} \right|^2 \right],
 \]
-y podemos incorporar esta información en \eqref{mc_T} para obtener
+la cual se puede separar en tres contribuciones
 \[
-	T = 
-	\frac{1}{2} \sum_i^N m_i \left( \sum_j^{3n-k}\sum_s^{3n-k}  
-	\dpar{\vb{r}_i}{q_j}\dpar{\vb{r}_i}{q_s}\dot{q}_s\dot{q}_j + 
-	\left( \dpar{\vb{r}_i}{t} \right) \right)^2 +
-	2 \left( \sum_j^{3n-k} \dpar{\vb{r}_i}{q_j}\dot{q}_j\dpar{\vb{r}_i}{t} \right) 
+	T = T_2 + T_1 + T_0
+\]
+\notamargen{Sacarle espacio al \texttt{cdot}}
+con las siguientes formas:
+\[
+	T_2 = \frac{1}{2} \sum_j^{k} \sum_s^{k} \left( \sum_i^N m_i \dpar{\vb{x}_i}{q_j} \cdot \dpar{\vb{x}_i}{q_s} \right) \dot{q}_j\dot{q}_s
 \]
 \[
-	T = 
-	\frac{1}{2} \sum_i^N m_i \left( \sum_j^{3n-k}\sum_s^{3n-k}  
-	\dpar{\vb{r}_i}{q_j}\dpar{\vb{r}_i}{q_s}\dot{q}_s\dot{q}_j  \right) + 
-	\frac{1}{2} \sum_i^N m_i \left( \dpar{\vb{r}_i}{t} \right)^2 +
-	\sum_i^N m_i \left( \sum_j^{3n-k} \dpar{\vb{r}_i}{q_j}\dot{q}_j\dpar{\vb{r}_i}{t} \right) 
+	T_1 =  \sum_j^{k} \left( \sum_i^N m_i \dpar{\vb{x}_i}{t} \cdot \dpar{\vb{x}_i}{q_j} \right) \dot{q}_j
+\]
+\[
+	T_0 = \frac{1}{2} \sum_i^N m_i \left| \dpar{\vb{x}_i}{t} \right|^2,
+\]
+donde se ha alterado el orden de los signos $\sum$ para enfatizar el hecho de que las cantidades entre paréntesis pueden asociarse
+a una matriz y un vector de acuerdo con 
+\[
+	a_{js}(q_1,...,q_k,t) \equiv \sum_i^N  m_i \dpar{\vb{x}_i}{q_j} \cdot \dpar{\vb{x}_i}{q_s}
+\]
+\[
+	b_j(q_1,...,q_k,t) \equiv \sum_i^N  m_i \dpar{\vb{x}_i}{q_j} \cdot \dpar{\vb{x}_i}{t}
 \]
 
-Esto se puede reescribir más cómodamente definiendo
+Entonces
 \[
-	T_0 \equiv \frac{1}{2} \sum_i^N m_i \left( \dpar{\vb{r}_i}{t} \right)^2
+	T_2 = \frac{1}{2} \sum_j^{k} \sum_s^{k} \: a_{js} \: \dot{q}_s\dot{q}_j, \qquad 
+	T_1 = \sum_j^{k} \: b_j \: \dot{q}_j , \qquad 
+	T_0 = \frac{1}{2} \sum_i^N m_i \left| \dpar{\vb{x}_i}{t} \right|^2
 \]
-\[
-	a_{js}(q_1,...,q_{3N-k},t) \equiv \sum_i^N  m_i \dpar{\vb{r}_i}{q_j}\dpar{\vb{r}_i}{q_s}
-\]
-\[
-	b_j(q_1,...,q_{3N-k},t) \equiv \sum_i^N  m_i \dpar{\vb{r}_i}{q_j}\dpar{\vb{r}_i}{t}
-\]
-y entonces, juntando todo,
-\notamargen{Hay un factor de $1/2$ de diferencia. Revisar la carpeta.}
-\[
-	T = T_0 +
-	\frac{1}{2} \sum_j^{3n-k}\sum_s^{3n-k}  a_{js}(q_1,...,q_{3N-k},t)\dot{q}_s\dot{q}_j  + 
-	\sum_j^{3n-k} b_j(q_1,...,q_{3N-k},t)\dot{q}_j  
-\]
+son, respectivamente, contribuciones cuadráticas, lineales o de orden cero con respecto a las velocidades generalizadas $\dot{q}$.
+% 
+% Usando $\vb{r}_i = \vb{r}_i(q_1, ...,q_n,t)$ desarrollamos un desplazamiento real como
+% \[
+% 	d\vb{r}_i = \sum_{j=1}^{3N-k} \left( \dpar{\vb{r}_i}{q_j} \right) dq_j + \dpar{\vb{r}_i}{t} dt
+% \]
+% y podemos incorporar esta información en \eqref{mc_T} para obtener
+% \[
+% 	T = 
+% 	\frac{1}{2} \sum_i^N m_i \left( \sum_j^{3n-k}\sum_s^{3n-k}  
+% 	\dpar{\vb{r}_i}{q_j}\dpar{\vb{r}_i}{q_s}\dot{q}_s\dot{q}_j + 
+% 	\left( \dpar{\vb{r}_i}{t} \right) \right)^2 +
+% 	2 \left( \sum_j^{3n-k} \dpar{\vb{r}_i}{q_j}\dot{q}_j\dpar{\vb{r}_i}{t} \right) 
+% \]
+% \[
+% 	T = 
+% 	\frac{1}{2} \sum_i^N m_i \left( \sum_j^{3n-k}\sum_s^{3n-k}  
+% 	\dpar{\vb{r}_i}{q_j}\dpar{\vb{r}_i}{q_s}\dot{q}_s\dot{q}_j  \right) + 
+% 	\frac{1}{2} \sum_i^N m_i \left( \dpar{\vb{r}_i}{t} \right)^2 +
+% 	\sum_i^N m_i \left( \sum_j^{3n-k} \dpar{\vb{r}_i}{q_j}\dot{q}_j\dpar{\vb{r}_i}{t} \right) 
+% \]
 
 Para una particula libre será
 \[
 	T = T_2
 \]
-y para una partícula con vínculos en general tendrá las tres clases de cinética.
+es decir que solamente es cuadrática en las velocidades. Para una partícula sometida a vínculos en general, en términos
+de las coordenadas generalizadas, se tendrán las tres clases de cinética.
+
+En coordenadas esféricas la energía de una partícula libre es 
+\[
+	T_2 =  \frac{1}{2} m \left( \dot{r}^2 + r^2 \dot{\theta}^2 + r^2 \sin \theta \dot{\vp}^2 \right).
+\]
+Si las coordenadas generalizadas son las coordenadas $ r, \theta, \vp $ se identifica 
+\[
+	T_2 =  \frac{1}{2} m \left( a_r(r, \theta, \vp ) \dot{r}^2 + a_\theta(r, \theta, \vp ) \dot{\theta}^2 + 
+	a_\phi(r, \theta, \vp ) \dot{\vp}^2 \right).
+\]
 
 % =================================================================================================
 \section{Energía cinética de un sistema de partículas}
@@ -475,53 +886,119 @@ Por otro lado,
 \section{Lagrangiano cíclico en el tiempo}
 % =================================================================================================
 
-Empecemos desde la derivada total con respecto al tiempo del lagrangiano,
-\[
+Empezando desde la derivada total con respecto al tiempo del lagrangiano,
+\be
 	\frac{d}{dt}\left( \Lag( q, \dot{q}, t)\right) =
 	\dpar{\Lag}{q} \dot{q} + \dpar{\Lag}{\dot{q}} \ddot{q} + \dpar{\Lag}{t}
-\]
+	\label{derivada_lag_ciclico}
+\ee
 y usando la derivada total del término 
 \[
 	\frac{d}{dt}\left( \dpar{\Lag}{\dot{q}}\dot{q}\right) =
-	\frac{d}{dt}\left( \dpar{\Lag}{\dot{q}} \right) \dot{q} + \dpar{\Lag}{\dot{q}} \ddot{q} .
+	\frac{d}{dt}\left( \dpar{\Lag}{\dot{q}} \right) \dot{q} + \dpar{\Lag}{\dot{q}} \ddot{q},
 \]
-
-Reemplazando una en otra resulta que 
+se puede expresar \eqref{derivada_lag_ciclico} sin derivadas segundas explícitas $\ddot{q}$ de suerte que 
 \[
 	\frac{d}{dt}\left( \Lag( q, \dot{q}, t)\right) = \dpar{\Lag}{q} \dot{q} + \frac{d}{dt}\left( 
 	\dpar{\Lag}{\dot{q}}\dot{q}\right) - \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}} \right) \dot{q} + \dpar{\Lag}{t}
 \]
-y acomodando un poco
+la cual, acomodando un poco los términos, resulta en
 \[
 	\frac{d}{dt}\left( \Lag( q, \dot{q}, t)\right) = 
 	\left[ \dpar{\Lag}{q}  - \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}} \right) \right] \dot{q} + 
-	\frac{d}{dt}\left( \dpar{\Lag}{\dot{q}}\dot{q}\right)  + \dpar{\Lag}{t}
+	\frac{d}{dt}\left( \dpar{\Lag}{\dot{q}}\dot{q}\right)  + \dpar{\Lag}{t}.
 \]
+
+Como el corchete son las ecuaciones de Euler-Lagrange y además $\partial\Lag/\partial \dot{q} \equiv p$ se tiene
 \[
-	\frac{d}{dt}\left( \Lag( q, \dot{q}, t)\right) = \frac{d}{dt}\left( p \dot{q} \right) + \dpar{\Lag}{t}
+	\frac{d}{dt}\left( \Lag( q, \dot{q}, t)\right) = \frac{d}{dt}\left( p \: \dot{q} \right) + \dpar{\Lag}{t},
 \]
-y entonces previo pase mágico de términos,
+o bien,
 \[
-	\frac{d}{dt}\left( p\dot{q} - \Lag \right) = -\dpar{\Lag}{t}
+	\frac{d}{dt}\left( p \: \dot{q} - \Lag \right) = -\dpar{\Lag}{t}.
 \]
-y si definimos
-\[
-	\Ham \equiv p\dot{q} - \Lag 
-\]
+Definiendo al operador hamiltoniano $\Ham$ como 
+\be
+	\Ham \equiv p\:\dot{q} - \Lag 
+	\label{hamiltoniano}
+\ee
 resulta que 
+\be
+	\dtot{\Ham}{t} = - \dpar{\Lag}{t}
+	\label{derivada_temporal_ham}
+\ee
+
+El hamiltoniano es un operador tal que su variación temporal total depende de la variación temporal explícita del 
+lagrangiano.
+Entonces, si el lagrangiano no depende explícitamente del tiempo se tiene que $ \Ham = \Ham_0 $, el hamiltoniano
+se conserva.\footnote{Notemos en la ecuación \eqref{derivada_temporal_ham} que la derivada $ \partial \Lag / \partial t$ 
+refiere a la aparición explícita de $ t $; de este modo el hecho de que sea $ \partial \Lag / \partial t = 0 $ significa
+que el $\Ham$ se conserva pero no que $\Lag$ se conserva. Esto último requeriría $ d \Lag / dt = 0 $.}
+
+\notamargen{No sé en qué momento se ha definido el hamiltoniano, $H=T+V$, deberíamos referirlo y tenerlo en cuenta.}
+
+Por otra parte, si se cumple que :
+\begin{itemize}
+ \item Los vínculos no dependen del tiempo
+ \item El potencial no depende de las velocidades generalizadas,
+\end{itemize}
+entonces el hamiltoniano es la energía, es decir 
+\be
+	\Ham = E = T + V.
+	\label{hamiltoniano_energia}
+\ee
+
+La condición de que los vínculos no dependan del tiempo tiene como consecuencia que la energía cinética sea una 
+función cuadrática en las velocidades generalizadas. Entonces la condición \eqref{hamiltoniano_energia} se puede
+expresar en términos de las energías cinéticas y potenciales como 
 \[
-	\dtot{\Ham}{t} = - \dpar{\Lag}{t}.
+	T = T_2   \qquad   \qquad   V \neq V(\dot{q})
 \]
 
-Entonces si el lagrangiano no depende explícitamente del tiempo se tiene que $\Ham = cte.$. Además,
-si se cumplen 
-\[
-	T=T_2 \qquad V \neq V(\dot{q})
-\]
-y además los vínculos no dependen del tiempo se tiene que $\Ham=E$, es decir, el Hamiltoniano es la
-energía. La condicion de que los vínculos no dependan del tiempo genera en realidad que $T=T_2$.
+Asimismo, la condición de energía constante $ E = E_0 $ se cumplirá si el trabajo de las fuerzas no conservativas
+es nulo, $ W^{\text{nc}} = 0 $.
+\notamargen{Esto se debiera haber visto antes en algún momento, y convendría recordarlo aquí.}
 
-Por otro lado $E = cte.$ si $W^{nc} = 0$.
+\begin{ejemplo}{\bf Bola rotante engarzada en alambre}
+
+Una barra gira sobre un mesa sin rozamiento en torno a un punto fijo $O$ con velocidad angular constante $ \omega $.
+Esta barra tiene enhebrada una bola de masa $m$ que puede deslizarse libremente a lo largo de la misma, como se ilustra 
+esquemáticamente en la figura \ref{fig_barra_giratoria}.
+
+\begin{figure}[bth]
+	\begin{center}
+	\includegraphics[width=0.4\textwidth]{images/fig_barra_giratoria.pdf}
+	\end{center}
+	\caption{Problema de la barra que gira con una masa $m$ enhebrada.}
+	\label{fig_barra_giratoria}
+\end{figure} 
+
+Claramente la bola seguirá, con respecto a un sistema de coordenadas polar $(\rho,\vp)$ con origen en el punto $O$,
+una trayectoria como la esquematizada por la curva verde. 
+% Las coordenadas generalizadas son $\rho,\vp$
+
+En este problema no hay potencial y el lagrangiano, que es $T$, será 
+\[
+	\Lag = \frac{1}{2} ( \dot{\rho}^2 + \rho^2 \omega^2 )
+\]
+
+El hamiltoniano es 
+\be
+	\Ham = \frac{1}{2} ( \dot{\rho}^2 - \rho^2 \omega^2 ).
+	\label{ham_ejemplo_bola}
+\ee
+Luego, como el lagrangiano no depende explícitamente del tiempo entonces el hamiltoniano dado por la \eqref{ham_ejemplo_bola}
+se conserva. No obstante, el hamiltoniano no es la energía puesto que la energía cinética $ T $ tiene la forma  $ T = T_2 + T_0 $,
+que proviene del hecho de que la fuerza de vínculo (que tendrá dirección angular en este caso) dependerá del tiempo.
+La energía no se conserva, claramente hay trabajo de la fuerza de vínculo, que es una fuerza no conservativa. 
+
+La conservación del hamiltoniano dependerá de las coordenadas generalizadas elegidas. Podría pensarse que el $\Ham$ es la energía
+vista en un sistema no inercial [?].
+La energía siempre es la medida en un sistema inercial. Además, cuando se conserve lo será desde cualquier sistema de coordenadas
+inercial elegido.
+ 
+\end{ejemplo}
+
 
 % =================================================================================================
 \section{Energía cinética y el hamiltoniano}
@@ -556,76 +1033,141 @@ y un solución de este sistema es, por supuesto, $T_0 = T_1 = 0$
 \section{Principio de acción mínima}
 % =================================================================================================
 
-También Principio variacional de Hamilton. Partimos de una acción,
-\[
-	S = \int_{t_i}^{t_f} \Lag( q_i, \dot{q}_i, t ) dt \qquad \Lag = T-V
-\]
+El estado de un sistema mecánico de $ N $ grados de libertad en un dado instante de tiempo $ t $ puede asociarse a 
+un vector de componentes $ \{ q_i \} $ viviendo en un espacio $N$-dimensional de coordenadas generalizadas. 
+La evolución entre dos puntos en ese espacio, de $ \{ q_i(t_a) \} $  a $ \{ q_i(t_b) \} $ por ejemplo, se realiza por
+un trayecto continuo entre esos dos puntos, que es la trayectoria del sistema.
 
-La trayectoria real de un sistema con lagrangiano $\Lag$ es tal que $S$ es mínimo para cualquier 
-trayectoria posible entre $q(t=t_i)$ y $q(t=t_f)$. Consideramos una variación con extremos fijos,
-es decir 
+\begin{figure}[bth]
+	\begin{center}
+	\includegraphics[width=0.5\textwidth]{images/fig_hamilton.pdf}	 
+	\end{center}
+	\caption{Trayectoria de un sistema mecánico $\{ q_i \}$ entre dos puntos del espacio $N$-dimensional de
+	coordenadas generalizadas.}
+	\label{principio_hamilton}
+\end{figure}
+
+En principio cualquier trayecto entre dos puntos es posible porque eso depende de la física a la cual está sometido
+el sistema, no obstante existe un principio que permite saber cuál es la trayectoria que seguirá.
+
+Considerando el lagrangiano $ \Lag = T - V $ y la siguiente integral (la acción $S$) entre los puntos $ \{ q_i(t_a) \} $
+y $ \{ q_i(t_b) \} $,
 \[
-	\delta q(t=t_i) = 0 \qquad \delta q(t=t_f) = 0
+	S = \int_{t_a}^{t_b} \Lag( q_1(t, q_2(t), ..., \dot{q}_1(t),\dot{q}_2(t), ...,t )) \: dt
 \]
-y a tiempo fijo $\delta t = 0$. Esto último signfica que todas las trayectorias emplearán el 
-mismo tiempo (no se variará).
-\notamargen{Cuán sketchi es todo esto!! Mucho para aclarar. Tal vez se justifique un minicurso
-de variacional como apéndice.}
+se tiene que la trayectoria real entre estos dos puntos es tal que la integral $S$ toma su valor mínimo.
+
+Dicho de otra manera, esto significa que $ S $ como funcional dependiendo de $ \{ q_i \}, \{ \dot{q}_i \} $
+deberá tener un valor mínimo (o ser estacionaria) al especializarse en la trayectoria real.
+Esto es análogo a lo que sucede en cálculo; en el mínimo de una función (de una o varias variables) la derivada 
+se anula. El concepto equivalente en funcionales como $ S $ es el de variación nula.
+
+La idea es construir una {\it variación} arbitraria respecto de la trayectoria real $ \{ q_i \} $ y forzar a que esa 
+variación se anule para obtener un condición sobre las $ \{ q_i \} $ (para funciones esa condición era que el gradiente
+se anule).
+
+Si me sitúo en la trayectoria verdadera, es decir el conjunto $ \{ q_i(t) \}$, una variación arbitraria de la misma
+tendrá la forma
+\be
+	q_i(t) \rightarrow q_i(t) + \delta q_i(t) \qquad i=1,2, ...
+	\label{variacion}
+\ee
+donde cada coordenada $ q $ variará de acuerdo con su correspondiente desplazamiento $\delta q $.
+La variación se hace en un intervalo de tiempo arbitrario $ [t_a,t_b] $ y con extremos fijos, 
+\be
+	\delta q(t_a) = 0 \qquad \qquad \delta q(t_b) = 0,
+	\label{extremos_fijos}
+\ee
+lo que significa que los puntos de partida y llegada en el espacio de fases son los mismos.
+\notamargen{Habría que justificar cuál es el significado de esto y porqué es así.}
+
+Asimismo se pedirá que todas las trayectorias empleen el mismo tiempo de manera que la variación se hará en algún
+tiempo fijo intermedio $ t_a < t < t_b $. O sea que $\delta t = 0$.
+
+\notamargen{Cuán sketchi es todo esto!! Mucho para aclarar. Tal vez se justifique un minicurso de variacional como 
+apéndice.}
+
+Una representación unidimensional (una única $q$) puede verse en la Figura \ref{principio_accion_minima}.
+La trayectoria real sería la curva $ q(t) $ en color rojo, mientras que la curva verde sería una trayectoria variada
+a través de $ \delta q $. Los extremos fijos \eqref{extremos_fijos} implican que la variación es nula allí, y entonces
+las curvas comienzan y terminan en el mismo punto.
 
 \begin{figure}
 	\begin{center}
-	\includegraphics[width=0.4\textwidth]{images/fig_accion.pdf}	 
+	\includegraphics[width=0.7\textwidth]{images/fig_accion.pdf}	 
 	\end{center}
 	\caption{El principio de acción mínima}
+	\label{principio_accion_minima}
 \end{figure}
 
-Consideramos una variación de la integral,
+El hecho de considerar una variación a tiempo fijo $t_j$ implica que nos situaremos arbitrariamente en ese instante
+y variaremos las trayectorias $ \{ q_i \} $ congeladas en ese instante arbitrario. Por supuesto, el resultado debería
+valer para cualquier instante intermedio considerado.
+
+La idea es determinar las condiciones que se necesitan para 
 \[
-	\delta I =  \int_{t_i}^{t_f} \sum_i^N \left( \dpar{\Lag}{\dot{q}_i} \delta \dot{q}_i +
+	\frac{\delta S}{\delta q_i} = 0.
+\]
+
+Para ello comenzamos tomando una variación de $S$ que pasa dentro de la integral como 
+\[
+	\delta S = \int \left[ \Lag(q_i + \delta q_i, \dot{q}_i + \delta \dot{q}_i , t )
+	- \Lag(q_i , \dot{q}_i , t ) \right] dt
+\]
+y donde vemos explícitamente que es a tiempo fijo.
+
+La variación de la integral puede escribirse 
+\[
+	\delta S =  \int_{t_a}^{t_b} \sum_i^N \left( \dpar{\Lag}{\dot{q}_i} \delta \dot{q}_i +
 	\dpar{\Lag}{q_i} \delta q_i  \right) dt,
 \]
-y notamos que será beneficioso utilizar integración por partes para expresar todo en función de
-las variaciones de las coordenadas (las $\delta q_i$), de manera que como
+y como será útil tener todo en función de las variaciones $\delta q_i$, es conveniente expresar las variaciones $ 
+\delta \dot{q}_i $ en términos de una derivada total a través de  
 \[
 	\frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_i} \delta q_i \right) =
 	\frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_i} \right) \delta q_i + \dpar{\Lag}{\dot{q}_i}\delta \dot{q}_i,
 \]
-resulta
+resultando en 
 \[
-	\delta I =  \int_{t_i}^{t_f} \sum_i^N \left[ \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_i} \delta q_i \right) -
+	\delta S =  \int_{t_a}^{t_b} \sum_i^N \left[ \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_i} \delta q_i \right) -
 	\frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_i} \right) \delta q_i + \dpar{\Lag}{q_i} \delta q_i  \right] dt,
 \]
-separamos los dos términos,
+que se puede separar en dos términos
 \[
-	\delta I =  \int_{t_i}^{t_f} \sum_i^N \left[ \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_i} \delta q_i \right) 
-	\right] dt - \int_{t_i}^{t_f} \sum_i^N \left[ \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_i} \right) - 
-	\dpar{\Lag}{q_i} \right]  \delta q_i  dt,
+	\delta S =  \int_{t_a}^{t_b} \sum_i^N \left[ \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_i} \delta q_i \right) 
+	\right] dt + \int_{t_a}^{t_b} \sum_i^N \left[ \dpar{\Lag}{q_i} - \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_i} 
+	\right) \right]  \delta q_i \; dt,
 \]
-y resulta que el primero por el teorema fundamental del cálculo es
+
+Pero el primer término es una derivada total y por el teorema fundamental del cálculo,
 \be
-	\int_{t_i}^{t_f} \sum_i^N \left[ \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_i} \delta q_i \right) \right] dt =
-	\left. \dpar{\Lag}{\dot{q}_i} \delta q_i\right|_{t_i}^{t_f}
+	\int_{t_a}^{t_b} \sum_i^N \left[ \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_i} \delta q_i \right) \right] dt =
+	\sum_i^N \left. \dpar{\Lag}{\dot{q}_i} \delta q_i \: \right|_{t_a}^{t_b}
 \label{mc_borde_term}
 \ee
-y es nulo porque $\delta q_i=0$ en los extremos (recordemos que las variaciones son nulas en los extremos de
-integración). Decimos que este es un término de superficie.
-Entonces
+y es nulo porque $\delta q_i=0$ en los extremos para toda coordenada $i$ (las variaciones son nulas en los extremos). 
+Decimos que este es un término de superficie. Entonces la condición 
 \[
-	\delta I =  -\int_{t_i}^{t_f} \sum_i^N \left[ \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_i} \right)
-	- \dpar{\Lag}{q_i} \right]  \delta q_i  dt = 0
+	\delta S =  \sum_i^N  \int_{t_a}^{t_b}
+	\left[ \dpar{\Lag}{q_i} - \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_i} \right)  \right]  \delta q_i  dt = 0
 \]
-se verificará por el cumplimiento de las ecuaciones de Euler-Lagrange
+se verificará por el cumplimiento de las ecuaciones de Euler-Lagrange\footnote{Como las variaciones $\delta q_i$ son 
+arbitrarias e independientes la anulación de la ecuación $ \delta S $ requiere la anulación de cada uno de los 
+$i=1,2,...N $ corchetes en los integrandos.}
 \[
 	\sum_i^N  \left[ \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_i} \right) - \dpar{\Lag}{q_i} \right] = 0.
 \]
 
-Luego, si se hace $\Lag' = \Lag + df/dt$ (ambos lagrangianos difieren en una derivada total con 
-respecto al tiempo) la trayectoria que minimiza $\Lag'$ es la que misma que minimiza
-$\Lag$ por la condición dada por \eqref{mc_borde_term}. Entonces 
+Se puede ver que 
 \[
-	\delta S = 0 \iff \sum_i^N  \left[ \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_i} \right) -
+	\delta S = 0 \quad \iff \quad \sum_i^N  \left[ \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_i} \right) -
 	\dpar{\Lag}{q_i} \right] = 0.
 \]
+
+
+Luego, si se hace $\Lag' = \Lag + df/dt$ (ambos lagrangianos difieren en una derivada total con 
+respecto al tiempo) la trayectoria que minimiza $\Lag'$ es la que misma que minimiza
+$\Lag$ por la condición dada por \eqref{mc_borde_term}. 
 
 La moraleja es que si los lagrangianos difieren en una derivada total del tiempo obtenemos la misma
 física.
@@ -667,57 +1209,181 @@ También podemos encontrar esta notación, dependiendo del tipo de problema,
 \section{Multiplicadores de Lagrange}
 % =================================================================================================
 
-Partimos de la acción
+El principio variacional de Hamilton nos dice que la trayectoria real que sigue un sistema es la que 
+extremiza la acción
 \[
-	S = \int_{t_i}^{t_f} \Lag \left( q_i[t], \dot{q}_i[t], t \right) dt
+	S = \int_{t_i}^{t_f} \Lag \left( q_i[t], \dot{q}_i[t], t \right) dt.
 \]
-entonces 
+\notamargen{Habría que tomarse medio minuto para chequear: consistencia de la notación con respecto a los límites
+en estas integrales de acción, definir extremización, ver si la implicancia es un sí y sólo sí o no, etc.}
+Esa condición de extremo, conducía directamente a las ecuaciones de Euler-Lagrange, es decir
+\be
+	\delta S = 0 \quad \Leftrightarrow \quad \int \sum_{j=1}^{N} 
+	\left[ \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_j} \right) - \dpar{\Lag}{q_j} \right]\delta q_j \: dt = 0
+	\label{accion_nula_ecsel}
+\ee
+donde $\delta q_j$ eran desplazamientos independientes y esta condición significaba que el corchete debía
+ser nulo para todo grado de libertad $j$.
+
+Pero puede suceder (en el caso de vínculos no-holónomos, por ejemplo) que no se pueda despejar alguna $ q_j $ y 
+entonces no todos los  $\delta q_j$ son independientes.
+
+Si se tienen $s$ ecuaciones de vínculo no holónomos [¿cómo es un vínculo no-holónomo? o es que se deriva una
+ecuación de vínculo usual??]
+% y se las deriva con respecto al tiempo obtenemos
 \[
-	\delta S = 0 \quad \Leftrightarrow \quad \int
-	\sum_{j=1}^{N} \left[ \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_j} \right) -
-	\dpar{\Lag}{q_j} \right]\delta q_j dt
+	\sum_{\ell}^N a_\ell^k(q_i,t) \dot{q}_\ell + b^k(q_i,t) = 0 \qquad \qquad k=1,2,...,s
 \]
-donde $\delta q_j$ son desplazamientos independientes. Si no se pued despejar alguna $\delta q_j$ (con 
-vínculos no-holónomos, por ejemplo) entonces algún $\delta q_j$ es independiente de modo que para que 
-valga $\delta S =0 $ necesitaré 
+donde $\ell$ suma en los grados de libertad.
+% que son los vínculos ($k=1,...,s$); son $s$ ecuaciones de vínculo.
+Multiplicando por $\delta t$ puede verse que no son independientes,
 \[
-	\sum_{\ell}^N a_\ell^k(q_i,t) \dot{q}_\ell + b^k(q_i,t) = 0
-\]
-que son los vínculos ($k=1,...,s$); son $s$ ecuaciones de vínculo.
-Multiplicamos por $\delta t$ y vemos que no son independientes
-\[
-	\sum_{\ell}^N a_\ell^k(q_i,t) \delta {q}_\ell + b^k(q_i,t) \delta t= 0
+	\sum_{\ell}^N a_\ell^k(q_i,t) \delta {q}_\ell + b^k(q_i,t) \delta t= 0 .
 \]
 
-Sean $\delta q_\ell$ variación a $t$ fijo, entonces 
+Si ahora las $\delta q_\ell$ son variaciones a $t$ fijo, entonces se cumple 
 \[
-	\sum_{\ell}^N a_\ell^k(q_i,t) \delta {q}_\ell
+	\sum_{\ell}^N a_\ell^k(q_i,t) \delta {q}_\ell = 0,
+\]
+expresión que puede intregrarse con respecto al tiempo y sumar sobre todas las ecuaciones de vínculo,
+\[
+	\sum_{k}^s \int_{t_i}^{t_f} \lambda^k \sum_{\ell}^N a_\ell^k(q_i,t) \delta {q}_\ell \: dt = 0.
+\]
+
+El cero de esta última ecuación puede restarse del otro cero dado por la integral \eqref{accion_nula_ecsel},
+suma de $N-s$ ecuaciones con $\delta q_\ell$ independientes [¿checar esto?] con para construirnos de esa manera la ecuación
+% Podemos sacar la suma fuera,
+% \[
+% 	\sum_{k}^s \int_{t_i}^{t_f} \lambda^k \sum_{\ell}^N a_\ell^k(q_i,t) \delta {q}_\ell dt = 0
+% \]
+% Absorbo la otra sumatoria en el segundo término y paso de $\ell \to j$.
+\[
+	\int \sum_{j=1}^{N-s} \left\{ \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_j} \right) -\dpar{\Lag}{q_j}
+	- \sum_{k}^s \lambda^k a_j^k(q_i,t) \right\} \delta {q}_j \: dt = 0
+\]
+y se tienen $N-s$ ecuaciones
+\[
+	\frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_j} \right) -\dpar{\Lag}{q_j} =  \sum_{k}^s \lambda^k a_j^k(q_i,t),
+\]
+y $s$ ecuaciones 
+\be
+	\sum_{\ell}^N a_\ell^k(q_i,t) \dot{q}_\ell + b^k(q_i,t) = 0 .
+	\label{ecs_vinculo}
+\ee
+
+El parámetro $ \lambda^k $ es la fuerza de vínculo asociada al vínculo que no se pudo despejar. Es un multiplicador de
+Lagrange.
+
+Los vínculos holónomos se pueden escribir también en la forma \eqref{ecs_vinculo}. Un vínculo holónomo está representado
+por una ecuación del tipo 
+\[
+	f( \vb{x}_1, \vb{x}_2, ...,\vb{x}_N, t ) = cte.
+\]
+de manera que para desplazamientos virtuales (donde $\delta t=0$) la derivada temporal de esta ecuación implica\footnote{Recordemos
+que para desplazamientos virtuales el término $\partial f /\partial t$ no aparece por estar multiplicado a $\delta t=0$.} 
+\[
+	\sum_i \nabla_i f \cdot \delta\vb{x}_i = 0
+\]
+y esta ecuación es precisamente de la forma $ \sum_\ell a_\ell^k \delta q_\ell $.
+\notamargen{Falta entender bien principio trabajos virtuales y despl virtual ($\delta t=0$)}
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\begin{ejemplo}{\bf Resolución de sistema holónomo}
+
+Consideramos un cilindro rodando sin deslizar.
+\notamargen{Aclarar mil cosas: rueda un poco (máximo $\alpha = pi/2 $). ¿Es una aproximación sólo válida para
+ángulos pequeños? El caso exacto es mucho quilombo? Sirve para algo?}
+
+Los vínculos son relaciones entre velocidades que se pueden intergrar.
+De la soga:
+\[
+	\dot{x}_1 + \dot{\alpha} a = \dot{x}_2
+\]
+por el rozamiento sobre el piso:
+\[
+	\dot{\alpha} a = \dot{x}_1
+\]
+\notamargen{Lo de los $\delta$ pide para ser explicado y entendido.}
+\[
+	\Delta x_1 + a \Delta \alpha = \Delta x_2
+	\qquad \qquad 
+	\Delta \alpha a = \Delta x_1
 \]
 \[
-	\int_{t_i}^{t_f} \lambda^k \sum_{\ell}^N a_\ell^k(q_i,t) \delta {q}_\ell dt = 0
+	\delta x_1 + a \delta \alpha - \delta x_2 = 0
+	\qquad \qquad \delta x_1 - a \delta \alpha = 0 
 \]
-recordando que $\ell$ suma en los grados de libertad. Podemos sacar la suma fuera,
+El lagrangiano es
 \[
-	\sum_{k}^s \int_{t_i}^{t_f} \lambda^k \sum_{\ell}^N a_\ell^k(q_i,t) \delta {q}_\ell dt = 0
+	\Lag = \frac{1}{2} m \dot{x}_2^2 + \frac{1}{2}M\dot{x}_1^2 + \frac{1}{2}I\dot{\alpha}^2 + mgx_2
 \]
-Absorbo la otra sumatoria en el segundo término y paso de $\ell \to j$.
+donde los dos términos centrales en el rhs son la cinética del cuerpo rígido.
+
+Ahora hacemos 
 \[
-	\int  \sum_{j=1}^N \left\{ \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_j} \right) -\dpar{\Lag}{q_j}
-	- \sum_{k}^s \lambda^k a_\ell^k(q_i,t) \right\} \delta {q}_\ell dt = 0
+	\lambda^1 ( \delta x_1 + a \delta \alpha - \delta x_2 ) = 0 \qquad \qquad 
+	\lambda^2 ( \delta x_1 - a \delta \alpha ) = 0
 \]
-entonces 
+donde deberíamos obtener $ \lambda^1 $ tensión y $ \lambda^2 $ fuerza de rozamiento.
+Luego,
+\begin{eqnarray*}
+	m\ddot{x}_1 & = (\lambda^1 1 + \lambda^2 1) \\
+	m\ddot{x}_2 & = mg + \lambda^1(-1) \\
+	I\ddot{\alpha} & = (\lambda^1 a - \lambda^2 a)
+\end{eqnarray*}
+
+Escribiendo las ecuaciones de Newton para este problema resulta en
+\begin{eqnarray*}
+	m\ddot{x}_1 & = T - F_{\text{roz}} \\
+	m\ddot{x}_2 & = mg - T \\
+	I\ddot{\alpha} & = T a + F_{\text{roz}} a 
+\end{eqnarray*}
+de manera que identificamos naturalmente a 
 \[
-	\sum_{j=1}^N \frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_j} \right) -\dpar{\Lag}{q_j} =
-	\sum_{j=1}^N \sum_{k}^s \lambda^k a_\ell^k(q_i,t) =  
-	\sum_{j=1}^N \sum_{k}^s \lambda^k \nabla_j f^k \cdot \frac{\delta \vb{r}_j}{\delta q_j} 
+	\lambda^1 = T \qquad \qquad \lambda^2 = - F_{\text{roz}}
 \]
-siendo $\nabla_j f^k $ el gradiente de la ecuación de víngulo respeco de $j$ y donde $\lambda^k$
-es la fuerza de vínculo asociada al vínculo no despejado pues como la fuerza generalizada
-(que no proviene de potencial)
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\end{ejemplo}
+
+Entonces, para el caso de vínculo holónomos tendremos $ a^k_\ell(q_i,t) = \nabla_i f^k \cdot \delta \vb{x}_i $ de modo que
 \[
-	Q_j = \sum_i^N \vb{F}_i^a \cdot \dpar{\vb{r}_i}{q_j}
+	\frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_j} \right) -\dpar{\Lag}{q_j} =
+	\sum_{k}^s \lambda^k \: \dpar{f^k}{q_j}
+	\label{ecs_el_vinculos}
+% 	\nabla_j f^k \cdot \frac{\delta \vb{x}_j}{\delta q_j}
 \]
-y comparando vemos que 
+\notamargen{Hay que escribir bien la conversión de $\nabla f^k$ hacia $\partial f^k / \partial q_j $. Parece una boludez,
+pero tal vez no sea así.}
+
+Pero sabemos [sí?] que cuando existe fuerza generalizada (no proveniente de un potencial) se tenía 
+\[
+	\frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_j} \right) -\dpar{\Lag}{q_j} = Q_j, \qquad \qquad 
+	Q_j = \sum_i^N \vb{F}_i^a \cdot \dpar{\vb{x}_i}{q_j}
+	\label{ecs_el_fuerza_generalizada}
+\]
+% siendo $\nabla_j f^k $ el gradiente de la ecuación de víngulo respeco de $j$ y 
+e igualando los miembros derechos de \eqref{ecs_el_vinculos} y \eqref{ecs_el_fuerza_generalizada} 
+\[
+	\sum_i^N \vb{F}_i^a \cdot \dpar{\vb{x}_i}{q_j} = \sum_{k}^s \lambda^k \: \dpar{f^k}{q_j}
+\]
+se arriba a que 
+\notamargen{Acá hay temas con los índices y con lo que se suma. Parece no ser la misma cosa.}
+\[
+	\lambda^k = \vb{F}_i^a 
+\]
+de manera que $\lambda^k$ son las fuerzas de vínculo asociadas a los vínculos que no se pudieron retirar
+(no despejados en las ecuaciones [?]).
+Si los vínculos son holónomos (pero no quise despejar) entonces son las fuerzas de vínculo.
+
+La moraleja es que si no puedo despejar en función de coordenadas independientes sí o sí necesito introducir
+multiplicadores de Lagrange.
+
+\subsubsection{Más sobre el asunto de vínculos}
+\notamargen{Hay que revisar bien esta sección y meter algún ejemplo esclarecedor.}
+
+comparando vemos que 
 \[
 	Q_j = \sum \lambda^k a^k_j(q_j,t) \quad \textrm{vínculos no holónomos}
 \]
@@ -775,6 +1441,7 @@ donde $\delta q_j$ son ahora independientes.
 \]
 
 \begin{ejemplo}{\bf Moneda rodando por un plano}
+
 Consideramos una moneda que rueda libremente por un plano (no sujeta a potencial).
 Situraemos un sistema de ejes sobre la moneda, que etiquetaremos 123 y otro fijo fuera
 de la misma xyz.
@@ -798,9 +1465,9 @@ Calculo que se relaciona con la proyección de los ejes 123 en xyz. Confirmarlo.
 
 \begin{figure}
 	\begin{center}
-	\includegraphics[width=0.4\textwidth]{images/fig_moneda.pdf}	 
+	\includegraphics[width=1.0\textwidth]{images/fig_moneda.pdf}	 
 	\end{center}
-	\caption{Moneda que rueda libremente por un plano.}
+	\caption{Moneda que rueda libremente por un plano. Intercambié ejes 2 y 3 respecto del dibujo anterior.}
 \end{figure} 
 
 Como los vínculos dependen de la velocidad, resulta 
@@ -1019,8 +1686,47 @@ y esto significa que el potencial completo es
 	U(\vb{x},\vb{v},t) = q \: \vp(\vb{x},t) - \frac{q}{c} \: \pe{v}{A}(\vb{x},t).
 \]
 
-En el ejemplo de la fuerza de Lorentz se desprecia el campo generado por la misma partícula que se mueve. Una formulación lagrangiana que 
-lo tuviera en cuenta debería considerar un $\Lag_p$ para la partícula.
+En el ejemplo de la fuerza de Lorentz se desprecia el campo generado por la misma partícula que se mueve. Es decir, 
+que el campo externo no es afectado por el movimiento de la partícula.
+Una formulación lagrangiana que lo tuviera en cuenta debería considerar un $\Lag_p$ para la partícula.
+
+% =================================================================================================
+\section{Cambio de {\it gauge} en potenciales}
+% =================================================================================================
+
+Según se vio en la sección anterior, en el caso del electromagnetismo tenemos un potencial $ U $ que depende de la posición y la velocidad
+de una manera muy especial. Además el potencial escalar $ \vp $ usual en la electrostática fue necesario definir un potencial vector \vb{A}
+que estaba vinculado con el campo magnético \vb{B} a través de : $\rotorm{A}=\vb{B}$.
+
+Solamente se le pide al campo \vb{A} que su rotor sea \vb{B} y esto no lo determina por completo. En particular si se define 
+\[
+	\vb{A}' = \vb{A} + \nabla f,
+\]
+un nuevo potencial $\vb{A}'$ que difiere del original por el añadido del gradiente de una función escalar, las ecuaciones de movimiento
+no se ven alteradas. En efecto, la divergencia del campo magnético \vb{B} es
+\[
+	\divem{B} = \nabla \symbf{\cdot} (\rotorm{A}') = 
+	\nabla \symbf{\cdot} (\rotorm{A}) + \nabla \symbf{\cdot} (\nabla \times {\nabla f}) = 0
+\]
+donde el cero se logra porque cada uno de los dos miembros es cero por separado.
+Asimismo, como el rotor de un gradiente es nulo, el rotor de \vb{B} no se ve alterado;
+\[
+	\rotorm{B} = \nabla \times( \rotorm{A}' ) =
+	\nabla \times( \rotorm{A} ) + \nabla \times ( \nabla \times \nabla f ) =
+	\nabla \times( \rotorm{A} ).
+\]
+
+Luego, hay un grado de libertad extra en la determinación del \vb{A} que es esta función escalar $f$, y que se suele expresar
+dando la divergencia de \vb{A}. En efecto, 
+\[
+	\divem{A}' = \divem{A} + \nabla^2 f.
+\]
+
+La divergencia de \vb{A} se puede elegir entonces arbitrariamente y esto es lo que se conoce como la {\it libertad de gauge}[?]
+o el cambio de {\it gauge} del potencial. Descansa en el hecho de que las ecuaciones de movimiento son, por supuesto, independientes
+del gauge elegido.
+\notamargen{Chequear esta mini subsección.}
+
 
 % Como ejemplo citamos \cite{einstein}.
 % O bien \cite{example}.
