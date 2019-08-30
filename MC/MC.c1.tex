@@ -58,7 +58,7 @@ La segunda ley de Newton se podía escribir en función del momento lineal de un
 \[
 	\dtot{\vb{p}}{t} = \vb{F}
 \]
-siendo $ \vb{p} = m\vb{v} $ el momento de la partícula y $ F $ la fuerza total que actuaba sobre la misma.
+siendo $ \vb{p} = m\vb{v} $ el momento de la partícula y $ \vb{F} $ la fuerza total que actuaba sobre la misma.
 Si el resultado de las fuerzas sobre la partícula era nulo entonces se tiene que $ \vb{p} = cte. $ (el momento lineal 
 es una constante de movimiento).
 
@@ -124,9 +124,12 @@ que se mueve con velocidad constante sin importar qué tan complejo sea el movim
 
 El momento angular de una partícula con momento lineal \vb{p} es 
 \[
-	\vb{l} = \vb{x} \times \vb{p} = m \: \vb{x} \times \vb{v}
+	\vb{l} = \vb{x} \times \vb{p} = m \: \vb{x} \times \vb{v}.
 \]
-como puede verse en la Figura \ref{fig_mc_mom_ang_particula}. 
+% El hecho de entre el vector de posición de la partícula en su definición implica que el momento angular
+% dependerá del origen del sistema de coordenadas elegido y por ende también su conservación. 
+En la Figura 
+\ref{fig_mc_mom_ang_particula} se ilustra sobre la trayectoria de una partícula el vector momento angular. 
 La variación temporal del momento angular,
 \[
 	\dtot{\vb{l}}{t} = \dtot{\vb{x}}{t} \times \vb{p} + \vb{x} \times \dtot{\vb{p}}{t} 
@@ -134,21 +137,23 @@ La variación temporal del momento angular,
 se reduce al segundo término, puesto que $ d\vb{x}/dt = \vb{v} $ es paralela a $ \vb{p} $, y
 se tiene finalmente el resultado conocido
 \be
-	\dtot{\vb{l}}{t} = \vb{x} \times \dtot{\vb{p}}{t} = \vb{x} \times \vb{f} = \vb{\tau}
+	\dtot{\vb{l}}{t} = \vb{x} \times \dtot{\vb{p}}{t} = \vb{x} \times \vb{F} = \vb{\tau}
 	\label{conserv_mom_ang}
 \ee
-de que la variación del momento angular es el torque $\vb{\tau}$ causado por la fuerza $ \vb{f} $ 
+de que la variación del momento angular es el torque $\vb{\tau}$ causado por la fuerza $ \vb{F} $ 
 que actúa sobre la partícula.
 
+\notamargen{Cambiar en el dibujo f por F. Igualmente habría que ser consistente con qué quiero decir
+para las mayúsculas y qué para las minúsculas.}
 \begin{figure}[hbt]
 	\begin{center}
 	\includegraphics[width=0.6\textwidth]{images/fig_mc_mom_ang_particula.pdf}	
 	\end{center}
 	\caption{Una partícula de masa $m$ se desplaza en una trayectoria. En un punto \vb{x} de la misma se
-	indican su velocidad \vb{v}, su momento angular \vb{l} y la fuerza \vb{f} a la que está sometida y el
+	indican su velocidad \vb{v}, su momento angular \vb{l} y la fuerza \vb{F} a la que está sometida y el
 	torque resultante \vb{\tau} por esa fuerza.
 	El momento angular es perpendicular al plano (en marrón) definido por los vectores \vb{x} y \vb{v} mientras que 
-	el torque los es al plano (en gris) definido por \vb{x} y \vb{f}.}
+	el torque lo es al plano (en gris) definido por \vb{x} y \vb{F}.}
 	\label{fig_mc_mom_ang_particula}
 \end{figure} 
 
@@ -158,7 +163,7 @@ Es decir que una determinación de $ \vb{l} $ y $ \vb{\tau} $ tiene sentido úni
 de coordenadas.
 
 De la ecuación \eqref{conserv_mom_ang} se deduce que si la fuerza es siempre paralela al vector de posición de una 
-partícula ($\vb{f} \parallel \vb{x}$) entonces el momento angular \vb{l} se conserva puesto que el torque es 
+partícula ($\vb{F} \parallel \vb{x}$) entonces el momento angular \vb{l} se conserva puesto que el torque es 
 $\vb{\tau}=0$ en ese caso. Es lo que se llama una fuerza central.
 \notamargen{Habría que destacar lo de fuerza central con un dibujo. Es importante.}
 
@@ -172,9 +177,9 @@ coordenadas) será
 
 De manera equivalente, la variación temporal es 
 \[
-	\dtot{\vb{L}}{t} = \Sum{i=1}{N} \vb{x}_i \times \vb{f}_i
+	\dtot{\vb{L}}{t} = \Sum{i=1}{N} \vb{x}_i \times \vb{F}_i
 \]
-y si utilizamos la descomposición \eqref{descomp_fuerzas} para la fuerza $\vb{f}_i$ resulta
+y si utilizamos la descomposición \eqref{descomp_fuerzas} para la fuerza $\vb{F}_i$ resulta
 \[
 	\dtot{\vb{L}}{t} = \Sum{i=1}{N} \vb{x}_i \times \vb{F}_i^\text{ext}  +
 	\Sum{i=1}{N} \Sum{j\neq i}{N}  \vb{x}_i \times \vb{F}_{ij}
@@ -203,8 +208,8 @@ La conservación de \vb{L},
 \[
 	\dtot{\vb{L}}{t} = 0	
 \]
-requiere entonces que las fuerzas externas sean centrales (lo cual anula el primer término en \eqref{dL_sistema}) y que 
-se verifique 
+requiere entonces que las fuerzas externas sean centrales, lo cual anula el primer término en \eqref{dL_sistema},
+y que se verifique 
 \[
 	\vb{F}_{ij}  \parallel ( \vb{x}_i - \vb{x}_j ),
 \]
@@ -230,18 +235,19 @@ gruesas. Para la fuerza $\vb{F}_{ji}$ el razonamiento es, por supuesto, idéntic
 las flechas, puesto que si son iguales y opuestas las fuerzas están hermanadas las externas por un lado y las internas
 por el otro.}
 
-La existencia de un principio de acción y reacción fuerte sobreviene por la naturaleza puntual de los cuerpos. De no 
-ser puntuales se tendrá principio de acción y reacción a secas.
+La existencia de un principio de acción y reacción fuerte sobreviene [es una consecuencia?] de la naturaleza puntual de 
+los cuerpos. De no ser puntuales se tendrá principio de acción y reacción a secas.
 
-Existe otras descomposición interesante para el momento angular \vb{L} de un sistema de $N$ partículas en términos de 
+Existe otra descomposición interesante para el momento angular \vb{L} de un sistema de $N$ partículas en términos de 
 sus distancias al centro de masas.
 
 Para cada partícula $i$-ésima con posición $ \vb{x}_i $ y velocidad $ \vb{v}_i $ definimos una coordenada $ \vb{x}_i' $ 
-y una velocidad $\vb{v}_i' $ en términos de la posición \vb{R} y velocidad \vb{V} del centro de masa, ver Figura 
+y una velocidad $\vb{v}_i' $ en términos de la posición \vb{X} y velocidad \vb{V} del centro de masa, ver Figura 
 \ref{fig_mc_angularmom}, de acuerdo a
 \[
-	\vb{x}_i = \vb{R} + \vb{x}_i' \qquad \vb{v}_i = \vb{V} + \vb{v}_i'
+	\vb{x}_i = \vb{X} + \vb{x}_i' \qquad \vb{v}_i = \vb{V} + \vb{v}_i',
 \]
+es decir que consideramos coordenadas respecto al centro de masa.
 
 \begin{figure}[hbt]
 	\begin{center}
@@ -251,27 +257,29 @@ y una velocidad $\vb{v}_i' $ en términos de la posición \vb{R} y velocidad \vb
 	\label{fig_mc_angularmom}
 \end{figure} 
 
+\notamargen{Actualizar el $X_{cm}$ en el gráfico y poner el origen O.}
+
 En términos de estas nuevas variables primadas el momento angular es
 \[
 	\vb{L}_O = \Sum{i=1}{N} \vb{x}_i \times \vb{p}_i = 
-	\Sum{i=1}{N} (\vb{R} + \vb{x}_i') \times m_i (\vb{V} + \vb{v}_i')
+	\Sum{i=1}{N} (\vb{X} + \vb{x}_i') \times m_i (\vb{V} + \vb{v}_i')
 \]
 \[
-	\vb{L}_O = \Sum{i=1}{N} ( \vb{R} \times m_i \vb{V}  + \vb{R} \times m_i \vb{v}_i'
+	\vb{L}_O = \Sum{i=1}{N} ( \vb{X} \times m_i \vb{V}  + \vb{X} \times m_i \vb{v}_i'
 	+ \vb{x}_i' \times m_i \vb{V} 	+ \vb{x}_i' \times m_i \vb{v}_i' )
 \]
 
 Como la posición del centro de masa es
 \be
-	\vb{R} = \frac{1}{M} \Sum{i=1}{N} m_i \vb{x}_i  
+	\vb{X} = \frac{1}{M} \Sum{i=1}{N} m_i \vb{x}_i  
 	\label{R_cm}
 \ee
 se tendrá 
 \[
-	M \vb{R} = \Sum{i=1}{N} m_i \vb{x}_i = \Sum{i=1}{N} m_i ( \vb{R} + \vb{x}_i' ) =
-	\vb{R} \Sum{i=1}{N} m_i + \Sum{i=1}{N} m_i \vb{x}_i'
+	M \vb{X} = \Sum{i=1}{N} m_i \vb{x}_i = \Sum{i=1}{N} m_i ( \vb{X} + \vb{x}_i' ) =
+	\vb{X} \Sum{i=1}{N} m_i + \Sum{i=1}{N} m_i \vb{x}_i'
 \]
-pero el primer término del RHS es $M\vb{R}$ de manera que 
+pero el primer término del RHS es $M\vb{X}$ de manera que 
 \be
 	\Sum{i=1}{N} m_i \vb{x}_i' = 0 .
 	\label{Condicion_cm}
@@ -285,13 +293,13 @@ La velocidad del centro de masa es la derivada temporal de \eqref{R_cm}, i.e.
 
 Con estos resultados volvemos a la expresión del momento que resulta 
 \[
-	\vb{L}_O = \vb{R} \times M \vb{V}  + \vb{R} \times \left( \Sum{i=1}{N} m_i \vb{v}_i' \right) +
+	\vb{L}_O = \vb{X} \times M \vb{V}  + \vb{X} \times \left( \Sum{i=1}{N} m_i \vb{v}_i' \right) +
 	\left( \Sum{i=1}{N} m_i \vb{x}_i' \right) \times \vb{V} + \Sum{i=1}{N} \vb{x}_i' \times m_i \vb{v}_i',
 \]
 pero debido a \eqref{Condicion_cm} y a su derivada temporal (que resulta nula) el segundo y tercer sumando de la 
 expresión anterior son nulos y entonces 
 \[
-	\vb{L}_O = \left( \vb{R} \times M \vb{V} \right) + \Sum{i=1}{N} ( \vb{x}_i' \times m_i \vb{v}_i' )
+	\vb{L}_O = \left( \vb{X} \times M \vb{V} \right) + \Sum{i=1}{N} ( \vb{x}_i' \times m_i \vb{v}_i' )
 \]
 % \[
 % 	\vb{L}^T_O = \vb{L}^{cm} + \vb{L}^{sist}_{cm}
@@ -376,7 +384,7 @@ de un producto escalar (una proyección); las componentes normales no hacen trab
 \notamargen{ Falta meter lo de \[ 	 m \frac{v^2}{\rho} = F_n \] }
 
 Si la fuerza proviene de un potencial\footnote{El menos delante del gradiente es una convención, como se verá a
-continuación}, se tiene 
+continuación.}, se tiene 
 \be
 	\vb{F} = - \nabla V
 	\label{fuerza_prov_potencial}
@@ -425,12 +433,25 @@ partícula,
 	T = \sum_{i=1}^N \: \frac{1}{2} \: m_i v_i^2.
 \]
 
+Utilizando la expresión en función del centro de masa, $\vb{v}_i = \vb{V} + \vb{v}_i'$ en la energía se llega a
+\[
+	T = \frac 1 2 M V^2 + \frac{1}{2} \: \sum_{i=1}^N \: m_i {v_i'}^2,
+\]
+donde el primer término es la energía cinética de traslación del centro de masa y el segundo término (la sumatoria) es 
+la energía cinética interna.
+En el caso de dos cuerpos la anterior expresión se reduce a
+\[
+	T = \frac 1 2 M V^2 + \frac 1 2 \mu v_r^2
+\]
+donde $\mu$ es la masa reducida y $v_r$ es la velocidad relativa.
+\notamargen{Las conservaciones de las cosas permiten reducir la cantidad de integraciones necesarias.}
+
 La definición del trabajo, en cambio, es un poco más complicada. Entre dos instantes de tiempo $ t $ y $ t + \Delta t $ 
 el sistema está caracterizado por las $ N $ posiciones $ \{\vb{x}_i\} $ de todos sus integrantes y cada partícula 
 experimenta un desplazamiento $ \Delta \vb{x}_i $ asociado con la fuerza que actúa sobre ella.
 
 En principio la fuerza sobre cada partícula puede dividirse en interna (debida a las otras partículas del sistema) y 
-externas (debida a agentes exteriores al sistema), lo cual permite escribir
+externa (debida a agentes exteriores al sistema), lo cual permite escribir
 \[
 	\vb{F} = \vb{F}^{\text{int}} + \vb{F}^{\text{ext}}
 \]
@@ -442,6 +463,7 @@ y consecuentemente
 El $ W $ entre dos instantes de tiempo $t_0$ y $t_1$ corresponde ahora a la integral entre la configuración del sistema 
 a $t_0$ dada por $ \{\vb{x}_i(t_0)\} $ hasta la configuración $ \{\vb{x}_i(t_1)\} $, las cuales etiquetaremos como 0 y 
 1 respectivamente. 
+\notamargen{El rozamiento depende de la velocidad, entonces no es conservativo.}
 
 Entonces el trabajo externo es
 \[
@@ -461,7 +483,7 @@ necesario que
  donde el operador $\nabla$ se toma con respecto a las coordenadas de la partícula $i$ en cuestión.
 \end{itemize}
 
-\begin{figure}[!ht]
+\begin{figure}[!hb]
 	\begin{center}
 	\includegraphics[width=0.75\textwidth]{images/fig_mc_work_system.pdf}	
 	\end{center}
@@ -469,6 +491,8 @@ necesario que
 	de partículas.}
 	\label{fig_mc_work_system}
 \end{figure} 
+
+\notamargen{Arreglar flechas en este gráfico.}
 
 Estas condiciones permiten escribir la fuerza como el gradiente de un potencial y entonces el trabajo externo es la 
 suma de las diferencias entre las energías potenciales de las partículas entre las configuraciones 0 y 1, o bien
@@ -507,11 +531,41 @@ de la forma
 \]
 y sabemos, por analogía con lo anterior, que si $\vb{F}_{ij}$ depende del vector de separación $ \vb{r}_{ij} $ y es de 
 rotor nulo entonces las fuerzas internas son conservativas.
-En estos casos
+Entonces,
 \[
-	\Delta E = \sum_{i=1}^N ( \Delta T_i - \Delta V_i ) + \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \Delta V_{ij}
+	\vb{F}_{ij} = -\Nabla_i V(\vb{r}_{ij}) \qquad \vb{F}_{ji} = -\Nabla_j V(\vb{r}_{ij})
 \]
+y como vale acción y reacción $\vb{F}_{ij} = - \vb{F}_{ji}$ esto lleva a que $\nabla_i = \nabla_j$.
+\notamargen{Un potencial que depende solo de la distancia entre dos partículas $|r_{ij}|$ cumple PAR fuerte.}
 
+Un ejemplo numérico aclarará esta relación. Sea un potencial que depende de la distancia entre dos partículas,
+$r = |\vb{r}_{ij}|$, es decir que si $i=2$ y $j=1$ se tendrá
+\[
+	r = \sqrt{ (x_2-x_1)^2 + (z_2-z_1)^2 + (z_2-z_1)^2 },
+\]
+luego,
+\begin{multline*}
+	\: \vb{F}_{21} = -\Nabla_2 V = -\dpar{V}{r} \left( \dpar{r}{x_2}\hat{x} + \dpar{r}{y_2}\hat{y} + 
+	\dpar{r}{z_2}\hat{z} \right) = \\ 
+	-\dpar{V}{r} \frac 1 r \left( (x_2-x_1)\hat{x} + (y_2-y_1)\hat{y} + (z_2-z_1)\hat{z} \right)
+\end{multline*}
+y, en cambio,
+\begin{multline*}
+	\: \vb{F}_{12} = -\Nabla_1 V = -\dpar{V}{r} \left( \dpar{r}{x_1}\hat{x} + \dpar{r}{y_1}\hat{y} + 
+	\dpar{r}{z_1}\hat{z} \right) = \\ 
+	-\dpar{V}{r} \frac 1 r \left( -(x_2-x_1)\hat{x} - (y_2-y_1)\hat{y} - (z_2-z_1)\hat{z} \right)
+\end{multline*}
+de manera que $ \vb{F}_{21} = -\vb{F}_{12} $.
+
+En estos casos, en presencia de fuerzas conservativas
+\[
+	E = T + V^e(\vb{x}_1,...,\vb{x}_N) + \frac 1 2 \sum_{i=1}^N \sum_{j=1}^N V_{ij}
+\]
+donde $V^e$ es el trabajo externo. Luego, la variación de energía $\Delta E$ será
+\[
+	\Delta E = \sum_{i=1}^N ( \Delta T_i - \Delta V_i ) + \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \Delta V_{ij}.
+\]
+\notamargen{Revisar la escritura de la energía y de la variación, qué pienso con respecto a T, V?}
 
 
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -632,24 +686,99 @@ donde se ha utilizado la fórmula trigonométrica para el semiángulo.
 
 \notamargen{Completar esta solución. Ver en práctica?.
 Lo de $E=E(a)$ no lo entendí.}
-
-
 \end{ejemplo}
 
+% =================================================================================================
+\section{Introducción a la formulación de Lagrange}
+% =================================================================================================
 
+Permite automatizar la resolución de problemas. Surge de la observación de una característica de las fuerzas de vínculo.
+El vínculo representa una restricción.
 
+La fuerza de vínculo se {\it acomoda} en todo momento, cambiando sus características, para satisfacer el vínculo en 
+todo instante. Son de una naturaleza diferente a las fuerzas tradicionales, que no se acomodan.
+
+\begin{figure}[!ht]
+	\includegraphics[width=0.85\textwidth]{images/fig_mc_vinculos_varios.jpg}	
+	\caption{.}
+	\label{fig_mc_vinculos_varios}
+\end{figure} 
+
+Las fuerzas de vínculo están asociadas a ecuaciones de vínculo y dependen de ellas. Las ecuaciones, además, {\it 
+dependizan} las coordenadas de un problema. Examinemos un problema sencillo con vínculos.
+
+\begin{ejemplo}{\bfseries Problema con fuerza de vínculo }
+
+\label{problema_fuerza_vinculo}
+Considerese el problema esquematizado en la figura donde dos bloques se mueven en un campo gravitatorio.
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{images/fig_mc_problema_bloques.jpg}	
+	\caption{.}
+	\label{fig_mc_problema_bloques}
+\end{figure} 
+La segunda ley de Newton para cada bloque resultan en
+\begin{align*}
+	m_1 \ddot{x}_1 &= 2T \\
+	m_2 \ddot{x}_2 &= m_2 g - T
+\end{align*}
+Pero la cuerda que une los dos cuerpos, suponiendo que se mantiene tensa en todo momento, vincula sus posiciones de 
+manera que se debe cumplir 
+\[
+	2(d-x_1) + d_2 + x_2 = L
+\]
+Derivando dos veces esta relación se llega a
+\[
+	- 2\ddot{x}_1 + \ddot{x}_2 = 0,
+\]
+que al reemplazar en las ecuaciones de Newton permite, eliminando la tensión T, obtener
+\[
+	\ddot{x}_1 = \frac{2 m_2}{4m_2 + 1} \: g = \frac{1}{2 + 1/(2m_2)} \: g ,
+\]
+y
+\[
+	\ddot{x}_2 = \frac{4 m_2}{4m_2 + 1} \: g = \frac{1}{1 + 1/(4m_2)} \: g.
+\]
+
+Esto último nos dice que el bloque $m_2$ se moverá con aceleración $g$ en el límite de $m_2 \to \infty$ y el bloque
+$m_1$ con aceleración $g/2$ bajo el mismo límite. 
+\end{ejemplo}
+
+El enfoque de Lagrange debiera permitir llegar a este mismo resultado por supuesto.
+
+\notamargen{Si el vínculo es $f(\vb{x})=0$ entonces el trabajo virtual de las fuerzas es necesariamente nulo.}
 
 % =================================================================================================
-\section{Definiciones}
+\section{Grados de libertad y vínculos}
 % =================================================================================================
 
 El número de grados de libertad es el número de coordenadas independientes para resolver el problema.
-Las fuerzas de vínculo $F^v$ se {\it acomodan} en todo momento para satisfacer las ligaduras.
+
+La interpretación lagrangiana encuentra las ecuaciones para las coordenadas independientes.
+Dado un sistema con $N$ coordenadas y $k$ vínculos,
+\[
+	\# \text{ g. l. } = N - k \equiv \{ q_i \} \text{ coordenadas generalizadas}
+\]
+
+Consideremos el caso de una bola {\it ensartada} en un aro plano,
+
+\includegraphics[scale=0.35]{images/fig_mc_bola_ensartada.jpg}
+
+la cual puede moverse únicamente por el aro. Claramente la coordenada generalizada es $\varphi$, la cual
+describe completamente el movimiento de la misma; el vínculo es $ r = a $ y el trabajo realizado por las
+fuerzas de vínculo $W_{F_v} = 0 $ porque $F_v \perp \delta \varphi$. La fuerza de vínculo (en dirección radial)
+es perpendicular al desplazamiento compatible con el vínculo.
+En este caso el vínculo expresa las coordenadas del espacio real.
+
+Las fuerzas de vínculo $\vb{F}^v$ se {\it acomodan} en todo momento para satisfacer las ligaduras.
 Entonces las $\vb{F}^v$ son perpendiculares a los desplazamientos compatibles con los vínculos de
 manera que 
 \[
-	W_{F^v} = 0
+	W_{F^v} = 0,
 \]
+es decir que el trabajo virtual de las fuerzas de vínculo es nulo. Este trabajo puede no ser nulo si el tiempo 
+varía (si no se considera un desplazamiento virtual).
+
 \begin{figure}[hbt]
 	\begin{center}
 	\includegraphics[width=0.3\textwidth]{images/fig_mc_vinculos1.pdf}	 
@@ -657,6 +786,43 @@ manera que
 	\end{center}
 	\caption{}
 \end{figure} 
+
+\notamargen{Un sistema 3D con dos vínculos resulta en un movimiento 1D; el sistema puede pensarse que se mueve sobre
+un {\it alambre}.}
+
+Para el caso de los bloques (o masas deslizantes), al tener dos coordenadas, el sistema se mueve en una recta del espacio 
+de coordenadas.
+La fuerza de vínculo es perpendicular al desplazamiento posible.
+El vínculo expresa aquí las coordenadas donde se mueven las masas y el perpendicular al desplazamiento virtual pero no al
+desplazamiento real.
+\[
+	\vb{F}_v = (2\vb{T}-\vb{T})
+\]
+\[
+	V_{vy} = - \frac 1 2 F_{vx} (F_{vx},-\frac 1 2 F_{vx})
+\]
+El trabajo virtual de las fuerzas de vínculo es nulo.
+
+\includegraphics[scale=0.35]{images/fig_mc_problema_bloques_fases.jpg}
+\notamargen{Entender este gráfico mejor!}
+
+\begin{ejemplo}{\bf Aro acelerado en un plano}
+
+Un aro que se mueve hacia la derecha con aceleración constante $\vb{a}$. 
+
+\includegraphics[scale=0.25]{images/fig_mc_aro_acelerado.jpg}
+
+Tiene una ecuación de vínculo dada por 
+\[
+	(x-x_c)^2 + (y-y_c)^2 = R_0^2
+\]
+y donde 
+\[
+	x_c = x_0 + \frac 1 2 a t^2, \; y_c = y_0
+\]
+\end{ejemplo}
+
+\subsection{Clasificación de los vínculos}
 
 Los vínculos se clasifican en
 \[
@@ -686,7 +852,6 @@ mientras que un desplazamiento real es un desplazamiento en $\delta t$ durante e
 fuerzas y ligaduras.
 
 A tiempo fijo el desplazamiento es en $\hat{r} \perp \vb{F}^v$.
-
 \[
 	f(x_i,t) = cte. \Longrightarrow \sum_i^N \dpar{f}{x_i} \delta x_i + \dpar{f}{t} \delta t = 0 
 \]
@@ -694,6 +859,51 @@ o bien
 \[
 	\nabla f \cdot \vb{\delta r} = 0
 \]
+\notamargen{Esto contrapone a lo posterior. Tal vez estos desplazamientos no son virtuales después de todo. Esta 
+sección hay que depurarla bien.}
+
+Si las fuerzas de vínculo se pueden escribir como 
+\[
+	f_v(\vb{x}_1, \vb{x}_2, ..., \vb{x}_N ) = K,
+\]
+donde $K$ es una constante, luego (derivando implícitamente la ecuación) cumplirán
+\[
+	\sum_{i=1}^N \: \dpar{f_v}{\vb{x}_i}\:\delta{\vb{x}_i} = 0
+\]
+Entonces la fuerza de vínculo es proporcional al gradiente de la ecuación de vínculo,
+\[
+	\vb{F}_v = \lambda \nabla f
+\]
+
+En un caso 3D tendríamos
+\[
+	\dpar{f}{x}\delta x + \dpar{f}{y}\delta y + \dpar{f}{z}\delta z = 0
+\]
+
+Los vínculos que dependen de la velocidad o aquellos dados en términos de desigualdades (no de ecuaciones) no cumplen,
+en general, que el trabajo de las fuerzas de vínculo sea perpendicular al desplazamiento.
+
+La dependencia de las fuerzas de vínculo puede depender del tiempo. Supongamos ahora un problema parecido al anterior; 
+una bola engarzada en una varilla que rota con velocidad angular constante $\omega$.
+
+\includegraphics[scale=0.4]{images/fig_mc_bola_varilla_rotante.jpg}
+
+La bola se mueve sobre la varilla; la coordenada angular $\varphi$ forma parte de la ecuación de vínculo
+\[
+	\varphi - \omega t = 0
+\]
+En un dado instante de tiempo fijo el único desplazamiento posible, que es en $\hat{r}$, es perpendicular a la fuerza 
+de vínculo. No hay trabajo a tiempo fijo.
+En estos casos la ecuación de vínculo será
+\[
+	f_v(\vb{x}_1, \vb{x}_2, ..., \vb{x}_N, t ) = K,
+\]
+pero como a tiempo fijo es $\Delta t=0$, se tiene 
+\[
+	\sum_{i=1}^N \: \dpar{f_v}{\vb{x}_i}\:\delta{\vb{x}_i} = 0
+\]
+donde no aparece al tiempo $t$.
+Esto es un {\it desplazamiento virtual}; un desplazamiento a tiempo fijo compatible con los vínculos.
 
 % =================================================================================================
 \section{Velocidad y aceleración en coordenadas cilíndricas y esféricas}
@@ -762,6 +972,14 @@ y para evaluar la derivada temporal del versor consideramos la descomposición
 \[
 	\hat{r} = \cos \varphi \:\hat{x} + \sin \varphi \:\hat{y}
 \]
+\notamargen{ 
+% \begin{figure}[h]
+% 	\begin{center}
+	\includegraphics[scale=0.35]{images/fig_mc_polares_decomp.jpg}	
+% 	\end{center}
+% 	\caption{}
+% \end{figure}
+}
 \[
 	\hat{\varphi} = -\sin \varphi  \:\hat{x} + \cos  \varphi \:\hat{y}
 \]
@@ -774,6 +992,10 @@ y entonces
 \[
 	\dtot{\vb{x}}{t} = \dot{r} \:\hat{r } + r \:\dot{\vp} \: \hat{\vp} + \dot{z} \:\hat{z}.
 \]
+
+\notamargen{
+\includegraphics[scale=0.4]{images/fig_mc_polares_arbitrario.jpg}
+}
 % que se puede escribir como 
 % \[
 % 	\dtot{\vb{r}}{t} = \dot{r} \: \hat{r } + r \dot{\vp} \: \hat{\vp} = \dot{\vb{r}}
@@ -800,14 +1022,15 @@ finalmente se arriba a
 	\ddot{\vb{x}} = ( \ddot{r} - r\dot{\vp}^2 ) \rver + ( r\ddot{\vp} + 2 \dot{r} \dot{\vp} ) \phiver + \ddot{z} \:\hat{z}.
 \]
 
-Para problemas de dos dimensiones suele utilizarse un sistema coordenado, conocido como coordenadas polares, que es el de 
-cilíndricas con $ z \equiv 0 $. Las expresiones de velocidad y aceleración polares correspondientes serán las obtenidas en esta sección
-luego de {\it borrar} la coordenada $z$.
+Para problemas de dos dimensiones suele utilizarse un sistema coordenado, conocido como coordenadas polares, que es el 
+de cilíndricas con $ z \equiv 0 $. Las expresiones de velocidad y aceleración polares correspondientes serán las 
+obtenidas en esta sección luego de {\it borrar} la coordenada $z$.
 
 \subsection{Coordenadas esféricas}
 
-Para el sistema esférico la deducción de la equivalencia cartesiana de los versores es un poco más trabajosa que en el sistema cilíndrico (donde en 
-realidad estos versores viven en un plano $z$ cte.) y el álgebra implicado es algo engorroso. La expresión de los versores es
+Para el sistema esférico la deducción de la equivalencia cartesiana de los versores es un poco más trabajosa que en el 
+sistema cilíndrico (donde en realidad estos versores viven en un plano $z$ cte.) y el álgebra implicado es algo 
+engorroso. La expresión de los versores es
 \[
 	\rver = \cos\vp \sin\theta\xver + \sin\vp\sin\theta\yver + \cos\theta\zver,
 \]
@@ -817,13 +1040,16 @@ realidad estos versores viven en un plano $z$ cte.) y el álgebra implicado es a
 \[
 	\thetaver = \cos\theta \cos\vp \xver + \cos\theta\sin\vp\yver - \sin\theta\zver.
 \]
+\notamargen{Dado que este es un curso básico pero que se jacata de visual, tendriamos que poner ilustraciones del 
+carajo de los vectores en esféricas y cilíndricas para que quede intuitivo sus dificultades cuando el problema en
+cuestión no tiene las simetrías explícitas de estos sistemas.}
 
 Un vector de posición es simplemente
 \[
 	\vb{x} = r \rver
 \]
-aunque en el $\rver$ está {\it escondida} la dependencia angular. Consignaremos a continuación solamente las expresiones finales para la
-velocidad y aceleración, que son respectivamente
+aunque en el $\rver$ está {\it escondida} la dependencia angular. Consignaremos a continuación solamente las 
+expresiones finales para la velocidad y aceleración, que son respectivamente
 \[
 	\vb{v} = \dot{\vb{x}} = \dot{r} \rver + r\dot{\theta}\thetaver + r\dot{\vp}\sin\theta\phiver
 \]
@@ -840,30 +1066,37 @@ velocidad y aceleración, que son respectivamente
 
 Otro tipo de transformación común entre sistemas de coordenadas (en el plano) que comparten origen es la rotación.
 
-Suponiendo un sistema de coordenadas $(x,y)$ fijo (que llamaremos ``inercial'') de origen $O$ y otro de coordenadas $(x',y')$, que está rotando 
-en torno a ese origen (sistema ``móvil''), interesa ver qué consecuencias tiene sobre la velocidad y aceleración de un vector de posición \vb{A},
-el hecho de determinarlas desde uno u otro sistema. Si bien hablamos de un sistema {\it fijo}, en realidad ambos se hallan en rotación entre sí. 
+Suponiendo un sistema de coordenadas $(x,y)$ fijo (que llamaremos ``inercial'') de origen $O$ y otro de coordenadas 
+$(x',y')$, que está rotando en torno a ese origen (sistema ``móvil''), interesa ver qué consecuencias tiene sobre la 
+velocidad y aceleración de un vector de posición \vb{A}, el hecho de determinarlas desde uno u otro sistema. Si bien 
+hablamos de un sistema {\it fijo}, en realidad ambos se hallan en rotación entre sí. 
 
 Como se ve en la FIGURA XXX 
-\notamargen{Figura de la rotación}
-la posición instantánea entre sistemas está determinada por el ángulo $\theta(t)$ y, dado que ambos sistemas comparten el origen, los mismos son 
-coincidentes en $\theta = 0$. 
+\notamargen{
+\includegraphics[scale=0.4]{images/fig_mc_sist_rotantes.jpg}
+}
+la posición instantánea entre sistemas está determinada por el ángulo $\theta(t)$ y, dado que ambos sistemas comparten 
+el origen, los mismos son coincidentes en $\theta = 0$. 
 % Como el sistema en rotación varía la posición de sus ejes con el tiempo, sus versores asociados $(\xver', \yver')$ 
 % también variarán con el tiempo (pese a que son cartesianos).
 
-Dado que los sistemas no se hallan entre sí a velocidad constante\footnote{Aún en el caso de $ \theta(t) = cte.$ la velocidad no es constante como 
-vector puesto que cambia de dirección todo el tiempo.} es patente que las ecuaciones de Newton se verán modificadas.
-Para un vector \vb{A} constante con respecto al sistema inercial, cualitativamente esperaríamos observarlo desde el sistema móvil en alguna 
-suerte de movimiento dado por el efecto dinámico de la rotación\footnote{Si estoy montado en el caballo de madera de una calesita veré a mi abuela, 
-que me espera inmóvil a un lado, como dotada de movimiento.}. Veamos qué surge de la cuenta algebraica.
+Dado que los sistemas no se hallan entre sí a velocidad constante\footnote{Aún en el caso de $ \theta(t) = cte.$ la 
+velocidad no es constante como vector puesto que cambia de dirección todo el tiempo.} es patente que las ecuaciones de 
+Newton se verán modificadas.
+Para un vector \vb{A} constante con respecto al sistema inercial, cualitativamente esperaríamos observarlo desde el 
+sistema móvil en alguna suerte de movimiento dado por el efecto dinámico de la rotación\footnote{Si estoy montado en el 
+caballo de madera de una calesita veré a mi abuela, que me espera inmóvil a un lado, como dotada de movimiento.}. Veamos 
+qué surge de la cuenta algebraica.
 
 El mismo vector de acuerdo a los dos sistemas de coordenadas en el plano, es
 \[
 	\vb{A}(t) = A_x\xver + A_y\yver         \qquad\qquad               \vb{A}'(t) = A_x'\xver' + A_y'\yver'
 \]
-donde las coordenadas primadas refieren al sistema móvil. Nótese que los versores asociados en ambos casos $(\xver, \yver)$ y $(\xver', \yver')$ 
-son constantes, esto es, no dependen del tiempo. Que ambos sistemas se hallen en rotación entre sí no es intrínseco de alguno de ellos.
-Un observador del sistema primado ve a sus ejes fijos mientras que en las medidas que realiza sobre \vb{A} verá una dinámica particular. 
+donde las coordenadas primadas refieren al sistema móvil. Nótese que los versores asociados en ambos casos $(\xver, 
+\yver)$ y $(\xver', \yver')$ son constantes, esto es, no dependen del tiempo. Que ambos sistemas se hallen en rotación 
+entre sí no es intrínseco de alguno de ellos.
+Un observador del sistema primado ve a sus ejes fijos mientras que en las medidas que realiza sobre \vb{A} verá una 
+dinámica particular. 
 
 Si consideramos la variación temporal de \vb{A}' pero como es vista desde el sistema inercial resulta 
 \[
@@ -874,14 +1107,14 @@ porque para un observador en el sistema inercial se mueven las componentes del v
 
 \notamargen{Esta notación es oscura, habría que ver una mejor manera de explicar esto.}
 
-La variación temporal de los versores la conocemos porque es la misma situación geométrica que la encontrada para el caso de los 
-versores cilíndricos $(\rver,\phiver)$. Podemos hallar la equivalencia
+La variación temporal de los versores la conocemos porque es la misma situación geométrica que la encontrada para el 
+caso de los versores cilíndricos $(\rver,\phiver)$. Podemos hallar la equivalencia
 \[
 	\dtot{\hat{x}'}{t} = \dot{\theta} \yver'         \qquad \qquad          \dtot{\hat{y}'}{t} = -\dot{\theta} \xver'.
 \]
 
-Desde el sistema móvil los versores son por supuesto constantes (el sistema móvil no es consciente de su movimiento) de modo 
-que 
+Desde el sistema móvil los versores son por supuesto constantes (el sistema móvil no es consciente de su movimiento) de 
+modo que 
 \[
 	\left. \dtot{\vb{A}}{t} \right|_\text{móvil} = \dot{A_x'}\xver' + \dot{A_y'}\yver'
 \]
@@ -980,8 +1213,8 @@ fuerza lineal, de Coriolis y centrífuga.
 Si $\vb{\omega} = cte.$ entonces la fuerza lineal es nula.
 
 \notamargen{Está un poco inconsistente la notación utilizada, con lo de móvil y la prima. La carpeta tiene muchos
-typos.
-El 'Problema' de la hoja 5R no lo entiendo}
+typos. El 'Problema' de la hoja 5R no lo entiendo; en realidad parece estar vinculado a sólidos. Habría que decidir si 
+ponerlo o no. En caso negativo, ¿qué otro se puede ubicar?}
 
 \begin{notasfinales}
 

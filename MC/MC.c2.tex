@@ -37,41 +37,115 @@
 % =================================================================================================
 \section{Principio de los trabajos virtuales}\index{Trabajos virtuales, principio de}
 % =================================================================================================
-Las ecuaciones de Newton para un sistema de $N$ partículas,
 \notamargen{Esto es sumamente sketchi, debemos leer la carpeta de la cursada y luego la
 teoría.}
+
+En las ecuaciones de Newton para un sistema de $N$ partículas, con $3N$ coordenadas,
 \[
-	m_i \vb{a}_i = \vb{F}_i^a + \vb{F}_i^v
+	m_i \vb{a}_i = \vb{F}_i,
 \]
-dan cuenta de que sobre cada partícula actúan, en principio, fuerzas externas aplicadas $ \vb{F}_i^a $
-y fuerzas de vínculo $ \vb{F}_i^v $. Expresando la aceleración en función de la derivada temporal del momento  
-$ \dot{\vb{p}}_i = m_i \vb{a}_i$ resulta 
+se pueden separar las fuerzas que actúan sobre cada partícula en fuerzas externas aplicadas $ \vb{F}_i^a $
+y fuerzas de vínculo $ \vb{F}_i^v $. Es decir,
+\[
+	m_i \vb{a}_i = \vb{F}_i^a + \vb{F}_i^v,
+\]
+% dan cuenta de que sobre cada partícula actúan, en principio, fuerzas externas aplicadas $ \vb{F}_i^a $
+% y fuerzas de vínculo $ \vb{F}_i^v $. 
+o bien, expresando la aceleración en función de la derivada temporal del momento, 
+%$ \dot{\vb{p}}_i = m_i \vb{a}_i$ 
+resulta 
 \[
 	\dot{\vb{p}}_i - \vb{F}_i^a - \vb{F}_i^v = 0,
 \]
-y entonces, multiplicando cada término por un desplazamiento virtual $ \delta\vb{x}_i $ se tiene
+y entonces, multiplicando cada término por un desplazamiento, en principio independiente, $ \delta\vb{x}_i $ y sumando se tiene
 \[
 	\sum_i^N \left( \dot{\vb{p}}_i - \vb{F}_i^a - \vb{F}_i^v \right) \cdot \delta\vb{x}_i  = 0.
 \]
+Nótese que esta ecuación es válida por serlo para cada partícula $i$.
 
 \notamargen{Explicar qué es este principio y qué es un desplazamiento virtual.}
-Si hacemos estos desplazamientos {\it compatibles} con los vínculos nos quedamos con
+Supongamos ahora que estos desplazamientos son {\it compatibles} con los vínculos. Entonces
+\[
+	\sum_i^N \left( \dot{\vb{p}}_i - \vb{F}_i^a \right) \cdot \delta\vb{x}_i 
+	- \sum_i^N  \vb{F}_i^v  \cdot \delta\vb{x}_i  = 0
+\]
+pero el segundo término es nulo porque los $ \delta\vb{x}_i $ son compatibles con los vínculos y como sabemos 
+\notamargen{Hay que dejar bien el claro el asunto de que las fuerzas de vínculos son siempre perp a los desplazamientos
+virtuales y que estos, ¿no son independientes?}
+$ \vb{F}_i^v \perp \delta\vb{x}_i $.
+
+Entonces
 \be
 	\sum_i^N \left( \dot{\vb{p}}_i - \vb{F}_i^a \right) \cdot \delta\vb{x}_i = 0,
 % 	- \sum_i^N  \vb{F}_i^v  \cdot \delta\vb{x}_i  = 0
 	\label{principio_virtual_work}
 \ee
-puesto que las fuerzas de vínculo son siempre perpendiculares a los desplazamientos virtuales, es decir 
-\[
-	\vb{F}_i^v \perp \delta\vb{x}_i.
-\]
+donde no se verifica, en general, que el primer vector en cada producto escalar sea nulo.
 
+\textcolor{red}{
 La expresión \eqref{principio_virtual_work} es el llamado {\it Principio de los Trabajos Virtuales},
 y dada la independencia admitida en los desplazamientos virtuales $ \delta \vb{x}_i $, se sigue que la
 sumatoria en \eqref{principio_virtual_work} es nula porque cada término es nulo, es decir
 \[
 	\dot{\vb{p}}_i - \vb{F}_i^a = 0 \quad \forall i
 \]
+}
+
+\begin{ejemplo}{\bf Ejemplo de los bloques}
+
+Para el ejemplo de los bloques
+\[
+	( m_1 \ddot{x}_1 - 2T )\delta x_1 + ( m_2 \ddot{x}_2 - m_2 g + T) \delta x_2 = 0
+\]
+pero en realidad $\delta x_1, \delta x_2$ no son independientes, están relacionados según $2\delta x_1 = \delta x_2$.
+Entonces
+\[
+	( m_1 \ddot{x}_1 + 2 m_2 \ddot{x}_2 - 2 m_2 g )\delta x_1 = 0
+\]
+donde ahora $\delta x_1$ es compatible con los vínculos pero es independiente y arbitrario para el problema.
+Entonces la ecuación anterior debe ser nula porque el paréntesis es nulo,
+\[
+	m_1 \ddot{x}_1 + 2 m_2 \ddot{x}_2 - 2 m_2 g = m_1 \ddot{x}_1 + 4 m_2 \ddot{x}_1 - 2 m_2 g = 0
+\]
+y de la última 
+\[
+	\ddot{x}_1 = \frac{2 m_2 g}{ (m_1 + 4m_2 ) }.
+\]
+
+Hemos llegado a la resolución en forma independiente de los vínculos.
+\end{ejemplo}
+
+\begin{ejemplo}{Más de un grado de libertad}
+
+Si tenemos más de un grado de libertad, como en el caso de dos poleas sin masa.
+
+\includegraphics[scale=0.4]{images/fig_mc_dos_poleas.jpg}
+
+Se tienen dos ecuaciones de vínculo
+\[
+	x_1 + x_p = \ell_1 \qquad \qquad (x_2 -x_p)+(x_3 -x_p) = \ell_2.
+\]
+
+El problema tiene cuatro coordenadas y dos ecuaciones de vínculo, lo cual nos deja dos grados de libertad.
+La primer ecuación de vínculo permite liberarnos de $x_p$ y quedarnos en principio con los movimientos de
+las tres masas. Entonces, ¿el principio de los trabajos virtuales? sería en este caso 
+\[
+	( m_1 \ddot{x}_1 - m_1 g )\delta x_1 + ( m_2 \ddot{x}_2 - m_2 g )\delta x_2 + ( m_3 \ddot{x}_3 - m_3 g )\delta x_3 = 0
+\]
+y luego podemos utilizar la segunda ecuación de vínculo, combinándola con la primera para llegar a 
+\[
+	x_2 + x_3 + 2x_1 = \text{ cte. }
+\]
+lo cual conduce a la relación 
+\[
+	\delta x_1 = -\frac{ \delta x_2 + \delta x_3 }{2}.
+\]
+Finalmente
+\[
+	( m_2 \ddot{x}_2 - m_2 g -\frac{m_1}{2} \ddot{x}_1 + \frac{m_1}{2} g ) \delta x_2 + 
+	( m_3 \ddot{x}_3 - m_3 g -\frac{m_1}{2} \ddot{x}_1 + \frac{m_1}{2} g ) \delta x_3 = 0.
+\]
+\end{ejemplo}
 
 \begin{notas}{Relación vínculos y desplazamientos:}
 El hecho de que la fuerza de vínculo sea perpendicular a los desplazamientos puede
@@ -92,11 +166,29 @@ pero esto no es otra cosa que
 donde debemos entender al gradiente y al vector $\vb{\delta x}$ como $N$ dimensionales.
 \end{notas}
 
+
+\subsection{Comentario vínculos}
+\notamargen{Esto hay que consolidarlo todo. Volará.}
+El trabajo de la fuerza de vínculos es nulo si el desplazamiento es virtual.
+\[
+	f(x_1,x_2,...,x_N,t) = 0
+\]
+\[
+	\dpar{f}{x_1}\delta x_1 + ... +  \dpar{f}{x_N}\delta x_N = 0
+\]
+Como es un desplazamiento virtual, el tiempo $t$ está fijo (imagen fija = tiempo congelado)
+
+
 % =================================================================================================
 \section{Construcción del lagrangiano}
 % =================================================================================================
 
-Consideremos un sistema de $N$ partículas, $k$ ecuaciones de vínculo 
+Vamos a utilizar el principio de los trabajos virtuales para escribir las ecuaciones de la mecánica
+de otra manera [¿?] sin preocuparnos por las fuerzas de vínculo, que en general pueden no ser 
+conocidas o tener una naturaleza compleja.
+\notamargen{Esta es la papa: las fuerzas de vínculo son difíciles de escribir si es esto posible 
+del todo.}
+Consideremos un sistema de $N$ partículas y $k$ ecuaciones de vínculo 
 \begin{eqnarray*}
 	& f_1(\vb{x}_1, \vb{x}_2,...,\vb{x}_n,t) = K_1  \\ 
 	& ... ... ... \\
@@ -110,22 +202,24 @@ Tenemos $N$ relaciones del tipo
 	\label{x_part}
 \ee
 que significa que la posición de la partícula $i$-ésima depende en principio de las $3N-k$ coordenadas
-generalizadas y del tiempo. Una variación tendrá la forma
+generalizadas y del tiempo. Una variación de la misma tendrá la forma
 \[
 	\delta \vb{x}_i =  \sum_{j=1}^{3N-k} \left( \dpar{\vb{x}_i}{q_j} \right) \delta q_j + 
 	\dpar{\vb{x}_i}{t}\delta t
 \]
 y suponiéndola un desplazamiento virtual el último término se anula puesto que $\delta t=0$ en ese
 caso y entonces
-\[
+\be
 	\delta \vb{x}_i =  \sum_{j=1}^{3N-k} \left( \dpar{\vb{x}_i}{q_j} \right) \delta q_j.
-\]
+	\label{delta_x_to_delta_q}
+\ee
 
 Por otro lado, del principio de los trabajos virtuales \eqref{principio_virtual_work} es
 \[
-	\sum_i^N \dot{\vb{p}}_i \cdot \delta \vb{x}_i - \sum_i^N  \vb{F}_i^a \cdot \delta \vb{x}_i = 0
+	\sum_i^N \dot{\vb{p}}_i \cdot \delta \vb{x}_i - \sum_i^N  \vb{F}_i^a \cdot \delta \vb{x}_i = 0,
 \]
-y se puede reescribir el primer término como
+donde $\vb{F}_i^a$ es la fuerza aplicada externa que no incluye las fuerzas de vínculo. El primer término 
+se puede reescribir como
 \[
 	\dot{\vb{p}}_i \cdot \delta \vb{x}_i = m_i \dtot{\vb{v}_i}{t} \cdot \sum_{j=1}^{3N-k} 
 	\left( \dpar{\vb{x}_i}{q_j} \right) \delta q_j,
@@ -136,6 +230,8 @@ resultando
 	\delta q_j - \sum_i^N  \vb{F}_i^a \cdot \delta \vb{x}_i = 0
 	\label{virtual_work_2}
 \ee
+Se ha pasado de una descripción en términos de $\delta \vb{x}_i$ ($3N$ variables) a otra en términos de $\delta q_j$
+($3N-k$ coordenadas generalizadas).
 
 La idea ahora es reescribir todo en términos más convenientes, para que aparezca un término multiplicado
 a una variación arbitraria. De esta manera quedará una sumatoria de un sumando multiplicado por una
@@ -236,16 +332,20 @@ de las derivadas de los momentos, y entonces
 	\frac{\partial T}{\partial q_j} \right\} \delta q_j = \sum_i^N  \vb{F}_i^a \cdot \delta \vb{x}_i.
 \]
 
-Escribiendo la variación $\delta\vb{x}$ en términos de $\delta q$ a través de 
-\[
-	\delta\vb{x}_i = \sum_{j=1}^{3N-k} \dpar{\vb{x}_i}{q_j}\delta q_j
-\]
+Escribiendo la variación $\delta\vb{x}$ en términos de $\delta q$ a través de \eqref{delta_x_to_delta_q}
+% \[
+% 	\delta\vb{x}_i = \sum_{j=1}^{3N-k} \dpar{\vb{x}_i}{q_j}\delta q_j
+% \]
 se llega a 
 \[
 	\sum_{j=1}^{3N-k} \sum_i^N \left( \vb{F}_i^a \cdot \dpar{\vb{x}_i}{q_j} \right) \: \delta q_j =  
-	\sum_{j=1}^{3N-k} \sum_i^N Q_j \: \delta q_j
+	\sum_{j=1}^{3N-k} Q_j \: \delta q_j
 \]
-siendo $Q_j$ la fuerza generalizada. Entonces
+siendo 
+\[
+	Q_j = \sum_i^N \left( \vb{F}_i^a \cdot \dpar{\vb{x}_i}{q_j} \right)
+\]
+la fuerza generalizada en el grado de libertad $j$. Entonces
 \be
 	\sum_{j=1}^{3N-k} \left\{ \frac{d}{dt}
 	\left[ \frac{\partial T}{\partial \dot{q}_j} \right] - \frac{\partial T}{\partial q_j} - Q_j \right\} \delta q_j =  0
@@ -259,9 +359,10 @@ Si suponemos que las fuerzas son conservativas, provienen de un potencial, enton
 \]
 y expresando la fuerza $Q_j$ en términos del potencial $V$
 \[
-	Q_j = \vb{F}_i^a \cdot \dpar{\vb{x}_i}{q_j} = -\dpar{V}{\vb{x}_i} \cdot \dpar{\vb{x}_i}{q_j} = -\dpar{V}{q_j},
+	Q_j = \sum_i^N \vb{F}_i^a \cdot \dpar{\vb{x}_i}{q_j} = 
+	- \sum_i^N \dpar{V}{\vb{x}_i} \cdot \dpar{\vb{x}_i}{q_j} = -\dpar{V}{q_j},
 \]
-que reemplazado en la ecuación 
+el cual, insertado en la ecuación \eqref{eq_el_0}, conduce a
 \[
 	\sum_{j=1}^{3N-k} \left\{ \frac{d}{dt}
 	\left[ \frac{\partial T}{\partial \dot{q}_j} \right] - \frac{\partial}{\partial q_j} \left( T - V \right) \right\} \delta q_j =  0.
@@ -293,14 +394,16 @@ y definiendo al lagrangiano\index{Lagrangiano} $\Lag$ como
 \[
 	\Lag \equiv T - V
 \]
-\notamargen{El $\Lag$ es función del conjunto $(\{ q_j \}, \{ \dot{q}_j \}, t)$.}
 se arriba a
 \[
 	\sum_{j=1}^{3N-k} \left[
 	\frac{d}{dt} \left( \dpar{\Lag}{\dot{q}_j} \right) -  \dpar{\Lag}{q_j} \right] \delta q_j =  0.
 \]
+Nótese que $\Lag = \Lag( q_1,...,q_{3N-k}, \dot{q}_1, ..., \dot{q}_{3N-k}, t ) $, es decir que es función 
+del conjunto $(\{ q_j \}, \{ \dot{q}_j \}, t)$. De esta manera las ecuaciones resultantes serán, a lo sumo,
+ecuaciones diferenciales para $q_j(t)$ de orden dos.
 
-Si existieran fuerzas que no provienen de un potencial (no conservativas) entonces
+Si existieran fuerzas aplicadas que no provienen de un potencial (no conservativas) entonces
 \[
 	Q_j + Q_j^{NC} = -\dpar{V}{q_j} + Q_j^{NC},
 \]
@@ -319,12 +422,64 @@ Este es el resultado más importante del capítulo.
 \notamargen{No sé si es la primera vez que aparecen. De serlo habría que remarcarlo como es debido, tal vez
 recuadrar}
 
+Se tienen así una formulación para los problemas mecánicos en términos de ecuaciones diferenciales para los
+grados de libertad $q_j$ que prescinden del conocimiento de las fuerzas de vínculo.
+
 \subsection{Algunos ejemplos del lagrangiano}
 
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\begin{ejemplo}{\bfseries Bloques deslizantes}
+
+Teníamos el vínculo 
+\[
+	-2x_1 + x_2 = \text{ cte. }
+\]
+Luego,
+\[
+	T = \frac 1 2 m_1 \dot{x}_1^2 + \frac 1 2 m_2 \dot{x}_2^2 \qquad \qquad V = -m_2 g x_2
+\]
+y tomando $x_2$ como independiente llego a
+\[
+	T-V = \frac{1}{2}\left( \frac{m_1}{4} + m_2 \right) \dot{x}_2^2 + m_2gx_2.
+\]
+Luego, las ecuaciones de E-L serán
+\[
+	\dtot{}{t}\left( \dpar{\Lag}{\dot{x}_2} \right) - \dpar{\Lag}{x_2} =
+	\left( \frac{m_1}{4} + m_2 \right) \ddot{x}_2 - m_2 g = 0
+\]
+que conduce a 
+\[
+	\ddot{x}_2 = \frac{m_2 g}{\frac{m_1}{4} + m_2 },
+\]
+que es a lo que se tenía que llegar.
+\end{ejemplo}
+
+\begin{ejemplo}{\bfseries Péndulo}
+
+\includegraphics[scale=0.35]{images/fig_mc_pendulo_lag.jpg}
+
+Las ecuaciones son 
+\[
+	m\ell \dot{\alpha}^2 = - T + m g \cos \alpha \qquad 
+	m\ell \ddot{\alpha} = - m g \sin \alpha
+\]
+y se podría resolver desde aquí nomás. Pero escribamos el lagrangiano
+\[
+	\Lag = T-V = \frac 1 2 m \ell^2 \dot{\alpha}^2 - mg\ell(1-\cos \alpha)
+\]
+Sus ecuaciones de E-L son
+\[
+	m \ell \ddot{\alpha} + mg\ell \sin \alpha = 0
+\]
+que es la ecuación del péndulo $\ddot{\alpha} = -g/\ell \sin \alpha$.
+
+\end{ejemplo}
+
 \begin{ejemplo}{\bfseries Aro acelerado }
 
 \notamargen{Falta ilustración del aro y sistema coordenado.}
+\includegraphics[scale=0.35]{images/fig_mc_aro_acelerado_lag.jpg}
 
 Supongamos un aro horizontal en una mesa sin rozamiento. Tiene un único grado de libertad.
 
@@ -344,41 +499,172 @@ En este caso no hay potencial pero como $\vp$ es una coordenada vista en un sist
 las fuerzas ficticias asociadas al movimiento.
 Serán
 \[
-	\dot{x} = at + \ell \sin(\vp) \dot{\vp} \qquad \dot{y} = \ell \cos(\vp) \dot{vp}
+	\dot{x} = at + \ell \sin(\vp) \dot{\vp} \qquad \dot{y} = \ell \cos(\vp) \dot{\vp}
 \]
+\notamargen{La $T$ del $\Lag$ es la vistda desde un sistema INERCIAL siempre; en todo caso luego aparecen
+las fuerzas ficticias necesarias. ESTO HAY QUE ESTUDIARLO Y ENTENDERLO.
+}
 y luego 
 \[
 	\Lag = T = \frac{1}{2} m (\dot{x}^2 + \dot{y}^2 ) = \frac{1}{2} m
 	(a^2 t^2 + 2at\ell\sin(\vp)\dot{\vp}+\ell^2\dot{\vp}^2)
 \]
-\notamargen{La $T$ del $\Lag$ es la vistda desde un sistema INERCIAL siempre; en todo caso leugo aparecen
-las fuerzas ficticias necesarias. ESTO HAY QUE ESTUDIARLO Y ENTENDERLO.
-\\
-}
+
 Las ecuaciones de Euler-Lagrange serán 
 \[
 	\dtot{}{t}\left( \dpar{\Lag}{\dot{\vp}}\right) - \dpar{\Lag}{\vp} = 
-	m \ell^2 \ddot{\vp} + mat\ell \sin(\vp) = 0
+	m \ell^2 \ddot{\vp} + ma\ell \sin(\vp) = 0
 \]
 lo cual resulta en la ecuación de movimiento
+\notamargen{El lagrangiano se dedujo de las ecuaciones de Newton, entonces debemos calcular $T,V$ de un sistema
+inercial. Acá no se entiende si lo que se hace en la carpeta está bien o no, en el sentido de que parece que al
+usar una coordenada que no es inercial estamos calculando T no inercial.? }
 \[
-	\ddot{\vp} = - \frac{at}{\ell} \sin(\vp) 
+	\ddot{\vp} = - \frac{a}{\ell} \sin(\vp) 
 \]
 que es una ecuación que da oscilaciones, como la de un péndulo. Estas oscilaciones están causadas, claramente,
 por la aceleración $a$.
 
-
-\notamargen{El lagrangiano se dedujo de las ecuaciones de Newton, entonces debemos calcular $T,V$ de un sistema
-inercial. Acá no se entiende si lo que se hace en la carpeta está bien o no, en el sentido de que parece que al
-usar una coordenada que no es inercial estamos calculando T no inercial.? }
-
+En este ejemplo se ve que se calcula la energía cinética $T$ en un sistema inercial; no obstante, este valor está
+expresado en términos de una coordenada que no es inercial (es solidaria al aro). Aparecen entonces las fuerzas 
+inerciales que tienen que aparecer y punto.
 \end{ejemplo}
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\begin{ejemplo}{\bf Problema 5 --para vínculos--}
+
+Este problema es de vínculos y trabajos virtuales. Habría que reubicarlo.
+
+\includegraphics[scale=0.35]{images/fig_mc_oscilador_barra.jpg}
+
+Se tienen dos masas $m_1$ y $m_2$ de manera que en principio se tendrían seis coordenadas; no obstante como el movimiento
+es en un plano (se puede tomar el $z=0$ como tal) y las masas están restringidas a moverse a lo largo del eje que las
+engarza se tiene, adoptando el esquema de la figura,
+\[
+	z_1 = z_2 = 0 \qquad \qquad x_2 = y_1 = 0
+\]
+es decir cuatro ecuaciones de vínculo a la cual le sumamos una quinta
+\be
+	x_1^2 + y_2^2 = \ell^2
+	\label{vinculo_problema_5}
+\ee
+de manera que resulta un problema para un único grado de libertad. Obviando los subíndices que no son necesarios, y diferenciando
+implícitamente la ecuación \eqref{vinculo_problema_5} se obtiene 
+\[
+	x dx + y dy = 0 
+\]
+Utilizando el ángulo $\theta$ y parametrizando las variables implicadas en \eqref{vinculo_problema_5} de acuerdo con 
+\[
+	x = \ell \sin \theta \qquad y = \ell \cos \theta
+\]
+vemos que es una buena coordenada porque verifica el vínculo de manera natural.
+
+Planteando las ecuaciones 
+\[
+	( T \sin \theta - m_1 \ddot{x} ) \delta x + ( m_2 g - T \cos \theta - m_2 \ddot{y} ) \delta y = 0
+\]
+\be
+	x \delta x = -y \delta y
+	\label{relacion_deltas}
+\ee
+pero usando la última, se tiene
+\[
+	-\frac{x}{\ell}T\delta x - \frac{y}{\ell}T\delta y = 0 
+\]
+de manera que desaparece la tensión. Entonces
+\[
+	m_2 \ddot{x} \delta x = m_2 (g - \ddot{y}) \delta y
+\]
+que es una ecuación de Lagrange de primera especie. Usando otra vez \eqref{relacion_deltas}
+\[
+	- m_1 \ddot{x} \frac y x = m_2 (g - \ddot{y})
+\]
+y entonces ahora habría que convertir a expresar todo en términos de $\theta$. Derivando las expresiones de $x,y$ en términos
+del ángulo $\theta$ resulta que 
+\[
+	-m_1 \ell ( \ddot{\theta} \cos \theta - \dot{\theta}^2 \sin \theta ) \frac{\cos \theta}{\sin \theta}  = 
+	m_2 ( g + \ell \ddot{\theta} \sin \theta + \ell \dot{\theta} \cos \theta )
+\]
+\[
+	\ddot{ \theta } \ell ( m_2 \sin \theta + m_1 \frac{\cos^2 \theta}{\sin \theta} ) + 
+	\dot{\theta}^2 \ell (m_2 \sin \theta - m_1 \cos \theta ) + m_2 g = 0
+\]
+Si $ m_1 = m_2 $ entonces
+\[
+	\ddot{ \theta } \ell \frac{m}{\sin \theta} + m  g = 0 
+\]
+\[
+	\ddot{ \theta } = -\frac{ g }{ \ell } \sin \theta,
+\]
+y vemos que es un péndulo.
+
+Ahora se quisiera calcular la tensión $T$. Se utilizarán multiplicadores de Lagrange. Sea que los vínculos se rompen (se rompen, por supuesto, en la 
+dirección de las fuerzas de vínculos). Supongamos que existe $y_1$ (hay desplazamiento en la coordenada $y_1$) entonces existirá $\lambda$ tal que 
+$\lambda  \delta y_1 \neq 0$
+\[
+	\delta y_1 ( m_1 \ddot{y}_1 - \lambda - m_1 g ) \qquad \lambda = m_1 g
+\]
+pero la ecuación en (1) (página anterior) debe seguir valiendo.
+\[
+	\lambda_T + x \delta x + \lambda_T y \delta y 
+\]
+\[
+	( m_1 \ddot{x} + \lambda_T x ) \dx + ( m_2 (g - \ddot{y} ) + \lambda_T + y ) \dy = 0
+\]
+lo cual vale si $\lambda_T = - \frac T \ell $.
+Y se ve que el multiplicador de Lagrange es la tensión (vínculo) -- la fuerza asociada a que se cumpla el vínculo --.
+Tengo un multiplicador por cada vínculo. Si hay $n$ vínculos y quiero un vínculo uso un solo multiplicador.
+Pero ahora $\dx$ y $\dy$ son independientes, entonces deben anularse por separado los dos miembros de la ecuación de Newton.
+\[
+	m_1 \ddot{x} + \lambda_T x  \qquad \qquad m_ 2(g -\ddot{y}) + \lambda_T y
+\]
+\[
+	\lambda_T = - \frac{m_1 \ddot{x}}{x} 
+\]
+\[
+	\lambda_T = -\frac{ m_1 ( \ddot{ \theta } \cos \theta - \dot{\theta}^2 \sin \theta ) }{\sin \theta} =
+	m_1 (\frac g \ell \cos \theta - \dot{\theta}^2 )
+\]
+\end{ejemplo}
+
+
 
 % =================================================================================================
 \section{Invariancia del lagrangiano ante adición de una derivada total}
 % =================================================================================================
 
+En los ejemplos del péndulo y del aro acelerado [CITAR], la resolución del sistema a través de las ecuaciones de 
+Euler-Lagrange condujo a las mismas ecuaciones de movimiento (lo que signfica que, para iguales condiciones iniciales, 
+la física del sistema es la misma) pero se partió de dos lagrangianos diferentes
+\[
+	\Lag = \frac 1 2 m \ell^2 \dot{\alpha}^2 + m g \ell \cos \alpha \qquad
+	\Lag'= \frac 1 2 m \left( \ell^2 \ddot{\alpha} + 2 \ell g t \sin \alpha \: \dot{\alpha} + g^2 t^2 \right)
+\]
+\notamargen{La aceleración del aro era $a$ pero escribimos $g$ para enfatizar que tienen la misma forma.}
+que llevaban a
+\[
+	\ell \ddot{\alpha} + g \sin \alpha = 0. 
+\]
+Es decir, que desde el punto de vista del movimiento del sistema, los dos lagrangianos son equivalentes.
+Pero notemos que el término central en $\Lag'$ aparece vinculado a 
+\[
+	\dtot{}{t}\left( m l g t \cos \alpha \right) = -m \ell g t \dot{\alpha} \sin \alpha + m l g \cos \alpha,
+\]
+de manera que 
+\[
+	\Lag'= \frac 1 2 m \ell^2 \dot{\alpha}^2 + m l g \cos \alpha -
+	\dtot{}{t}\left( m l g t \cos \alpha \right) + \frac 1 2 g^2 t^2
+\]
+\[
+	\Lag'= \frac 1 2 m \ell^2 \dot{\alpha}^2 + m l g \cos \alpha - 
+	\dtot{}{t}\left( m l g t \cos \alpha - \frac 1 6 g^2 t^3 \right)
+\]
+o bien 
+\[
+	\Lag' = \Lag + \dtot{}{t}(F(\alpha,t)).
+\]
+
+Entonces, parece que existe alguna relación entre dos lagrangianos que conducen a iguales ecuaciones de movimiento.
 
 En el ejemplo visto del sistema mecánico del aro acelerado parece que existía alguna relación entre dos 
 lagrangianos que conducían a iguales ecuaciones de movimiento. Veamos ahora el origen de esa relación.
@@ -451,6 +737,55 @@ Finalmente hemos comprobado que las ecuaciones de Euler Lagrange no se modifican
 derivada total respecto del tiempo de una función de $(q_i,t)$.
 O sea que podríamos construir infinitos lagrangianos diferentes por el añadido de una derivada total y todos
 ellos llevan a las mismas ecuaciones de movimiento.
+
+\begin{ejemplo}{\bf Lagrangiano en funcionamiento}
+
+Dos masas $m_1, m_2$ conectadas mediantes barras rígidas de masa despreciable según indica la figura que se mueven en 
+un plano.
+
+\includegraphics[scale=0.35]{images/fig_mc_clasica_pendulo_doble.jpg}
+
+En principio este problema tiene cuatro coordenadas $x_1,x_2,y_1,y_2$ pero las barras determinan dos ecuaciones de 
+vínculo
+\[
+	x_1^2 + y_1^2 = \ell  \qquad \qquad (x_2-x_1)^2 + (y_2-y_1)^2 = \ell^2
+\]
+de modo que es un sistema con dos grados de libertad.
+
+\notamargen{Este ejemplo es interesante porque considera unos versores movibles. Habría que continuarlo y ver qué se 
+hizo en la carpeta.} 
+
+Para escribir el lagrangiano notemos que 
+\[
+	T = T_1 + T_2 = \frac 1 2 m_1 ( \dot{x}_1^2 + \dot{y}_1^2 ) + \frac 1 2 m_2 ( \dot{x}_2^2 + \dot{y}_2^2 ) 
+\]
+\[
+	V = -m_1 g x_1 - m_2 g x_2
+\]
+
+Y en términos de los ángulos $\alpha_1$, $\alpha_2$ se tiene 
+\[
+	x_1 = \ell \cos \alpha_1 \qquad y_1 = \ell \sin \alpha_1 
+\]
+\[
+	x_2 = \ell \cos \alpha_2 + \ell \cos \alpha_1 \qquad y_2 = \ell \sin \alpha_1 + \ell \sin \alpha_2
+\]
+pero antes de hacer toda el álgebra, notemos que $( \dot{x}_1^2 + \dot{y}_1^2 ) = |\vb{v}_1| $ está siempre en la 
+dirección del vector $\hat{\alpha}_1$ y no puede tener componente perpendicular. Considerando solamente esa componente, 
+sería
+\[
+	\vb{v}_1 = \ell \: \dot{\alpha}_1 \hat{\alpha}_1 \qquad \text{ con } \qquad v_1^2 = \ell^2 \: \dot{\alpha}_1^2
+\]
+y correspondientemente
+\[
+	\vb{v}_2 = \ell \: \dot{\alpha}_1 \hat{\alpha}_1 + \ell \: \dot{\alpha}_2 \hat{\alpha}_2
+\]
+\[
+	v_2^2 = \ell^2 \: \dot{\alpha}_1^2 + \ell^2 \: \dot{\alpha}_2^2 + 2 \dot{\alpha}_1 \dot{\alpha}_2 \ell^2
+	\cos ( \alpha_2 - \alpha_1 ).
+\]
+\end{ejemplo}
+
 
 % =================================================================================================
 \section{Momentos conjugados y coordenadas cíclicas}\index{Momentos conjugados} \index{Coordenadas cíclicas}
@@ -709,7 +1044,7 @@ es decir que aparece un término extra con el potencial vector respecto del caso
 está libre.
 
 % =================================================================================================
-\section{Energía cinética de un sistema}\index{Energía cinética}
+\section{Energía cinética generalizada}\index{Energía cinética}
 % =================================================================================================
 
 Resulta útil disponer de la energía cinética de un sistema en función de coordenadas generalizadas.
@@ -797,6 +1132,8 @@ Para una particula libre será
 es decir que solamente es cuadrática en las velocidades. Para una partícula sometida a vínculos en general, en términos
 de las coordenadas generalizadas, se tendrán las tres clases de cinética.
 
+\begin{ejemplo}{\bf Cinética de la partícula libre en esféricas}
+
 En coordenadas esféricas la energía de una partícula libre es 
 \[
 	T_2 =  \frac{1}{2} m \left( \dot{r}^2 + r^2 \dot{\theta}^2 + r^2 \sin \theta \dot{\vp}^2 \right).
@@ -806,6 +1143,7 @@ Si las coordenadas generalizadas son las coordenadas $ r, \theta, \vp $ se ident
 	T_2 =  \frac{1}{2} m \left( a_r(r, \theta, \vp ) \dot{r}^2 + a_\theta(r, \theta, \vp ) \dot{\theta}^2 + 
 	a_\phi(r, \theta, \vp ) \dot{\vp}^2 \right).
 \]
+\end{ejemplo}
 
 % =================================================================================================
 \section{Energía cinética de un sistema de partículas}
@@ -1010,24 +1348,31 @@ Dado que la energía cinética tiene la forma general
 	\underbrace{\sum_j^{3n-k} b_j(q_1,...,q_{3N-k},t)\dot{q}_j  }_{T_1} +
 	\underbrace{\frac{1}{2} \sum_j^{3n-k}\sum_s^{3n-k}  a_{js}(q_1,...,q_{3N-k},t)\dot{q}_s\dot{q}_j }_{T_2}
 \]
-entonces se sigue que 
+entonces, la energía total será 
 \be
-	E = T_0 + T_1 + T_2 + V
-\label{mc_E}
+	E = T + V = T_0 + T_1 + T_2 + V.
+	\label{mc_E}
 \ee
-y como 
+
+La forma particular de la energía cinética \eqref{mc_E} implica que 
 \[
-	p_i = \dpar{\Lag}{\dot{q}_i} = T_1 + 2T_2 
+	p_i \dot{q}_i = \dpar{\Lag}{\dot{q}_i} \dot{q}_i = T_1 + 2 T_2, 
 \]
-es 
+entonces el hamiltoniano $\Ham = \sum_i^N p_i\dot{q}_i - \Lag $ adopta la expresión
 \[
-	\Ham = \sum_i^N p_i\dot{q}_i - (T_0 + T_1 + T_2 - V) = 2T_2 + T_1 - T_0 - T_1 - T_2 + V = T_2 - T_0 + V
+	\Ham = T_2 - T_0 + V.
 \]
-pero como E es \eqref{mc_E} se tendrá 
+
+Luego, para que se verifique que el hamiltoniano es la energía del sistema, i.e. $\Ham=E$ se necesita
 \[
-	E = H \iff 2T_0 + T1 = 0
+	2T_0 + T_1 = 0.
 \]
-y un solución de este sistema es, por supuesto, $T_0 = T_1 = 0$
+
+Una solución de este sistema es, por supuesto, $T_0 = T_1 = 0$; el hamiltoniano es la energía cuando la velocidad del sistema
+es exclusivamente cuadrática en las velocidades generalizadas. Este será el caso cuando los vínculos no dependan del tiempo,
+y siemre suponiendo que el potencial no depende de la velocidad.
+\notamargen{Hay que enganchar esto con la sección anterior. Hacer un cuadro sketchi de cuando se conserva la energía y cuando
+el hamiltoniano es la energía del sistema.}
 
 % =================================================================================================
 \section{Principio de acción mínima}
@@ -1172,9 +1517,292 @@ $\Lag$ por la condición dada por \eqref{mc_borde_term}.
 La moraleja es que si los lagrangianos difieren en una derivada total del tiempo obtenemos la misma
 física.
 
+\begin{ejemplo}{\bf Problema círculos}
+
+\includegraphics[scale=0.3]{images/fig_mc_dos_circulos_rotantes.jpg} 
+\includegraphics[scale=0.3]{images/fig_mc_dos_circulos_subsistema.jpg} 
+ 
+El disco pequeño está solidario al disco [?]. La línea AB está pintada sobre los discos para poder medir los ángulos.
+El eje $x_1$ está solidario al piso (inercial).
+
+La segunda figura ilustra el movimiento de la masa en el sistema fijo.,
+\[
+	x_1 = R_1 \cos \theta_1 + \rho \cos ( \theta_1 + \theta_2 + \vp )
+\]
+\[
+	y_1 = R_1 \sin \theta_1 + \rho \sin ( \theta_1 + \theta_2 + \vp )
+\]
+Luego, hay que calcular 
+\[
+	\frac 1 2 m |\vb{v}|^2
+\]
+con 
+\[
+	\dot{x}_1 = -R_1 \sin \theta_1 \dot{\theta}_1 + \dot{\rho} \cos ( \theta_1 + \theta_2 + \vp ) -
+	\rho ( \dot{\theta}_1 + \dot{\theta}_2 + \dot{\vp} ) \sin( \theta_1 + \theta_2 + \vp )
+\]
+\[
+	\dot{y}_1 = R_1 \cos \theta_1 \dot{\theta}_1 + \dot{\rho} \sin ( \theta_1 + \theta_2 + \vp ) +
+	\rho ( \dot{\theta}_1 + \dot{\theta}_2 + \dot{\vp} ) \cos( \theta_1 + \theta_2 + \vp )	
+\]
+
+Habría que elevar esto al cuadrado, lo cual a mano es un trabajo un poco cumbersome.
+\[
+	T = \frac 1 2 m ( R_1^2 \dot{\theta}_1^2 + \rho^2( \dot{\theta}_1 + \dot{\theta}_2  + \dot{\vp} ) + \dot{\rho}^2 + 
+	2R_1\dot{\theta}_1\left[ \dot{\rho}\sin(\theta_2+\vp) + \rho( \dot{\theta}_1 + \dot{\theta}_2 + \dot{\vp} )\cos(\theta_2+\vp) \right])
+\]
+y como no hay potencial, entonces $\Lag = T $. Trabajando con las ecuaciones de Lagrange se llega a
+\[
+	\ddot{\rho} - \rho ( \omega_1 + \omega_2 + \dot{\vp} )^2 - R_1 \omega_1^2 \cos (\omega_2 t + \vp ) = 0
+\]
+\[
+	\ddot{\vp} + \frac{\dot{\rho}}{\rho}\left[ 2(\omega_1 + \omega_2 )\right] + 
+	\frac{R_1\omega_1( \omega_1 + \omega_2 )}{\rho} \sin (\omega_2 t + \vp ) = 0
+\]
+
+Este sistema tiene dos grados de libertad $(\rho,\vp)$ y el lagrangiano es $\Lag(\vp,\rho,\dot{\vp},\dot{\rho},t)$. En realidad
+$\dot{\theta}_j = \dot{\theta}_j(\rho\vp)$ para $j=1,2$ y entonces $\theta_j$ no son coordenadas generalizadas.
+
+Este problema se puede simplificar si se asume que $ \dot{\theta}_1, \dot{\theta}_2 $ son constantes [Esto viene antes o viene después].
+\end{ejemplo}
+
+
+\begin{ejemplo}{\bf Problema 17}
+ 
+\includegraphics[scale=0.3]{images/fig_mc_pendulo_deslizante.jpg} 
+
+Un problema de dos masas con, en principio, seis grados de libertad. Dado que el movimiento se asume que ocurre en un plano, el $z$
+por ejemplo, eso implica dos vínculos $z_1 = z_2 = 0$ a los cuales debemos sumarle la fijación de $m_1$ en la altura $y_1 = 0$ y el vínculo 
+de la barra
+\[
+	y_2^2 + (x_2 -x_1)^2 = \ell^2
+\]
+luego es un problema de dos grados de libertad, que pueden ser elegidos como $(x,\vp)$. Esto último puesto que 
+\[
+	x_2 = x + \ell \sin\vp \qquad y_2 = \ell \cos \vp.
+\]
+Considerando $x_1 equiv x$ para simplificar la notación se tiene 
+\[
+	\dot{x}_2 = \dot{x} + \ell \dot{\vp}\cos\vp \qquad \qquad \dot{y}_2 = -\ell \dot{\vp} \sin\vp
+\]
+
+Todo esto permite escribir 
+\[
+	T = \frac 1 2 ( m_1 + m_2 ) \dot{x}^2 + \frac 1 2 m_2 ( 2\dot{x}\dot{\vp} \ell\cos\v + \ell^2\dot{\vp}^2 )
+\]
+\[
+	V = - m_2 g \ell \cos\vp
+\]
+La condición de que $\Lag \neq \Lag(\vp)$ implica la cantidad conservada
+\[
+	\dpar{\Lag}{\dot{x}} = \dot{x}(m_1+m_2) + m_2 \dot{\vp} \ell \cos\vp \equiv p_x,
+\]
+que es el momento lineal en $x$. Para la coordenada $\vp$ resulta la ecuación
+\[
+	\ddot{x}\cos\vp + \ell\ddot{\vp} + g\sin\vp = 0,
+\]
+mientras que para $x$ se tiene 
+\[
+	\ddot{x}(m_1+m_2) + m_2 \ell (\cos \vp \ddot{\vp}-\sin\vp \dot{\vp}^2)	= 0.
+\]
+
+Se pueden combinar para tener una ecuación para $ \vp $ solamente. Luego esa dinámica la puedo obtener? [ver carpeta].
+\end{ejemplo}
+
+
+\begin{ejemplo}{\bf Problema 7}
+ 
+\includegraphics[scale=0.35]{images/fig_mc_problema_cono.jpg}
+
+En este problema convienen esféricas $\theta$ constante. Tendremos dos grados de libertad $(\varphi,r)$.
+Usando las expresiones de las coordenadas esféricas (ver XXXX chap 1) se tiene 
+\[
+	| \dot{\vb{x}} |^2 = | \dot{r}\hat{r} + r\sin\theta \dot{\vp} \hat{\vp} |^2
+\]
+\[
+	v^2 = \dot{r}^2 + r^2 \dot{ \vp }^2 \sin^2 \alpha
+\]
+Con esto escribimos $T$ usando que $V = mgr\cos\alpha$,
+\[
+	\Lag = \frac 1 2 m (\dot{r}^2 + r^2 \dot{ \vp }^2 \sin^2 \alpha) - mgr \cos\alpha 
+\]
+
+El grado de libertad $\vp$ tendrá asociado un momento conjugado que se conserva, pues $\partial\Lag/\partial \vp = 0$,
+luego
+\[
+	\dpar{\Lag}{\dot{\vp}} = mr^2 \dot{\vp} \sin^2 \alpha = cte. \equiv L
+\]
+mientras la ecuación de E-L para $r$ arrojará
+\[
+	m\ddot{r} - m r \dot{\vp}^2 \sin^2\alpha + mg\cos\alpha = 0
+\]
+y utilizando la conservación 
+\[
+	\ddot{r} - \frac{L^2}{mr^3\sin^2\alpha} + mg\cos\alpha = 0.
+\]
+
+Si ahora calculamos la energía $E=T+V$ se obtiene 
+\[
+	E = \frac 1 2 m \dot{r}^2 + \frac{L^2 \vp}{ m r^2 \sin^2 \alpha } + mgr\cos\alpha
+\]
+donde los dos últimos términos constituyen un potencial efectivo.
+ 
+\end{ejemplo}
+
+\begin{ejemplo}{\bf Cicloides y esas cosas}
+Tautocrona, Huygens (1773)
+
+\subsubsection*{Curva cicloide}
+
+\includegraphics[scale=0.3]{images/fig_mc_cicloides.jpg}
+
+Con las consideraciones de las figuras, tenemos en rápida sucesión
+\[
+	\vb{R} = (vt,b)
+\]
+\[
+	\vb{X}' = ( -b \sin \vp, -b \cos \vp ) ; \quad \vp = \omega t
+\]
+\[
+	\vb{X} = ( vt -b \sin \vp, b -b \cos \vp )
+\]
+y por condición de rodadura
+\[
+	\vb{v}_q = 0 = \vb{v}_{cm} + \vb{\omega} \times \vb{x}_{cm} = v\hat{x} + (-\omega)b\hat{k} \times (-\hat{y})
+\]
+\[
+	0 = (v-\omega b)\hat{x},
+\]
+o bien $v=\omega b$ e integrando
+\[
+	vt = \omega t b = \vp b.
+\]
+
+Con esto llego a mi ecuación paramétrica para el cicloide
+\[
+	\begin{cases}  x = b \: (\vp - \sin \vp )\\
+		       y = b \: (1 - \cos \vp )
+	\end{cases}
+\]
+Este cicloide tiene gráfico 
+
+\includegraphics[scale=0.2]{images/fig_mc_cicloide_tiny.jpg}
+\includegraphics[scale=0.2]{images/fig_mc_cicloide_tiny_inverted.jpg}
+
+Pero neceisto uno que mire hacia abajo, lo cual se logra con un cambio $y' = -y + bz $ de modo que 
+\[
+	\begin{cases}  x = b \: (\vp - \sin \vp )\\
+		       y = b \: (1 + \cos \vp )
+	\end{cases}
+\]
+
+Ahora se hace un cambio de variables nuevo 
+\[
+	\frac y b = 1 + \cos\vp \qquad \qquad \frac{y-b}{b} = \cos \vp
+\]
+y entonces
+\[
+	x(y) = b \left( \acos\left( \frac{y-b}{b} \right) - \sqrt{1 - ( (y-b)/b )^2} \right)
+\]
+
+\includegraphics[scale=0.2]{images/fig_mc_cicloide_tobogan.jpg}
+
+Usando todo esto
+\[
+	T = \frac 1 2 m ( \dot{x}^2 + \dot{y}^2 ) \qquad \qquad V = m g y
+\]
+\[
+	\Lag = \frac 1 2 m ( \dot{x}^2 + \dot{y}^2) - mgy
+\]
+Derivando $x$ y haciendo el álgebra,
+\[
+	\dot{x} = -\dot{y} \sqrt{ \frac{ 2b - y }{y} }.
+\]
+
+Utilizando toda esta información, el lagrangiano es
+\[
+	\Lag = \frac{mb\dot{y}}{y} - mgy
+\]
+y las ecuaciones de E-L
+\[
+	mb\left( 2\frac{\ddot{y}}{y} - \frac{\dot{y}^2}{y^2} \right) + mg = 0.
+\]
+
+Podemos ver, con alguna experiencia, que 
+\[
+	\dtot{}{t}\left( \frac{ \dot{y}^2 }{y} \right) = \dot{y} \left( 2 \frac{ \ddot{y} }{y} - \frac{\dot{y}^2}{y^2} \right)
+\]
+
+Luego,
+\[
+	m b \frac{1}{\dot{y}} \dtot{}{t}\left( \frac{ \dot{y}^2 }{y} \right) + m g = 0
+\]
+\[
+	\dtot{}{t}\left( \frac{ \dot{y}^2 }{y} \right) = - \frac{ g }{ b } \dtot{y}{t},
+\]
+y ahora se puede integrar
+\[
+	\int_0^t \dtot{}{t}\left( \frac{ \dot{y}^2 }{y} \right) dt = 
+	- \frac{ g }{ b } \int_0^t \dtot{y}{t} dt,
+\]
+\[
+	\left. \frac{ \dot{y}^2 }{y} \right|_0^t = - \left. \frac{ g }{ b } y \right|_0^t
+\]
+
+Usando condiciones iniciales
+\[
+	\begin{cases}
+	 \dot{y}(t=0) = 0 \\
+	 y(t=0) = y_0
+	\end{cases}
+\]
+\[
+	\frac{ \dot{y}^2 }{ y } = -\frac{ g }{ b } y +  \frac{ g }{ b } y_0
+\]
+\[
+	\dot{y} = \frac{g}{b} \sqrt{ (y_0 - g) y }
+\]
+de manera que 
+\[
+	\int_{y_0}^{y} \frac{ dy }{ \sqrt{ y_0y - y^2 } } = \sqrt{ \frac g b } \int_0^t dt = \sqrt{ \frac g b } t
+\]
+\[
+	\asen\left( \frac{ y - y_0/2 }{y_0/2} \right)|_{y_0}^y = \asen\left( \frac{y - y_0/2}{y_0/2} \right)  - \frac \pi 2
+\]
+\[
+	\frac{y - y_0/2}{y_0/2} = \sin ( \sqrt{ \frac g b } t + \pi/2 ) = \cos ( \sqrt{ \frac g b } t )
+\]
+Finalmente,
+\[
+	y(t) = \frac {y_0} 2 ( 1 + \cos ( \sqrt{ \frac g b } t ) ).
+\]
+
+Si quiero calcular el tiempo de caída será:
+\[
+	0 = \frac{y_0}{2}\left( 1 + \cos ( \sqrt{ \frac g b } \tau ) \right),
+\]
+de lo cual se deduce 
+\[
+	\tau = \sqrt{ \frac b g } \pi.
+\]
+
+La cicloide es la curva de caída por la cual se tarda el tiempo mínimo. La masa $m$ tarda lo mínimo en caer por esta curva.
+Si las dos ruedas están pegadas girando ambas, recorrerán en un giro una distancia verde:
+
+\includegraphics[scale=0.2]{images/fig_mc_ruedas_pegadas.jpg}
+
+Esto no sucede: alguna de ambas deslizará.
+\end{ejemplo}
+
+
+
+
 % =================================================================================================
 \section{Aplicaciones del principio de acción mínima}
 % =================================================================================================
+
+\notamargen{Me falta algo de esta clase inicial, pero esperamos que no sea fundamental!}
+El principio variacional de Hamilton tiene más uso como herramiento formal de lo que tiene en el campo de la aplicación.
 
 \[
 	S = \int (T-V_0) dt
@@ -1204,6 +1832,301 @@ También podemos encontrar esta notación, dependiendo del tipo de problema,
 	I = \int f\left(y, \dtot{y}{x}, x\right) dx 
 \]
 
+\subsection{Billares [otro título?]}
+
+Consideramos una partícula libre en una región del espacio (una partícula rebotando en cierta región). Podemos pensar en un
+potencial 
+\[
+	V(\vb{x}) = \begin{cases}
+	0\phantom{\infty} \quad \vb{x} \in D \\
+	\infty\phantom{0} \quad \vb{x} \notin D
+	\end{cases}
+\]
+\includegraphics[scale=0.3]{images/fig_mc_billar_1.jpg}
+
+Es un pozo de potencial con una partícula libre en su interior; se los suele llamar {\it billares}. En este caso
+\[
+	I = \int_{q_i}^{qa_f} \: \Lag( q_1(t), q_2(t), ..., q_k(t),\dot{q}_1(t), ..., \dot{q}_k(t), t ) dt.
+\]
+La integral da la longitud de la órbita (espacio recorrido)
+\[
+	\frac 1 2 m v_0^2 \int_{t_i}^{t_f} dt = \frac 1 2 m v_0^2 (t_f - t_i)
+\]
+
+En un billar circular 
+
+\includegraphics[scale=0.3]{images/fig_mc_billar_2.jpg}
+\includegraphics[scale=0.3]{images/fig_mc_billar_2b.jpg}
+
+Si parto del punto rojo y quiero minimizar (extremar) la trayectoria que me da el ir hacia $(x,y)$ y volver al punto rojo, obtendré
+una órbita periódica en $(x_0,y_0)$. Esa órbita periódica es extrema entre ir y volver al punto rojo.
+
+En un billar eliptico
+
+\includegraphics[scale=0.3]{images/fig_mc_billar_3.jpg} 
+
+hay muchas trayectorias posibles entre los focos.
+El lagrangiano integrado me da todos las extremas $(1,2,...)$, que por otro lado son las reales, y con las condiciones iniciales determinaré qué 
+trayectoria extrema estaré considerando.
+
+Hay muchas trayectorias $(1,2,...)$ que son posibles 
+
+\includegraphics[scale=0.3]{images/fig_mc_billar_4.jpg} 
+
+\[
+	I = \int \Lag
+\]
+da la longitud total de todo el camino.
+\notamargen{¿Esta sección aporta algo?}
+
+
+\subsection{Minimización del camino entre dos puntos}
+
+\notamargen{Esto lo clavo por acá, después reacomodarlo}
+
+\begin{figure}[htb]
+	\begin{center}
+	\includegraphics[width=0.4\textwidth]{images/fig_mc_snell1.pdf}	 
+	\end{center}
+	\caption{}
+	\label{fig_mc_snell1}
+\end{figure}
+
+El $ \tau $ es fijo.
+Este problema no es como el del billar porque la velocidad no es constante [?].
+\[
+	I = \int_1^2 \Lag \: dt 
+\]
+pero se puede descomponer en $ I = I_1 + I_2 $; es decir un lagrangiano para cada medio, luego
+\[
+	I = \frac{1}{2} m v_1^2 \int_0^{t_i} dt + (\frac{1}{2} m v_2^2 + V_0) \int_{t_i}^{t_f} dt ,
+\]
+que al integrar da
+\[
+	I = \frac{1}{2} m v_1^2 t_i + \frac{1}{2} m v_2^2( t_f - t_i ) + V_0( t_f - t_i ).
+\]
+
+Las condiciones geométricas del problema (ver Figura) implican que 
+\[
+	v_1 t_i = \ell_1(x) \qquad \qquad v_2 ( t_f - t_i ) = \ell_2(x)
+\]
+siendo $ \ell_i $ longitudes que dependen de $ x $. Esto permite expresar los tiempos $t$ en términos
+de la distancia $ x $ sobre la frontera. Entonces se obtiene la acción $I$ en términos de posiciones
+y velocidades, i.e.
+\[
+	I = I(v_1,v_2 ,x) = \frac{1}{2} m v_1 \ell_1(x) + \frac{1}{2} m v_2 \ell_2(x) + \frac{V_0}{V_2} \ell_2(x).
+\]
+
+Luego, como todo sucede a $\tau$ fijo ($t_f=\tau$) se debe tener el siguiente vínculo
+\[
+	\tau = \frac{\ell_1(x)}{v_1} + \frac{\ell_2(x)}{v_2}.
+\]
+Entonces, diferenciando implícitamente el vínculo y la integral $I$ obtenemos, respectivamente,
+\[
+	d\tau = 0 = \left( \frac{1}{v_1} \dtot{\ell_1}{x} + \frac{1}{v_2} \dtot{\ell_2}{x} \right) dx
+	-\frac{\ell_1}{v_1^2} dv_1 - \frac{\ell_2}{v_2^2}dv_2
+\]
+\[
+	dI = \left(  \frac{v_1}{2} \dtot{\ell_1}{x} +  \frac{v_2}{2} \dtot{\ell_2}{x} + 
+	 \frac{V_0}{v_2} \dtot{\ell_2}{x} \right) dx + 
+	\frac{\ell_1}{2} dv_1 + \left( \frac{\ell_2}{2} - \frac{V_0 \ell_2}{v_2^2} \right)dv_2 = 0
+\]
+En esta última ecuación, si fuesen independientes los diferenciales $dx,dv_1,dv_2$ entonces sería nulo cada
+paréntesis. Como no es el caso empleamos multiplicadores de Lagrange,
+\[
+	d\tau = \lambda \left( \frac{1}{v_1} \dtot{\ell_1}{x} + \frac{1}{v_2} \dtot{\ell_2}{x} \right) dx
+	- \lambda \frac{\ell_1}{v_1^2} dv_1 - \lambda \frac{\ell_2}{v_2^2}dv_2
+\]
+y combinando
+\begin{multline*}
+ 	\left(  \frac{v_1}{2} \dtot{\ell_1}{x} +  \frac{v_2}{2} \dtot{\ell_2}{x} + 
+	 \frac{V_0}{v_2} \dtot{\ell_2}{x} - \lambda \left[ \frac{1}{v_1} \dtot{\ell_1}{x} + \frac{1}{v_2} 
+	\dtot{\ell_2}{x}  \right] \right) dx + \\
+	\left( \frac{\ell_1}{2} + \lambda \frac{\ell_1}{v_1^2} \right) dv_1 + 
+	\left( \frac{\ell_2}{2} - \frac{V_0 \ell_2}{v_2^2} + \lambda \frac{\ell_2}{v_2^2} \right)dv_2.
+\end{multline*}
+
+Ahora se puede igualar a cero cada paréntesis porque consideramos independientes $v_1$ y $v_2$.
+Entonces, se tienen
+\[
+	\lambda = -\frac{1}{2}v_1^2 \qquad \qquad \lambda = -\frac{1}{2}v_2^2 + V_0
+\]
+de manera que ha resultado la conservación de la energía
+\[
+	\frac{1}{2}v_1^2 = \frac{1}{2}v_2^2 - V_0
+\]
+
+Reemplazando en la anterior expresión, se llega a
+\[
+	v_1 \dtot{\ell_1}{x} + v_2 \dtot{\ell_2}{x} = 0.
+\]
+
+\[
+	\ell_1 = \sqrt{ Y_0^2 + x^2 } \qquad \ell_2 = \sqrt{ Y_f^2 + (L-x)^2 }
+\]
+\[
+	\dtot{\ell_1}{x} = \sin(\alpha_1) \qquad \dtot{\ell_2}{x} = -\sin(\alpha_2)
+\]
+de modo que 
+\[
+	v_1 \sin( \alpha_1 ) = v_2 \sin( \alpha_2 ),
+\]
+que es la conclusión de la ley de Snell. Entonces podemos establecer un parangón entre mecánica clásica
+y óptica geométrica.
+
+\begin{figure}[htb]
+	\begin{center}
+	\includegraphics[width=0.4\textwidth]{images/fig_mc_snell2.pdf}	 
+	\end{center}
+	\caption{}
+	\label{fig_mc_snell2}
+\end{figure}
+
+\subsection{Acción mínima ejemplos}
+
+En general, dada una integral
+\[
+	I = \int_{t_1}^{t_2} \: f\left(y,\dtot{y}{t},t\right) \: dt,
+\]
+si se tiene que 
+\[
+	\dtot{}{t}\left( \dpar{f}{dy/dt} \right) - \dpar{f}{y} = 0,
+\]
+entonces se da que $I$ es un extremo. Por ello esta idea es generalizable a casos no mecánicos, como veremos a 
+continuación.
+
+\begin{ejemplo}{\bf Espejimo -problema 5-}
+ 
+\includegraphics[scale=0.3]{images/fig_mc_espejismo.jpg}
+
+En estos problemas debemos saber primeramente de qué punto a qué punto vamos.
+\[
+	I = \int_{x_1}^{x_2} n(y) d\ell = \int_1^2 n_0 \left( 1 + \frac y h \right) \sqrt{ dx^2 + dy^2} =
+	\int_1^2 n_0 \left( 1 + \frac y h \right) \sqrt{ 1 + \left( \frac{dy}{dx} \right)^2 } \: dx
+\]
+Si defino $ y' = dy/dx$ y $f = n_0 (1 + y/h) \sqrt{ 1 + {y'}^2}$ se tiene 
+\[
+	\dtot{}{x}\left( \dpar{f}{y'}\right) = \dtot{}{x} \left( n_0 \left( 1 + \frac y h \right) 
+	\frac{y'}{\sqrt{ 1 + {y'}^2}} \right)
+\]
+y haciendo la derivada explícitamente
+\[
+	\dtot{}{x}\left( \dpar{f}{y'}\right) = n_0 \left( 
+	\frac{ {y'}^2}{h\sqrt{1 + {y'}^2} } + \left( 1 + \frac y h \right) 
+	\left[ y''\frac{1}{\sqrt{1 + {y'}^2}} + \frac{y'}{2 (\sqrt{1 + {y'}^2})^3 } 2 y' y'' \right]
+	\right)
+\]
+\[
+	\dpar{f}{y} = \frac {n_0}{h}  \sqrt{ 1 + { y'}^2 } 
+\]
+Luego, juntando todo
+\[
+	y'' = \frac{1 + y'^2}{h+y}.
+\]
+
+Si tomamos 
+\[
+	y + h = \frac{\alpha h}{n_0} \cosh \left( \frac{\alpha n_0}{\alpha h}+ \beta \right)
+\]
+\[
+	y'' = \frac{n_0}{\alpha h} \cosh ()
+\]
+\notamargen{Acá, claramente, faltan cosas.}
+\end{ejemplo}
+
+\begin{ejemplo}{\bf Problema 8}
+
+Por la periodicidad se propone una serie de Fourier
+\[
+	y = \frac{a_0 }{2} + \sum_{n=1} a_n \cos (n\omega t) + b_n \sin (n\omega t)
+\]
+donde $\omega$ corresponde a la frecuencia del movimiento de subida y bajada.
+\[
+	y(0) = 0 \qquad \qquad \Lag = T - V
+\]
+\[
+	y(t_{\text{caida}}) = 0 \qquad \qquad \Lag = \frac m 2 \dot{y}^2 - m g y
+\]
+Entonces queremos lograr $\delta I = 0$ para 
+\[
+	I = \int_0^{t_c}  \: \Lag \: dt
+\]
+para hallar la mejor serie de Fourier que verifique
+\[
+	\dot{y} = \sum_{n} - a_n \sin (n\omega t) n \omega + b_n \cos (n\omega t) n\omega
+\]
+y esto habría que elevarlo al cuadrado.
+
+\includegraphics[scale=0.3]{images/fig_mc_fourier_1.jpg}
+\includegraphics[scale=0.3]{images/fig_mc_fourier_2.jpg}
+
+Quisiera ver la diferencia entre las dos trayectorias que muestra la figura.
+\[
+	y(0) = \frac{ \omega }{2} + \sum a_n = y( t_c )
+\]
+Y calculo acá las variaciones
+\[
+	0 = \delta y(0) = \delta \frac{a_0}{2} + \sum_n \delta a_n
+\]
+\[
+	\delta a_0 = - \sum_n 2 \delta a_n \qquad   \text{vinculo}
+\]
+\[
+	I = m \int_0^{t_c} \left[ \sum_n a_n n \omega \sin( n\omega t) + b_n n\omega \cos (n\omega t) \right]^2 dt 
+	- mg \int_0^{t_c} \left[ \frac {a_0} 2 \sum_n a_n \cos( n\omega t) + b_n \sin (n\omega t) \right] dt
+\]
+\notamargen{Anoté: porque $t_c$ es el tiempo de un período.}
+\[
+	\int_0^{t_c} \cos (n\omega t) dt = 0 \qquad \qquad \int_0^{t_c} \sin (n\omega t) dt = 0
+\]
+\[
+	\int_0^{t_c} \cos^2 (n\omega t) dt = T/2 \qquad \qquad \int_0^{t_c} \sin^2 (n\omega t) dt = T/2
+\]
+\[
+	I = \frac m 2 \left( \sum_n a_n^2 n^2 \omega^2 \frac {T_c}2 + \sum_n b_n^2 n^2 \omega^2 \frac {T_c}2 \right) - m g T_c \frac {a_0} 2
+\]
+
+La integral ya está dada en función de los coeficientes de la serie, de manera que lo que faltaría es hacer variar los coeficientes y ya.
+\[
+	\delta I = - \frac m 2 \sum_n a_n \delta a_n n^2 \omega^2 t_c + \frac m 2 \sum_n b_n \delta b_n n^2 \omega^2 t_c -
+	m g \delta \frac {a_0} 2 t_c + \frac{mg }{2} \sum_n 2 \delta a_n t_c = 0
+\]
+y como los $\delta a_n, \delta b_n$ son independientes todos los términos serán cero por separado.
+Entonces
+\[
+	\frac m 2 b_n \delta b_n n^2 \omega^2 t_c = 0 \qquad \qquad \Rightarrow \quad b_n= 0,
+\]
+es decir que no hay senos. Por otro lado,
+\[
+	a_n  = \frac {2g}{n^2\omega^2}
+\]
+y
+\[
+	y(t) = \sum_n \frac{1-\cos(n\omega t)}{n^2\omega^2/2g}
+\]
+
+Se ve que la mejor serie de Fourier tendrá algo que se aproxima a la parábola.
+
+\includegraphics[scale=0.3]{images/fig_mc_fourier_3.jpg}
+
+Podemos ver si se llega a la altura máxima $y_\text{maxima} \equiv y(t_c/2)$
+\[
+	y(t_c/2) = \frac{2g}{\omega^2}\sum_n \frac{2}{n^2} = \frac{4g}{\omega^2}\frac{\pi^2}{6} = \frac{gt_c^2}{6} = \frac{2v_0^2}{3g}
+\]
+o bien 
+\be
+	y(t_c/2) = \frac{2v_0^2}{3g}
+	\label{sol_series_fourier}
+\ee
+donde 
+\[
+	E = mgy_\text{maxima}, E_0 = \frac{mv_0^2}{2}
+\]
+y la altura máxima real es $Y_\text{maxima} = v_0^2/(2g)$ que difiere de la que se obtiene con la serie de Fourier.
+Entonces, la mejor solución de entre las series de Fourier es \eqref{sol_series_fourier} que difiere de la solución real.
+Esta solución es derivable en los nodos, mientras que la solución real no lo es.
+\notamargen{Este ejemplo hay que trabajarlo bastante!}
+\end{ejemplo}
 
 % =================================================================================================
 \section{Multiplicadores de Lagrange}
@@ -1292,8 +2215,10 @@ y esta ecuación es precisamente de la forma $ \sum_\ell a_\ell^k \delta q_\ell 
 \begin{ejemplo}{\bf Resolución de sistema holónomo}
 
 Consideramos un cilindro rodando sin deslizar.
-\notamargen{Aclarar mil cosas: rueda un poco (máximo $\alpha = pi/2 $). ¿Es una aproximación sólo válida para
+\notamargen{Aclarar mil cosas: rueda un poco (máximo $\alpha = \pi/2 $). ¿Es una aproximación sólo válida para
 ángulos pequeños? El caso exacto es mucho quilombo? Sirve para algo?}
+
+\includegraphics[scale=0.3]{images/fig_mc_cilindro_and_peso.jpg}
 
 Los vínculos son relaciones entre velocidades que se pueden intergrar.
 De la soga:
@@ -1343,33 +2268,34 @@ de manera que identificamos naturalmente a
 \[
 	\lambda^1 = T \qquad \qquad \lambda^2 = - F_{\text{roz}}
 \]
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \end{ejemplo}
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Entonces, para el caso de vínculo holónomos tendremos $ a^k_\ell(q_i,t) = \nabla_i f^k \cdot \delta \vb{x}_i $ de modo que
-\[
+\be
 	\frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_j} \right) -\dpar{\Lag}{q_j} =
 	\sum_{k}^s \lambda^k \: \dpar{f^k}{q_j}
 	\label{ecs_el_vinculos}
 % 	\nabla_j f^k \cdot \frac{\delta \vb{x}_j}{\delta q_j}
-\]
+\ee
 \notamargen{Hay que escribir bien la conversión de $\nabla f^k$ hacia $\partial f^k / \partial q_j $. Parece una boludez,
 pero tal vez no sea así.}
 
 Pero sabemos [sí?] que cuando existe fuerza generalizada (no proveniente de un potencial) se tenía 
-\[
+\be
 	\frac{d}{dt}\left( \dpar{\Lag}{\dot{q}_j} \right) -\dpar{\Lag}{q_j} = Q_j, \qquad \qquad 
 	Q_j = \sum_i^N \vb{F}_i^a \cdot \dpar{\vb{x}_i}{q_j}
 	\label{ecs_el_fuerza_generalizada}
-\]
+\ee
 % siendo $\nabla_j f^k $ el gradiente de la ecuación de víngulo respeco de $j$ y 
 e igualando los miembros derechos de \eqref{ecs_el_vinculos} y \eqref{ecs_el_fuerza_generalizada} 
 \[
 	\sum_i^N \vb{F}_i^a \cdot \dpar{\vb{x}_i}{q_j} = \sum_{k}^s \lambda^k \: \dpar{f^k}{q_j}
 \]
 se arriba a que 
-\notamargen{Acá hay temas con los índices y con lo que se suma. Parece no ser la misma cosa.}
+\notamargen{Acá hay temas con los índices y con lo que se suma. Parece no ser la misma cosa.
+Tenía observado en la carpeta que $\vb{x}=\vb{x}(q_i,t)$ y $f(q_i,t)=0$.}
 \[
 	\lambda^k = \vb{F}_i^a 
 \]
@@ -1379,6 +2305,10 @@ Si los vínculos son holónomos (pero no quise despejar) entonces son las fuerza
 
 La moraleja es que si no puedo despejar en función de coordenadas independientes sí o sí necesito introducir
 multiplicadores de Lagrange.
+
+Tenía anotado que \eqref{ecs_el_fuerza_generalizada} es el lagrangiano con fuerzas no conservativas, cuando por 
+supuesto $\vb{F}$ son fuerzas no conservativas.
+
 
 \subsubsection{Más sobre el asunto de vínculos}
 \notamargen{Hay que revisar bien esta sección y meter algún ejemplo esclarecedor.}
@@ -1456,7 +2386,10 @@ siendo los vínculos
 \[
 	z_{cm} - a = 0 \qquad \theta=\pi/2 \qquad |\vb{V}_{cm}| = a\dot{\psi}
 \]
-de tal modo que son dos grados de libertad. El lagrangiano puede escribirse como 
+de tal modo que son dos grados de libertad. Los vínculos provienen de la rodadura y de considerar que la moneda 
+permanece en todo momento vertical, aunque pueda cambiar la dirección de su velocidad. En este problema se deben 
+utilizar multiplicadores de Lagrange de manera obligada.
+El lagrangiano puede escribirse como 
 \[
 	\Lag = T = \frac{1}{2}m a^2 \dot{\psi}^2  + \frac{1}{2} I_2^2 \dot{\phi}^2 + \frac{1}{2} I_3^2\dot{\psi}^2.
 \]
@@ -1509,6 +2442,301 @@ Podemos escribir
 
 \label{moneda}
 \end{ejemplo}
+
+
+\subsection{Soluciones aproximadas}
+
+Puedo tomar un subconjunto pequeño de funciones y restringirme a buscar cua es la mejor función de ese conjunto
+en el sentido de extremar $I$:
+\[
+	I = \int_{t_i}^{t_f} \Lag(q_1,...,q_n,\dot{q}_1,...,\dot{q}_n,t) \: dt,
+\]
+donde el subconjunto de las funciones $q_1,q_2, ... ,q_n$ las tomo de algún subconjunto en particular.
+Por ejemplo,
+\[
+	q_1^f = a_0 + a_1 t_f + ... \qquad q_1^i = a_0 + a_1 t_i + ...
+\]
+
+\subsection{Oscilador armónico}
+
+Considero un oscilador armónico en una dimensión.
+\[
+	\Lag = \frac{1}{2} m \dot{x}^2 - \frac{1}{2} k \dot{x}^2
+\]
+
+Quiero resolver de manera aproximada el oscilador armónico y ver que está bien.
+Si considero $ n \to \infty $ tengo infinitos parámetros y puedo parametrizar cualquier curva que una los puntos
+inicial y final.
+
+\begin{figure}
+	\begin{center}
+	\includegraphics[scale=0.5]{images/fig_mc_oscarm_approx.pdf}	 
+	\end{center}
+	\caption{}
+	\label{fig_mc_oscarm_approx}
+\end{figure} 
+
+\notamargen{
+comments del gráfico: toda curva que comunica los dos puntos la descompongo en poligonales. Columnas de partición
+}
+
+\[
+	I = \int_{t_i}^{t_f} \Lag(x,\dot{x}) \: dt
+\]
+Parto el intervalo y considero una partición de $N$ {\it cachos}.
+\[
+	\Delta t N = t_i - t_f
+\]
+donde $\Delta t \to 0$ y $N \to \infty $. Luego la versión discreta de la integral es 
+\[
+	I \approx \sum_{i=1}^{N-1} \left( \frac{1}{2}m \frac{(x_{i+1} - x_i)^2}{\Delta t^2} 
+	- \frac{1}{2} k x_i^2 \right) \Delta t
+\]
+
+Tomamos la derivada
+\[
+	\dpar{I}{x_j} = \left( m \frac{(x_j - x_{j-1})}{\Delta t^2} - m \frac{(x_{j+1} - x_j)}{\Delta t^2} \right) 
+	\Delta t - kx_j \Delta t
+\]
+e igualándola a cero,
+\[
+	\frac{m}{\Delta t^2} ( -2x_j + x_{j-1} + x_{j+1}) + k x_j = 0
+\]
+\notamargen{Creo que se puede usar que uno conoce diferencias finitas algo.
+El final parece no estar muy claro en la carpeta. Hacer la cuenta a mano bien.}
+que se puede escribir como 
+\[
+	\frac{m}{\Delta t}\left( \frac{x_{j+1} - x_j}{\Delta t} - \frac{x_j - x_{j-1}}{\Delta t} \right) + k x_j = 0
+\]
+y que en el límite continuo va a 
+\[
+	m\ddot{x} - kx = 0.
+\]
+
+
+
+\begin{ejemplo}{\bf Geodésicas}
+\notamargen{Este material es parte de una clase práctica. Habría que ver de hacerlo encajar mejor.}
+% \section{Geodésicas}
+La idea es extremizar la distancia entre dos puntos de una dada geometría.
+En el caso del plano se tiene 
+\[
+	I = \int ds = \int \sqrt{ dx^2 + dy^2 } = \int \sqrt{ 1 + \dot{y}^2 } \; dx
+\]
+donde se ha definido $\dot{y} \equiv dy/dx$. Evidentemente si la geometría es plana,
+la curva que extremiza el intervalo tiene que ser una recta. Veámoslo.
+Las ecuaciones de Euler Lagrange se reducen a:
+\[
+	\dtot{}{dx}\left( \frac{\dot{y}}{\sqrt{1 + \dot{y}^2 }}\right) = 0,
+\]
+las cuales nos dicen que 
+\[
+	\frac{\dot{y}}{\sqrt{1 + \dot{y}^2 }} = C
+\]
+donde $C$ es una constante. No es difícil ver que esta ecuación lleva a 
+\[
+	y(x) = C_1 x + C_2
+\]
+para $C_1, C_2$ constantes. Esta es la ecuación de una recta en el plano.
+
+
+{\bf Un ejemplo más sofisticado}
+
+Si a una curva $z=z(x)$ como la que se ilustra en la figura se la hace girar en torno al
+eje $z$ se tiene una superficie de revolución. Un punto tridimensional en esa superficie
+se puede parametrizar en términos de coordenadas cilíndricas $\rho,\theta, z$ según
+\[
+	\begin{cases}
+	x = \rho(z) \: \cos( \theta ) \\ 
+	y = \rho(z) \: \sin( \theta ) \\
+	z = z
+	\end{cases}
+\]
+donde el hecho de que la superificie es 2D se trasluce en que cada coordenada cartesiana
+3D $x,y,z$ depende a lo sumo de dos variables $\theta,z$.
+
+La trayectoria mínima entre dos puntos provendrá otra vez de extremar
+\[
+	I = \int ds = \int \sqrt{ dx^2 + dy^2 + dz^2 }
+\]
+pero utilizando la restricción de la superficie dada por las ecuaciones XXX. Utilizando
+la prima para denotar la derivada con respecto a $z$ se tiene 
+\[
+	dx = \rho' \cos \theta dz - \rho \sin \theta d\theta
+\]
+\[
+	dy = \rho' \sin \theta dz + \rho \cos \theta d\theta
+\]
+
+\[
+	I = \int \sqrt{ {\rho'}^2 dz^2 + \rho^2 d\theta^2 + dz^2 }
+\]
+que se puede poner en términos de la derivada con respecto a $z$ sacando como factor común
+su diferencial. Entonces
+\[
+	I = \int \sqrt{ ( {\rho'}^2 + 1 ) dz^2 + \rho^2 {\theta'}^2 } dz
+\]
+donde tanto $\rho$ como $\theta$ son funciones de $z$.
+El lagrangiano es función de $\theta', \rho, \rho'$
+
+Si calculamos las ecuaciones de Euler Lagrange para $\theta$ (que son las más fáciles puesto que
+la dependencia es solo de la derivada) se llega a
+\[
+	\frac{\rho \rho' \theta' }{\sqrt{ ( {\rho'}^2 + 1) + \rho^2 {\theta'}^2 }} = C
+\]
+que se puede, haciendo el álgebra correspondiente, lleva a la forma explícita
+\be
+	\theta(z) = C_1 \int \frac{\sqrt{ {\rho'}^2 + 1 }}{ 2 \sqrt{ \rho^2 - C_1^2 } } dz + C_2,
+	\label{ec_sup_rev}
+\ee
+que es una ecuación genérica para una superficie en rotación. Es decir, que recorrer la curva
+de longitud mínima por esa superficie debe hacerse avanzando en $\theta$ según la prescripción
+dada por \eqref{ec_sup_rev}.
+
+Si la superficie fuera un cilindro, de radio $a$, por ejemplo, se tendría $\rho=a$ de modo que la
+\eqref{ec_sup_rev} se integra inmediatamente para dar 
+\[
+	\theta(z) = C_1 \frac{z}{ a \sqrt{ a^2 - C_1^2 } } .
+\]
+Luego, para dos puntos separados verticalmente una distancia $h$ (ver figura) sobre la superficie
+del cilindro se tiene que la curva que representa la distancia mínima es una hélice en el cilindro,
+de paso $h$. Si la superficie lateral de este cilindro se desplegase sobre un plano, esa curva es
+una recta.
+
+{\bf Superficie general en 3D}
+
+Si la partícula debe {\it caminar} en la superficie $\Omega$ entonces tal vez se pueda expresar
+como $z=z(x,y)$ de tal forma se tendrá
+\[
+	I = \int f(\dot{x},\dot{y},\dot{z}) dt
+\]
+Luego, la derivada total de $z$ será
+\[
+	\dtot{z}{t} = \dot{z} = \dpar{z}{x} \dot{x} + \dpar{z}{y} \dot{y}
+\]
+y entonces 
+\[
+	I = \int f(\dot{x},\dot{y},\dpar{z}{x} \dot{x} + \dpar{z}{y} \dot{y}) dt.
+\]
+
+Planteando las ecuaciones de Euler-Lagrange 
+\[
+	\dtot{}{t}\left( \dtot{f}{\dot{x}} + \dtot{f}{\dot{z}}\dtot{z}{x} \right) -
+	\dtot{f}{\dot{z}}\dtot{}{x}
+	\left( \dpar{z}{x} \dot{x} + \dpar{z}{y} \dot{y} \right) = 0
+\]
+\[
+	\dtot{}{t}\left( \dtot{f}{\dot{y}} + \dtot{f}{\dot{z}}\dtot{z}{y} \right) -
+	\dtot{f}{\dot{z}}\dtot{\dot{z}}{y} = 0
+\]
+las cuales se pueden simplificar usando la derivada total,
+\[
+	\dtot{}{t}\left( \dtot{f}{\dot{x}} \right) + \dtot{}{t}\left( \dtot{f}{\dot{z}} \right)
+	\dtot{z}{x} + \dtot{f}{\dot{z}}\dtot{}{t}\left( \dtot{z}{x} \right) + 
+	\dtot{f}{\dot{z}}\dtot{}{t}\left( \dtot{z}{x} \right) = 0
+\]
+\notamargen{Los dos últimos términos tienen que aparecer tachados.}
+
+Luego,
+\[
+	\dtot{}{t}\left( \dtot{f}{\dot{x}} \right) + 
+	\dtot{z}{x}\dtot{}{t}\left( \dtot{f}{\dot{z}} \right) = 0
+\]
+\[
+	\dtot{}{t}\left( \dtot{f}{\dot{y}} \right) + 
+	\dtot{z}{y}\dtot{}{t}\left( \dtot{f}{\dot{z}} \right) = 0
+\]
+y como
+\[
+	\dtot{G}{x}\dot{x} + \dtot{G}{y}\dot{y} + \dtot{G}{z}\dot{z} = 0,
+\]
+se sigue que 
+\[
+	\dot{z} = -\left( \dtot{G}{x}\dot{x} + \dtot{G}{y}\dot{y} \right) \frac{1}{dG/dz}
+\]
+o bien
+\[
+	\dot{z} = -\left( \frac{G_x}{G_z}\dot{x} + \frac{G_y}{G_z}\dot{y} \right)
+\]
+de tal manera que 
+\[
+	\dtot{}{t}\left( \dtot{f}{\dot{x}} \right) + 
+	\frac{G_x}{G_z}\dtot{}{t}\left( \dtot{f}{\dot{z}} \right) = 0
+\]
+\[
+	\dtot{}{t}\left( \dtot{f}{\dot{y}} \right) + 
+	\frac{G_y}{G_z}\dtot{}{t}\left( \dtot{f}{\dot{z}} \right) = 0
+\]
+\[
+	\dtot{}{t}\left( \dtot{f}{\dot{z}} \right) = \lambda(t) G_z
+\]
+
+Entonces
+\[
+	\frac{1}{G_x} \dtot{}{t}\left( \dtot{f}{\dot{x}} \right) = 
+	\frac{1}{G_y} \dtot{}{t}\left( \dtot{f}{\dot{y}} \right) = 
+	\frac{1}{G_z} \dtot{}{t}\left( \dtot{f}{\dot{z}} \right) 
+\]
+
+Esta expresión puede simplificarse como 
+\[
+	f = \sqrt{ \dot{x}^2 + \dot{y}^2 + \dot{z}^2 } = 1
+\]
+si el parámetro $t$ es $s$
+\[
+	s = \int ds = \int \sqrt{dx^2 + dy^2 + dz^2 } =
+	\int \sqrt{ \dot{x}^2 + \dot{y}^2 + \dot{z}^2 } ds
+\]
+y entonces
+\[
+	\dtot{}{t}\left( \dtot{f}{\dot{x}} \right) = \ddot{x}
+\]
+de manera que la ecuación de la geodésica es
+\[
+	\frac{1}{G_x}\dtot[2]{x}{s} = \frac{1}{G_y}\dtot[2]{y}{s} = 
+	\frac{1}{G_z}\dtot[2]{z}{s}
+\]
+
+Ahora, si consideramos
+\[
+	I = \int [f(\dot{x}, \dot{y}, \dot{z}) + \lambda G(x,y,z)] dt
+\]
+se tiene que 
+\[
+	\dtot{}{t}\left( \dtot{f}{\dot{x}}\right) - \lambda G_x = 0
+\]
+y es un vínculo que hay que integrar, y es mucho más difícil.
+
+Volviendo a la superficie general
+\[
+	I = \int \left[\frac{1}{2} m (\dot{x}^2 + \dot{y}^2 +
+	   \dot{z}^2 ) - \lambda G \right] dt
+\]
+\[
+	T = \sqrt{(\dot{x}^2 + \dot{y}^2 + \dot{z}^2)} = cte. \equiv k
+\]
+y entonces $s=kt$
+
+\[
+	k^2 m \ddot{x} - \lambda G_x = 0
+\]
+\[
+	k^2 m \ddot{y} - \lambda G_y = 0
+\]
+\[
+	k^2 m \ddot{z} - \lambda G_z = 0
+\]
+
+\[	
+	G(x,y,z) = 0
+\]
+
+La partícula se mueve en una geodésica 
+\[
+	\frac{\ddot{x}}{G_x} = \frac{\ddot{y}}{G_y} = \frac{\ddot{z}}{G_z}
+\]
+\end{ejemplo}
+
 
 % =================================================================================================
 \section{Potenciales dependientes de la velocidad}
