@@ -49,7 +49,8 @@ para algún $x_{eq}$, en la expresión de la energía
 	E = \frac 1 2 m \dot{x}^2 + V(x),
 	\label{energia_1d}
 \ee
-se aproxima el potencial según
+se aproxima el potencial según\footnote{Nótese que esta es la expansión de Taylor en la cual el término lineal 
+está justamente ausente porque la derivada primera en el punto es nula.}
 \be
 	V(x) \approx V_0 + \frac{1}{2} \left.\dtot[2]{V(x)}{x}\right|_{x_{eq}} (x-x_{eq})^2,
 	\label{potencial_aproximado}
@@ -73,6 +74,8 @@ $\varphi$.}
 
 El problema físico tiene dos constantes aunque la resolución presenta cuatro (dos complejos, con parte real e imaginaria).
 
+Nótese que el desarrollo del potencial a orden dos equivale a una fuerza linealizada, merced a que $ m \ddot{x} = - dV/dx$.
+
 \subsection{Varias variables}
 
 En el caso de un potencial $V(\vb{x}_1, ...,\vb{x}_n)$ hay que hallar las raíces del mismo y luego desarrollar en torno a los puntos
@@ -86,23 +89,61 @@ y habría que desarrollar
 	\frac 1 2 \sum_{i,j} \dparcru{V}{\vb{x}_i}{\vb{x}_j}(\vb{x}-\vb{x}_i)(\vb{x}-\vb{x}_j)
 \]
 
-No obstante, el problema se puede enfocar mejor en términos de las coordenadas generalizadas. Entonces, escribimos
+No obstante, el problema se puede enfocar mejor en términos de las coordenadas generalizadas. Entonces, el potencial es
 \[
 	V(q_1,...,q_n) \approx V(q_1^0,...,q_n^0) + \sum_{i=1}^n \left. \dpar{V}{q_i} \right|_{q_i^0} (q_i - q_i^0)
 		+ \frac{1}{2} \sum_{i,j=1}^n \left. \dparcru{V}{q_j}{q_i}\right|_{q_i^0}(q_i -q_i^0)(q_j -q_i^0)
 \]
+y la energía cinética,
 \[
 	T(q_1,...,q_n,\dot{q}_1,...,\dot{q}_n) \approx \frac{1}{2} \left( m(q_1^0,...,q_n^0) + \sum_{i=1}^n 
 				\left. \dpar{m}{q_i} \right|_{q_i^0} (q_i - q_i^0) + ... \right) \sum_{i,j}^n \dot{q}_i\dot{q}_j
 \]
+[Esta expresión hay que revisarla y reubicarla!]
 
-Haciendo la aproximación consistente es
+La energía cinética es 
+\[
+	T = \frac 1 2 \sum_{i,j} m_{ij}(q_1,...,q_n) \dot{q}_i \dot{q}_j
+\]
+donde $m_{ij}$ son los coeficientes de las coordenadas generalizadas y se desarrollarán en serie en torno al equilibrio (caracterizado
+por un supraíndice $0$), es decir,
+\[
+	m_{ij} \approx m_{ij}( q_i^0, ..., q_n^0 ) + \sum_k \dpare{ m_{ij} }{ q_k }{q^0}( q_k - q_k^0 ).
+\]
+
+Estamos considerando que la energía cinética es $ T = T_2 $, pero cabría pensar que existe un $ T_0( q_1,...,q_n)$ y se lo 
+sumaríamos en ese caso al potencial $V$. En el lagrangiano que consideraremos no está presente $T_1$; queremos un potencial
+que no depende de las velocidades.
+
+\begin{ejemplo}{Sobre el término $T_1$}
+
+Para el caso de una masa fija, enhebrada en varilla que gira con velocidad angular $\omega$, el lagrangiano es
+\[
+	\Lag = \frac 1 2 m (\dot{r}^2 + r^2 \dot{\vp}^2),
+\]
+con energía
+\[
+	T = T_0 + T_2 = \frac{2}{2}mr^2\dot{\vp}^2 + \frac{2}{2}m\dot{r}^2
+\]
+donde $\dot{\vp} = \omega$ el último término no depende de la velocidad pero sí de la posición.
+Es {\it como} un potencial que genera la fuerza ficticia.
+\end{ejemplo}
+
+\notamargen{Esta aproximación y formalismo sirve para un mínimo y un sistema que hace pequeños apartamientos
+respecto de ese mínimo.}
+
+Haciendo la aproximación consistente resulta 
 \[
 	\Lag = T - V = - \frac{1}{2} \sum_{i,j}^n \left. \dparcru{V}{q_j}{q_i}\right|_{q_i^0}(\eta_i)(\eta_j) +
 		\frac{1}{2} \sum_{i,j}^n \left. m_{ij}\right|_{q_i^0} \dot{\eta}_i \dot{\eta}_j
 \]
-con $V_{ij} \equiv \partial^2 V/ \partial q_i \partial q_j |_{q_i^0} , m_{ij} = m_{ij}|_{q_i^0}$ simétricos 
-y donde $\eta_i = q_i - q_i^0$. Con esta nomenclatura puede escribirse
+con $V_{ij} \equiv \partial^2 V / ( \partial q_i \partial q_j ) |_{q_i^0}, m_{ij} = m_{ij}|_{q_i^0}$, ambos simétricos, 
+y donde se ha definido $\eta_i = q_i - q_i^0$, que es un apartamiento típico de la posición de equilibrio. 
+Notemos que $\dot{q}_i = \dot{\eta}_i $. Nótese también que el término lineal en
+la aproximación de $m_{ij}$ al verse multiplicado por el producto $\dot{q}_i\dot{q}_j$ es ya de orden cúbico por lo cual debe
+descartarse para ser consistentes con las aproximaciones hechas en el potencial.
+
+Con esta nomenclatura puede escribirse el {\it lagrangiano de pequeñas oscilaciones}
 \[
 	\Lag = \frac{1}{2} \sum_{i,j=1}^n m_{ij} \dot{\eta}_i \dot{\eta}_j - \frac{1}{2} \sum_{i,j=1}^n V_{ij} \eta_i \eta_j
 \]
@@ -121,11 +162,14 @@ son $n$ ecuaciones diferenciales de Euler,
 	\sum_{j=1}^n m_{kj} \ddot{\eta}_j + V_{kj} \eta_j = 0 \qquad k=(1,...,n).
 \]
 
+Esto es un oscilador armónico para cada partícula. Se puede pensar en todas las partículas unidas por resortes acoplados.
+
 Se propone como solución 
 \[
 	\eta_j(t)  = A_j e^{i\omega t}
 \]
-tomando al final del proceso $\Re\{A_j e^{i\omega t}\}$ como solución física. Esta elección lleva a
+de frecuencia $\omega$, idéntica para todas las partículas, tomando al final del proceso $\Re\{A_j e^{i\omega t}\}$ como 
+solución física. Esta elección lleva a
 \[
 	\sum_{j=1}^n ( - \omega^2 m_{kj} + V_{kj} ) A_j = 0
 \]
@@ -137,16 +181,123 @@ que no es otra cosa que un problema de autovalores y autovectores generalizado. 
 \[
 	\left| \mathbb{V} -\omega^2\mathbb{T} \right| = 0
 \]
-siendo $\omega^2_1, ...,\omega^2_n$ autofrecuencias con $\omega^2_s \in \mathbb{R}$ y $\omega^2_s \geq 0$.
+lo cual me hará buscar un polinomio característico $P^n[\omega^2]$ de orden $n$ en $\omega^2$.
+Así se trendrán $n$ valores para $\omega^2$ con $\omega^2_s \in \mathbb{R}$ y $\omega^2_s \geq 0$, que serán las
+autofrecuencias o frecuencias propias $\omega^2_1, ...,\omega^2_n$. 
 
-Entonces, dado un $V=V(q_i)$ puede ser más fácil obtener explícitamente la serie de Taylor con 
+Para cada $\omega$ se tiene una solución
+\[
+	\eta_j^s = A_j^s e^{i\omega_s t}	 \qquad s=1,...,N
+\]
+pero el movimiento general será una combinación de todas las frecuencias,
+\[
+	\eta_j(t) = \sum_{s=1}^N c_s A_j^s e^{i\omega_s t}.
+\]
+
+En general, dado un $V=V(q_i)$ puede ser más fácil obtener explícitamente la serie de Taylor con 
 $\partial^2 V/ \partial q_i \partial q_j |_{q_i^0}$ o bien cambiar variable $\eta = q_i - q_i^0$ y quedarse
 con los términos cuadráticos en $\eta_i \eta_j$. Para la energía cinética $T=T(q,\dot{q})$ puede ser más
 fácil evaluar $m_{ij}(q_i)|_{q_i^0}$ y quedarnos con los términos cuadráticos en $\dot{\eta}_i \dot{\eta}_j$.
 
+Veamos la solución para una frecuencia dada,
 \[
-	\eta_j^s = A_j^s e^{i\omega_s t}	 \qquad s=1,...,N
+	\sum_j ( V_{kj} - \omega_s^2 m_{kj} ) A_j^s = 0
 \]
+y como usamos una raíz $\omega_s$ se tendrá una ecuación linealmente dependiente que tiraremos. Serán
+ahora $N-1$ ecuaciones,
+\[
+	\sum_j ( V_{kj} - \omega_s^2 m_{kj} ) \frac{A_j^s}{A_1^s} = 0
+\]
+y definimos el cociente $a_j^s \equiv {A_j^s}/{A_1^s}$ al pasar dividiendo la amplitud del modo cuya frecuencia estamos
+considerando. Entonces
+\[
+	\sum_j ( V_{kj} - \omega_s^2 m_{kj} ) a_j^s = - V_{k1} - \omega_s^2 m_{k1} \qquad k=1,...,N-1
+\]
+\notamargen{Acá sería bueno poner explícitamente hasta donde llega la sumatoria y explicitar qué $\omega$ se usa.}
+
+Entonces como $N-1$ ecuaciones no homogéneas tienen solución real, entonces $a_j$ es un cociente real y todo los
+$A_s^j$ tienen que tener la misma fase. [mmm?]
+La fase viene determinada por las condiciones iniciales.
+
+Veamos ahora que las frecuencias son reales. Para ello se multiplica por el complejo conjugado y se suma
+\[
+	\sum_k A_k^{s*} \sum_j V_{kj} A_j^s = \omega_s^2 \sum_k A_k^{s*} \sum_j m_{kj} A_j^s
+\]
+\[
+	\sum_k A_k^{s} \sum_j V_{kj} A_j^{s*} = \omega_s^{2*} \sum_k A_k^{s} \sum_j m_{kj} A_j^{s*}
+\]
+y usando la simetría de $m_{kj}, V_{kj}$ se restan estas ecuaciones y se obtiene
+\[
+	0 = ( \omega^2_s - \omega^{2*}_s ) \sum_k \sum_j  A_k^{s*} m_{kj} A_j^{s}
+\]
+y como la doble sumatoria es no nula se sigue que las frecuencias son reales.
+Incluso se puede despejar
+\[
+	\omega_s^2 = \frac{ \sum_k \sum_j  A_k^{s*} V_{kj} A_j^{s} }{ \sum_k \sum_j  A_k^{s*} m_{kj} A_j^{s} }
+\]
+Ambos, numerador y denominador son definidos positivos.
+Si el numerador fuese negativo para alguna dirección, eso significa que en esa dirección será un máximo (sería una
+especie de punto silla); pequeñas oscilaciones no valdrá en esa dirección.
+
+Por otra parte, si se consideran dos frecuencias diferentes
+\[
+	0 = ( \omega^2_s - \omega^{2*}_p ) \sum_k \sum_j  A_k^{s*} m_{kj} A_j^{p}
+\]
+entonces lo que debe ser nulo es la doble sumatoria. Entonces, en la {\it métrica} dada por $m_{jk}$ $A_j$ y $A_k$
+son perpendiculares.
+Para determinar el $A_1$ (que era el parámetro que permanecía indeterminado) impongo
+\[
+	{A^t}^{p*} M A^p = 1
+\]
+y los $A_j$ se {\it consideran} reales pués todos tienen la misma fase y son los modos normales.
+Se está pidiendo que de uno la norma en la métrica dada por $M$.
+
+Si la raíz del polinomio $P^n$ tiene multiplicidad $k$, se tienen $k$ ecuaciones linealmente dependientes y hay que
+arrojar al cesto de la basura $k$ ecuaciones.
+
+Si construyo la matriz
+\[
+	A = \begin{pmatrix}
+	A_1^1 & A_1^2 & ... \\
+	A_2^1 &       &      \\
+	...
+	\end{pmatrix},
+\]
+donde cada columna de esta matriz es un autovector. Entonces se ve que esta matriz {\it diagonaliza} a $M$, i.e.
+\[
+	A^t M A = \begin{pmatrix}
+	1 & 0 & ... \\
+	0 &  1  &      \\
+	...
+	\end{pmatrix} = \mathbb{1}.
+\]
+
+Asimismo, como 
+\[
+	V A = \omega^2 M A,
+\]
+eso conduce a que 
+\[
+	A^t V A = \begin{pmatrix}
+	\omega_1^2 & 0 & ... \\
+	0 &  \omega_2^2  &      \\
+	...
+	\end{pmatrix}.
+\]
+\notamargen{Hay que repasar esto.}
+
+\begin{ejemplo}{\bf Lo de las matrices}
+
+Si $ A^{p*} M A^s =0 $ con $ p \neq s $ entonces $M$ está definiendo una métrica pués si $ M = \mathbb{1} $ entonces
+\[
+	A^{p*} \mathbb{1} A^s = A^{p*} A^s = 0,
+\]
+lo cual significa que $A^{p*}$ y $ A^s$ son perpendiculares.
+ 
+\end{ejemplo}
+
+\subsection{Expresión vectorial}
+
 Vectorialmente es 
 \[
 	\vb{\eta}^s = \vb{A}_j^s e^{i\omega_s t} = \begin{pmatrix}
@@ -224,7 +375,10 @@ interpolando a la matriz
 \[
 	A^t \mathbb{V} A = \omega^2 A^t \mathbb{T} A= \omega^2 \mathbb{1}
 \]
-y sea ahora el siguiente cambio de coordenadas
+
+\subsection{Un cambio de coordenadas}
+
+Se puede incluso realizar un cambio de coordenadas
 \[
 	\vb{\eta} = A \vb{\xi}
 \]
@@ -232,8 +386,8 @@ tal que
 \[
 	A^{n\times n} \xi^{n\times 1} \qquad \qquad  (A \vb{\xi} )^t = {\xi^t}^{1 \times n} {A^t}^{n \times n}
 \]
-y que se llaman coordenadas normales.
-
+y que se llaman coordenadas normales. Se resuelve el problema en estas coordenadas $\xi$ y luego se regresa a las
+originales $\eta$
 \[
 	\Lag = \frac{1}{2} \dot{\vb{\eta}}^t \mathbb{T} \dot{\vb{\eta}} - \frac{1}{2} \dot{\vb{\eta}}^t \mathbb{V} \dot{\vb{\eta}}
 \]
@@ -248,6 +402,10 @@ y que se llaman coordenadas normales.
 \[
 	\Lag = \frac{1}{2} \sum_i \dot{\vb{\xi}}_i^2 - \frac{1}{2} \sum_i \vb{\xi}_i^2 \omega^2_i 
 \]
+
+Los autovectores son los modos normales. Son $N$ osciladores armónicos independientes. Se pasa de un problema de muchas partículas
+interactuantes a uno de $N$ partículas que no interactúan.
+
 \[
 	\frac{d}{dt}\left( \dpar{\Lag}{\dot{\xi}_i} \right)- \dpar{\Lag}{\xi_i} = \sum_i \ddot{\xi}_i + \omega^2_i \xi_i = 0 
 \]
@@ -257,8 +415,22 @@ y son $N$ ecuaciones de Euler-Lagrange.
 \]
 de modo que si $\omega^2 = \omega^2_i$ entonces
 \[
-	\xi_i = C_i e^{i\omega_i t}
+	\xi_i = C_i e^{i\omega_i t}.
 \]
+
+\notamargen{Hay que consolidar este material disperso y confuso!}
+
+\[
+	\xi_\ell(t) = C_\ell \cos( \omega_\ell t + \vp_\ell )
+\]
+y entonces
+\begin{align*}
+	\eta_1(t) &= \sum_{\ell} A_1^\ell C_\ell \cos( \omega_\ell t + \vp_\ell ) \\
+	\eta_2(t) &= \sum_{\ell} A_2^\ell C_\ell \cos( \omega_\ell t + \vp_\ell ) \\
+	... & \\
+	\eta_N(t) &= \sum_{\ell} A_N^\ell C_\ell \cos( \omega_\ell t + \vp_\ell )
+\end{align*}
+que son soluciones con $\omega_i \neq 0$. Son $\eta$ coordenadas normales y $\xi$ coordenadas colectivas [no es al revés?].
 
 Digamos que en coordenadas normales
 \[
@@ -317,25 +489,981 @@ En conclusión podemos decir varias cosas,
  si por ejemplo generan dos autovectores de esta forma.
 \end{itemize}
 
+\subsection{Coordenadas colectivas y normales}
+
+\includegraphics[scale=0.5]{images/fig_mc_coord_normales_colectivas.jpg}
+
+Las ecuaciones de Newton del sistema son
+\[
+	m_1 \ddot{x}_1 = k(x_2-x_1-\ell_0) \qquad \qquad m_2 \ddot{x}_2 = -k(x_2-x_1-\ell_0)
+\]
+que verifican
+\[
+	m_1 \ddot{x}_1 + m_2 \ddot{x}_2 = 0,
+\]
+y entonces
+\[
+	\ddot{x}_2 - \ddot{x}_1 = -k \left( \frac{1}{m_1} + \frac{1}{m_2} \right) ( x_2-x_1-\ell_0 )
+\]
+
+Definiendo $x_2-x_1 = x_{rel}$ se pasa de un problema de dos partículas acopaladas $(x_1,x_2)$ a otro de dos partículas
+desacopladas; una oscila y la otra se traslada,
+\[
+	\mu \ddot{x}_{rel} + k (x_{rel} - \ell_0 ) = 0 \qquad \ddot{x}_{cm} = 0
+\]
+y $x_{rel}, x_{cm}$ son coordenas colectivas, pero no corresponden a un movimiento real de un sistema.
+Tendré dos problemas separados que pueden, dado el caso, excitarse por separado.
+
+En el caso de $N$ osciladores, si hay algún $\omega_i=0$ se tendrá
+\[
+	\Lag = \sum_{i=1}^N \frac{ 1 }{ 2} \dot{\xi}_i
+\]
+y como $\ddot{\xi}_i = 0 $ entonces $\xi(t) = At + B$ es solución y 
+\[
+	\eta_N(t) = \sum_\ell A_n C_\ell \cos (\omega_\ell t + \vp_\ell) + \sum_k A_n^k (Bt + D)
+\]
+donde el primer término es por $\omega_\ell\neq 0$ y el segundo por $\omega_k=0$.
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\begin{ejemplo}{\bf Aro fijo con bolas engarzadas}
+ 
+\includegraphics[scale=0.5]{images/fig_mc_problema_aro_modos_normales_1.jpg}  
+
+El lagrangiano correspondiente a este {\it setup} es 
+\[
+	\Lag = \frac 1 2 \left[ \dot{\theta}^2_1 + \dot{\theta}^2_2 + \dot{\theta}^2_3 + \dot{\theta}^2_4 \right] m \ell^2 
+	- \frac 1 2 k \ell^2 \left[ ( \theta_2 - \theta_1 )^2 + ( \theta_3 - \theta_2 )^2 + ( \theta_4 - \theta_3 )^2 +
+	( \theta_1 - \theta_4 )^2 \right]
+\]
+Este lagrangiano, como está, ya {\it es} de pequeñas oscilaciones. En efecto, $\theta_2^0 = \theta_1^0 $ de modo que 
+$\theta_2 - \theta_1 = \eta_2 - \eta_1 = \theta_2 - \theta_2^0 + \theta_1^0 - \theta_1$. 
+Luego,
+\[
+	V = \begin{pmatrix}
+		2k\ell^2 & - k\ell^2 & 0 & -k\ell^2 \\
+		\\
+		-k\ell^2 & 2 k\ell^2 & -k\ell^2 & 0 \\
+		\\
+		0 & - k\ell^2 & 2k\ell^2 & -k\ell^2 \\
+		\\
+		-k\ell^2 & 0 & -k\ell^2 & 2k\ell^2 
+	    \end{pmatrix}
+\]
+donde los ceros reflejan la inexistencia de resorte entre dichas partículas. Entonces
+\[
+	V - \omega^2 M = \begin{pmatrix}
+		2k\ell^2 - m \omega^2 \ell^2 & - k\ell^2 & 0 & -k\ell^2 \\
+		\\
+		-k\ell^2 & 2 k\ell^2 - m \omega^2 \ell^2 & -k\ell^2 & 0 \\
+		\\
+		0 & - k\ell^2 & 2k\ell^2 - m \omega^2 \ell^2& -k\ell^2 \\
+		\\
+		-k\ell^2 & 0 & -k\ell^2 & 2k\ell^2 - m \omega^2 \ell^2
+	    \end{pmatrix}
+\]
+ 
+Ahora hay que calcular el determinante de esta matriz $V - \omega^2 M$, que luego de desarrollar y usar el método que más le
+gusta al dilegencioso lector permite arribar a
+\[
+	P(\omega) = \mathrm{det}(V - \omega^2 M) = 
+	m\ell^2\omega(2k\ell^2 - m\ell \omega^2)^2( m\ell\omega^2-4k\ell^2),
+\]
+cuyas raíces son:
+\[
+	\omega_1^2 = 2\frac{k}{m} \qquad 
+	\omega_2^2 = 2\frac{k}{m} \qquad 
+	\omega_3^2 = 0 \qquad 
+	\omega_4^2 = 4\frac{k}{m}
+\]
+
+En este ejemplo se conserva el momento angular, de manera que hubiese sido razonable obtener una frecuencia nula 
+asociada como de hecho apareció en $\omega_3$. Resolvamos ahora ese modo. Será
+\[
+	2 k \ell^2 A_1^3 - k \ell^2 A_2^3 - k \ell^2 A_4^3 = 0,
+\]
+\[
+	- k \ell^2 A_1^3 + 2 k \ell^2 A_2^3 - k \ell^2 A_3^3 = 0,
+\]
+\[
+,	- k \ell^2 A_2^3 + 2 k \ell^2 A_3^3 - k \ell^2 A_4^3 = 0
+\]
+y resulta $A_1^3 = A_2^3 = A_3^3 = A_4^3 $.
+
+Entonces
+\[
+	\vb{A}^3 = a \begin{pmatrix}
+	              1 \\
+	              1 \\
+	              1 \\
+	              1 
+	             \end{pmatrix} 
+\]
+donde $ a = 1 / ( 2 \ell \sqrt{m} ) $ y se da 
+\[
+	\vb{A}^{3\dagger} M \vb{A}^3 = \mathbb{1}
+\]
+Este es el modo normal de $\omega^2_3=0$, que se ve dibujado bajo estas líneas
+ 
+\includegraphics[scale=0.5]{images/fig_mc_problema_aro_modos_normales_2.jpg} 
+
+Para la frecuencia $\omega_4$ es 
+\[
+	- 2 k \ell^2 A_1^4 - k \ell^2 A_2^4 - k \ell^2 A_4^4 = 0,
+\]
+\[
+	k \ell^2 A_1^4 - 2 k \ell^2 A_2^4 - k \ell^2 A_3^4 = 0,
+\]
+\[
+,	- k \ell^2 A_2^4 - 2 k \ell^2 A_3^4 - k \ell^2 A_4^4 = 0
+\]
+de manera que 
+\[
+	\vb{A}^4 = a \begin{pmatrix}
+	              1 \\
+	              -1 \\
+	              1 \\
+	              -1 
+	             \end{pmatrix} 
+\]
+donde $a = 1/( 2 \ell \sqrt{m})$. El dibujo asociado será
+
+\includegraphics[scale=0.5]{images/fig_mc_problema_aro_modos_normales_3.jpg} 
+
+Para las frecuencias {\it mellizas} $\omega_1,\omega_2 $ es 
+\[
+	- k \ell^2 A_1^1 - k \ell^2 A_3^1 = 0,
+\]
+\[
+	- k \ell^2 A_2^1 - k \ell^2 A_4^1 = 0,
+\]
+o bien 
+\[
+	A_1 = A_3 = 0 \qquad A_2 = A_4,
+\]
+y
+\[
+	A_2 = A_4 \qquad A_1 = -A_3
+\]
+y consecuentemente 
+\[
+	\vb{A}^1 = a \begin{pmatrix}
+	              0 \\
+	              1 \\
+	              0 \\
+	              -1 
+	             \end{pmatrix} 
+	             \qquad \qquad 
+	\vb{A}^2 = a \begin{pmatrix}
+	              1 \\
+	              0 \\
+	              -1 \\
+	              0 
+	             \end{pmatrix} 
+\]
+con $ a = 1 /(\ell\sqrt{2m})$. Los dibujos siguientes ilustran los movimientos esperados
+
+\includegraphics[scale=0.5]{images/fig_mc_problema_aro_modos_normales_4.jpg} 
+
+Con respecto a lo de aquí arriba son situaciones físicas iguales (si cambio masas no será la misma situación).
+La introducción de $M$ y $m$ (ver figurillas siguientes) rompe la degeneración y serán modos normales pero de diferente 
+frecuencia.
+Pero podría haberse elegido, ver bajo estas líneas,
+
+\includegraphics[scale=0.5]{images/fig_mc_problema_aro_modos_normales_5.jpg} 
+
+Para el caso siguiente 
+
+\includegraphics[scale=0.5]{images/fig_mc_problema_aro_modos_normales_6.jpg} 
+
+esta configuración no conserva el momento angular.
+
+Si tomamos $M=2m$ entonces podemos considerar momento angular nulo y obtengo un modo normal
+
+\includegraphics[scale=0.5]{images/fig_mc_problema_aro_modos_normales_7.jpg} 
+ 
+\[
+	\begin{pmatrix}
+	 1 & 1 & 1 & 1 
+	\end{pmatrix}
+	\begin{pmatrix}
+	 1 & 0 & 0 & 0 \\
+	 0 & 2 & 0 & 0 \\
+	 0 & 0 & 1 & 0 \\
+	 0 & 0 & 0 & 2
+	\end{pmatrix}
+	\begin{pmatrix}
+	 1 \\
+	 -1/2 \\
+	 1 \\
+	 -1/2
+	\end{pmatrix}
+\] 
+
+\notamargen{Este ejemplo se continuó en dos clases consecutivas de modo que puede haber algún pise.}
+
+\includegraphics[scale=0.35]{images/fig_mc_problema_aro_modos_normales_8.jpg} 
+
+En resumen 
+\[
+	\omega_3^2 = 0 \qquad \qquad A^3 = \frac{1}{2\sqrt{m}\ell}
+						\begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \end{pmatrix}
+\]
+\[
+	\omega_4^2 = \frac{4k}{m} \qquad \qquad A^4 = \frac{1}{2\sqrt{m}\ell}
+						\begin{pmatrix} 1 \\ -1 \\ 1 \\ -1 \end{pmatrix}
+\]
+\[
+	\omega_1^2 = \omega_2^2 = \frac{2k}{m}
+\]
+\[
+	A^1 = \frac{1}{\sqrt{2m}\ell}
+		\begin{pmatrix} 0 \\ 1 \\ 0 \\ -1 \end{pmatrix}
+	A^2 = \frac{1}{2\sqrt{2m}\ell}
+		\begin{pmatrix} 1 \\ 0 \\ -1 \\ 0 \end{pmatrix}
+\]
+\[
+	A^t M A = 1
+\]
+
+El problema dependerá de cómo excitemos al sistema. Si $\eta = A \xi $ entonces con $\omega_i \neq 0$ es
+\[
+	\xi_i = C_i \cos (\omega_i t + \vp_i),
+\]
+pero con $\omega_i = 0$ se tendrá
+\[
+	\xi_i = B_i t + D_i.
+\]
+
+Luego, como $\dot{\eta} = A \dot{\xi} $ de tal modo que 
+\[
+	A^t M \eta = A^t M A \xi \qquad \qquad  A^t M \dot{\eta} = A^t M A \dot{\xi} = \mathbb{1} \dot{xi}
+\]
+
+Las condiciones iniciales serán 
+\[
+	\eta_1(t=0) = \theta_0 \qquad \eta_i(t=0) = 0, i \neq 1 
+\]
+y los $\dot{\eta}_i(t=0)$ están en función de las $\eta$ y quiero pasarlas a $\xi$.
+
+\[
+	A^t M = \begin{pmatrix}
+	        0 & \frac{1}{\sqrt{2m}\ell} & 0 & -\frac{1}{\sqrt{2m}\ell} \\
+	        \frac{1}{\sqrt{2m}\ell} & 0 & -\frac{1}{\sqrt{2m}\ell} & 0 \\
+	        \frac{1}{2\sqrt{m}\ell} & \frac{1}{2\sqrt{m}\ell} & \frac{1}{2\sqrt{m}\ell} & \frac{1}{2\sqrt{m}\ell} \\
+	        \frac{1}{2\sqrt{m}\ell} & -\frac{1}{2\sqrt{m}\ell} & \frac{1}{2\sqrt{m}\ell} & -\frac{1}{2\sqrt{m}\ell} 
+	        \end{pmatrix}
+	        \begin{pmatrix}
+	         m & 0 & 0 & 0 \\
+	         0 & m & 0 & 0 \\
+	         0 & 0 & m & 0 \\
+	         0 & 0 & 0 & m 
+	        \end{pmatrix}
+\]
+mientras que las posiciones iniciales serán 
+\[
+	\begin{pmatrix}
+	0 \\
+	\\
+	\frac{\sqrt{m}}{\sqrt{2}\ell} \theta_0 \\
+	\\
+	\frac{\sqrt{m}}{\sqrt{2}\ell} \theta_0 \\
+	\\
+	\frac{\sqrt{m}}{\sqrt{2}\ell} \theta_0
+	\end{pmatrix} =
+	\begin{pmatrix}
+	\\
+	C_1 \cos\vp_1 \\
+	\\
+	C_2 \cos\vp_2 \\
+	\\
+	Bt + D \\
+	\\
+	C_4 \cos\psi_4 \\
+	\\
+	\end{pmatrix}
+\]
+y las velocidades iniciales por su parte,
+\begin{align*}
+	0 & = - C_1 \omega_1 \sin \vp_1 \\
+	0 & = - C_2 \omega_2 \sin \vp_2 \\
+	0 & = B \\
+	0 & = - C_3 \omega_4 \sin \vp_4 
+\end{align*}
+[tal vez un typo acá arriba]
+
+Al separar de las posiciones de equilibrio se excitan modos que no son el cero, y tendrán momento angular nulo; el
+único modo que dará momento angular no nula y por ende generará rotación es el asociado a $\omega_3^2$.
+
+Según se ve el modo uno tampoco se está excitando,
+\[
+	\vp_2 = 0 \qquad C_2 = \frac{\sqrt{m}}{2\ell} \theta_0
+\]
+\[
+	\eta = A \xi = \begin{pmatrix}
+	        0 & \frac{1}{\sqrt{2m}\ell} & \frac{1}{2\sqrt{m}\ell} & \frac{1}{2\sqrt{m}\ell} \\
+	        \\
+	        \frac{1}{\sqrt{2m}\ell} & 0 & \frac{1}{2\sqrt{m}\ell} & -\frac{1}{2\sqrt{m}\ell} \\
+	        \\
+	        0 & -\frac{1}{2\sqrt{m}\ell} & \frac{1}{2\sqrt{m}\ell} & \frac{1}{2\sqrt{m}\ell} \\
+	        \\
+	        -\frac{1}{\sqrt{2m}\ell} & 0 & \frac{1}{2\sqrt{m}\ell} & -\frac{1}{2\sqrt{m}\ell} 
+	        \end{pmatrix}
+	        \begin{pmatrix}
+		0 \\
+		\\
+		\frac{\sqrt{m}}{\sqrt{2}\ell} \theta_0 \cos(\omega_2 t)\\
+		\\
+		\frac{\sqrt{m}}{\sqrt{2}\ell} \theta_0 ( Bt + D ) \\
+		\\
+		\frac{\sqrt{m}}{\sqrt{2}\ell} \theta_2 \cos(\omega_4 t)
+	        \end{pmatrix}
+\]
+\notamargen{Chequear estas ecuaciones vectoriales!}
+
+Esto nos da los $\eta$ solución.
+Notemos que para el dibujo de los modos normales no hace falta hallar el valor de las constantes $1/(\sqrt{2m}\ell)$, etc. de
+normalización.
+
+\notamargen{La normalización está en $A^t M A$.}
+
+Si hay simetrías en el problema ($V,M$ son invariantes frente a cierta transformación)
+\[
+	VA^\ell = \omega^2 M A^\ell
+\]
+
+Una matriz,
+\[
+	B = \begin{pmatrix}
+	0 & 1 & 0 & 0 \\
+	0 & 0 & 1 & 0 \\
+	0 & 0 & 0 & 1 \\
+	1 & 0 & 0 & 0 \\
+	\end{pmatrix}
+\]
+y su inversa $B^{-1}$ transforman un versor en otro
+
+\includegraphics[scale=0.5]{images/fig_mc_problema_aro_modos_normales_9.jpg} 
+
+Pasa según las flechas rojas el sistema; pero ante este cambio el lagrangiano es invariante.
+Las matrices $B$ y $B^{-1}$ son rotaciones (la inversa es en el otro sentido) y que dejan invariante, como se dijo, al lagrangiano.
+Se ve que pasan $1000 \to 0001$ y $0100 \to 1000$,
+\[
+	BVB^t = V \qquad BVB^tB = VB \qquad BV - VB = 0
+\]
+Los autovectores de $V$ se pueden elegir dentro de los de $B$.
+
+Si $VA^\ell = \omega^2 M A^\ell$ entonces
+\[
+	BVB^t BA^\ell = \omega^2 BMB^t BA^\ell
+\]
+\[
+	VBA^\ell = \omega^2 MBA^\ell,
+\]
+aunque para esto necesito que no sean degenerados los autovectores.
+Entonces, podemos escribir así:
+\[
+	- \omega^2 M + V = (2 k \ell^2 - \omega^2 m \ell^2 ) \mathbb{1} - B k \ell^2 - B^t K \ell^2
+\]
+
+Sea la misma $B$, que cumple la propiedad
+\[
+	B\hat{n} = \hat{n}+1 \qquad \qquad B^\dagger\hat{n} = \hat{n}-1
+\]
+con 
+\[
+	\hat{n} = \begin{pmatrix}
+	           0 \\
+	           ...\\
+	           1\\
+	           ...\\
+	           0
+	          \end{pmatrix}
+\]
+y $\hat{n}=\hat{N}$ y $\hat{N}+1=\hat{1}$ y $\hat{0}=\hat{N}$.
+Ahora estoy considerando el problema con $N$ bolas
+
+\includegraphics[scale=0.5]{images/fig_mc_problema_aro_modos_normales_10.jpg} 
+
+\notamargen{La idea acá es tomar el lagrangiano de pequeñas oscilaciones y ver qué transformaciones dejan invariantes a las matrices del mismo.}
+
+Si tomo un vector $u$ y le aplico $B$,
+\[
+	\vb{u} = \sum \euler^{i\theta n} \hat{n},
+\]
+entonces
+\[
+	B \vb{u} = \sum \euler^{i\theta n} (\hat{n} + 1) = \euler^{-i \theta } \sum \euler^{i\theta (n+1)} (\hat{n} + 1)
+\]
+y $\theta$ es un parámetro que puede valer cualquier cosa; para ajustar [los bordes?] si veo que 
+\[
+	\euler^{i\theta (N+1)} (\hat{N} + 1) \qquad \text{en} n=N
+\]
+y
+\[
+	\euler^{i\theta 1} (\hat{1}) 
+\]
+que es lo mismo que 
+\[
+	\sum \euler^{i\theta n} \hat{n} \qquad \text{en} n=1
+\]
+entonces puedo vincular
+\[
+	\euler^{i\theta (N+1)} = \euler^{i\theta },
+\]
+de lo cual deducimos que
+\[
+	\theta = \frac{2k\pi}{N}.
+\]
+
+Ahora operamos
+\[
+	( 2 k \ell^2 \mathbb{1} - B k \ell^2 - B^\dagger k \ell^2 ) u = \omega^2 m \ell^2 \mathbb{1} u,
+\]
+\[
+	2 k \ell^2 u - k \ell \euler^{-i\theta} u - k \ell^2 \euler^{i\theta} u
+\]
+lo que lleva a
+\[
+	\left[ 2 k \ell^2 - k \ell 2 ( \euler^{i\theta} + \euler^{-i\theta} ) \right] u = \omega^2 m \ell^2 u
+\]
+o bien 
+\[
+	\omega^2 = \frac{2k}{m}\left( 1 - \cos \frac{2k'\pi}{N} \right)
+\]
+con $k'= 0, \pm 1, \pm 2, ..., \pm \frac{N-1}{2}$.
+
+Con $N=4$ es 
+\[
+	k'=0 \qquad \to \quad \omega^2=0
+\]
+que corresponde a la no degenerada y representa la rotación de todo el {\it bodoque}.
+Acá están las cuatro autofrecuencias
+\[
+	k' = \pm 1 \qquad \omega^2_1 = \omega_{-1}^2 = \frac{2k}{m}
+\]
+\[
+	k' = \pm 2 \qquad \omega^2_2 = \omega_{-2}^2 = \frac{4k}{m}
+\]
+donde que sea el $+$ o el $-$ en la frecuencia depende de si $N$ es impar la mitad son positivos y la mitad negativos.
+Para $N$ par el que sobra lo tomo positivo o negativo (cualquiera).
+
+Con los autovectores no degenerados tengo los autovalores del modo real. Para los siguientes (como son degenerados) tendré 
+que tomar una combinación lineal de ellos.
+
+Los autovectores acompañantes serán:
+\[
+	k' = 0 \qquad \begin{pmatrix}
+	               1 \\
+	               1 \\
+	               1 \\
+	               1
+	              \end{pmatrix}
+\]
+\[
+	k' = 1 \qquad \begin{pmatrix}
+	               \euler^{i \pi/2 } \\
+	               \euler^{i \pi } \\
+	               \euler^{i 3\pi/2 } \\
+	               \euler^{i 2\pi }
+	               \end{pmatrix} =
+		       \begin{pmatrix}
+	               i \\
+	               -1 \\
+	               -i \\
+	               0
+	               \end{pmatrix}
+\] 
+\[
+	k' = 1 \qquad \begin{pmatrix}
+	               \euler^{-i \pi/2 } \\
+	               \euler^{-i \pi } \\
+	               \euler^{-i 3\pi/2 } \\
+	               \euler^{-i 2\pi }
+	               \end{pmatrix} =
+		       \begin{pmatrix}
+	               -i \\
+	               -1 \\
+	               i \\
+	               0
+	               \end{pmatrix}
+\]
+
+Con estos dos debo generar independientes en combinación lineal
+\[
+	\oplus \to  \begin{pmatrix}
+	 0 \\
+	 -2 \\
+	 0 \\
+	 0
+	\end{pmatrix}
+\]
+\[
+	\ominus \to \begin{pmatrix}
+	 2 \\
+	 0 \\
+	 -2 \\
+	 0
+	\end{pmatrix}
+\]
+donde el último se multiplica por $i$.
+
+\notamargen{Esto es muy sketchi, habría que completarlo.}
+\end{ejemplo}
+
+
+
 
 % =================================================================================================
 \section{Oscilaciones viscosas}
 % =================================================================================================
 
+El lagrangiano usual de pequeñas oscilaciones,
 \[
+	\Lag = \frac 1 2 \sum_{i,j} \dot{\eta}_i\dot{\eta}_j m_{ij} -  \frac 1 2 \sum_{i,j} {\eta}_i {\eta}_j V_{ij},
+\]
+lleva naturalmente a 
+\[
+	\sum_j m_{ij} \ddot{\eta}_j + V_{ij} \eta_j = 0
+\]
+cuya resolución es la diagonalización simultánea de $M$ y $V$.
+Si hay fuerzas viscosas presentes se obtiene
+\be
 	\sum_j m_{ij} \ddot{\eta}_j + V_{ij}\eta_j + B_{ij}\dot{\eta}_j = 0
-\]
-no se puede convertir en osciladores independientes.
+	\label{ec_viscosas}
+\ee
+
+Se necesitaría diagonalizar tres formas cuadráticas simultáneas, las tres matrices, lo cual
+en general no es posible.
+Este problema \eqref{ec_viscosas} no tiene en general modos normales. Entonces \eqref{ec_viscosas}
+no se podrá convertir en osciladores independientes.
+La resolución utiliza la misma idea; proponer $A\euler{\lambda t}$ donde $\lambda \in \mathbb{C}$
+entonces
 \[
-	det\left\{ \mathbb{V} + \omega^2 \mathbb{T} + \omega \mathbb{B}\right\} = 0
+	\mbox{det}\left\{ \mathbb{V} + \lambda^2 \mathbb{M} + \lambda \mathbb{B}\right\} = 0
+\]
+debe solicitarse para hallar la resolución.
+
+
+\begin{ejemplo}{\bf Problema 14 Método de Lagrange}
+
+\includegraphics[scale=0.5]{images/fig_mc_lagrangebola_1.jpg}
+
+El lagrangiano es
+\[
+	\Lag = \frac 1 2 m ( (b-a)^2 \dot{\beta}^2 + \dot{z}^2 ) + 
+	\frac 1 2 I ( \dot{\vp}^2 + \dot{\theta}^2 + \dot{\psi}^2 + 2 \dot{\psi} \dot{\vp} \cos\theta ) 
+	- m g z
+\]
+y como la velocidad $ \vb{v}_p $ es nula, se tiene 
+\[
+	\vb{v}_p = 0 = \vb{V}_{cm} + \vb{\Omega} \times a \hat{\vp}
+\]
+que lleva a
+\[
+	0 = (b-a)\dot{\beta}\hat{\beta} + \dot{z}\hat{z} +
+	[\omega_\rho\hat{\rho} + \omega_\beta\hat{\beta} + \omega_z\hat{z} ]\times a\hat{\rho}
+\]
+\[
+	0 = (b-a)\dot{\beta}\hat{\beta} + \dot{z}\hat{z} + a\omega_z\hat{\beta} - a\omega_\beta\hat{z} 
 \]
 
+La condición de rodadura es
+\[
+	\begin{cases}
+	 (b-a)\dot{\beta} + a \omega_z = 0 \\
+	 \dot{z} - a \omega_\beta = 0
+	\end{cases}
+\]
+y como la velocidad en cartesianas es $ \vb{\Omega} = \Omega_x \hat{x} + \Omega_y \hat{y} + \Omega_z \hat{z} $,
+la conversión a los ejes del problema es
+\[
+	\hat{\rho} = \cos \beta \hat{x} + \sin \beta \hat{y} \qquad 
+	\hat{\beta} = -\sin \beta \hat{x} + \cos \beta \hat{y}
+\]
+o bien
+\[
+	\hat{x} = \cos \beta \hat{\rho} - \sin \beta \hat{\beta} \qquad 
+	\hat{y} = \sin \beta \hat{\rho} + \cos \beta \hat{\beta}
+\]
+entonces
+\[
+	\vb{\Omega} = \omega_\rho \hat{\rho} + \omega_\beta \hat{\beta} + \omega_z \hat{z}
+\]
+donde 
+\[
+	\omega_\rho = \Omega_x \cos\beta + \Omega_y \sin\beta \qquad 
+	\omega_\beta = \Omega_y \cos\beta + \Omega_x \sin\beta 
+\]
 
+Luego de algún álgebra
+\[
+	\omega_\rho = \dot{\psi} \sin\theta \sin(\vp-\beta) + \dot{\theta} \cos(\vp-\beta)
+\]
+\[
+	\omega_\beta = -\dot{\psi} \sin\theta \cos(\vp-\beta) + \dot{\theta} \sin(\vp-\beta)
+\]
+\[
+	\omega_z = \dot{\psi} \cos\theta + \dot{\vp}
+\]
 
+Pero como
+\[
+	(b-a) \beta + a \dot{\vp} + a \dot{\psi} \cos\theta = 0 ,
+\]
+\[
+	\dot{z} -a \dot{\theta} \sin(\vp-\beta) + a\dot{\psi}\sin\theta\cos(\vp -\beta) = 0,
+\]
+conviene utilizar multiplicadores de Lagrange,
+\[
+	\dtot{}{t}\left( \dpar{\Lag}{\dot{q}_k} \right) - \dpar{\Lag}{q_k} = \sum_{\ell=1}^2 \lambda_\ell a_{\ell k}
+\]
+lo cual lleva a 
+\[
+	m(b-a)^2 \ddot{\beta} = \lambda_1 (b-a) \qquad \qquad 
+	m \ddot{z} + m g = \lambda_2
+\]
+\[
+	I \ddot{\vp} + I \dtot{}{t}( 2 \dot{\psi} \cos\theta ) = a \lambda_1
+\]
 
+Haciendo gradiente en los vínculos,
+\[
+	\lambda_1 ( [b-a] \delta\beta + a\delta\vp + a\cos\theta\delta\psi) = 0
+\]
+\[
+	\lambda_2 (\delta z - a\sin(\vp-\theta)\delta\theta + a\sin\theta \cos(\vp-\beta)\delta\psi) = 0
+\]
+y entonces
+\[
+	I \ddot{\theta} +  I \dot{\psi} \dot{\vp} \sin\theta ) =
+	- a \lambda_2 \vp \sin (\vp - \beta)
+\]
+\[
+	I \ddot{\psi} +  I \dtot{}{t}( \dot{\psi} \cos\theta ) =
+	\lambda_1 a \cos\theta + \lambda_2 \vp \sin \theta \cos(\vp - \theta)
+\]
+
+Tenemos siete ecuaciones con siete incógnitas. Una sugerencia para resolverlo alternativamente
+es a través de las ecuaciones de Newton,
+\[
+	m\dot{\vb{V}_{cm}} = \vb{f} + \vb{N} \qquad \qquad 
+	I \dot{\vb{\omega}} = \vb{t}
+\]
+
+\includegraphics[scale=0.5]{images/fig_mc_lagrangebola_2.jpg}
+
+\[
+	\dtot{\omega}{t} = \left.\dtot{\omega}{t}\right| + \dot{\beta}\hat{\beta} \times \vb{\omega}
+\]
+lo cual nos debería conducir a algo de la forma
+\[
+	(I + ma^2)\ddot{\omega}\vp + \dot{\vp} I \omega_\vp = 0
+\]
+y sale que $\omega_\rho = \dot{\vp} \omega_\vp$ siendo $\dot{\vp}$ y $\dot{z}$ constantes.
+
+\end{ejemplo}
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\begin{ejemplo}{\bf Problema de la molécula diatómica}
+
+\includegraphics[scale=0.5]{images/fig_mc_molecula_1.jpg}
+
+Acá hay que escribir el potencial con cuidado,
+\[
+	V = V_\alpha(\alpha) + V_{Cso}(r) + V_{OH}(r'),
+\]
+donde 
+\[
+	V_\alpha(\alpha) = \frac{k\ell^2}{2}(\pi - \alpha)^2
+\]
+y $\ell$ es un $r, r'$ de equilibrio.
+\[
+	V_{Cso}(r) = 4 \epsilon 
+	\left[ \Frac{\sigma}{r}^{12} - \Frac{\sigma}{r}^6\right]
+\]
+\[
+	V_{OH}(r') = \frac{V_{Cso}(r') }{15}
+\]
+y según se ve ya está separado el mismo.
+Calculamos las derivadas del potencial,
+\[
+	V_{\alpha\alpha} = \dpar[2]{V}{\alpha} = k\ell^2 
+\]
+y de 
+\[
+	\dpar{V_{Cso}}{r}(r) = 0
+\]
+sale un $r_{eq}$ que cumple $r_{eq} = \sigma 2^{1/12}\equiv \ell$ y luego
+\[
+	\left. V_{Cso}{''}\right|_{eq} = 24 \epsilon 
+	\left[ \frac{26}{r^2} \Frac{\sigma}{r}^{12} - \frac{7}{r^2} \Frac{\sigma}{r}^6\right] = k_r
+\]
+donde los términos con $\sigma$ equivalen a $4\ell^2$ y $2\ell^2$. Además,
+\[
+	V_{rr} = k_r \qquad V_{r'r'} = \frac{k_r}{15}
+\]
+
+Esto define
+\[
+	V = \begin{pmatrix}
+	 V_{\alpha\alpha} & 0 & 0 & 0 \\
+	 0 & V_{rr} & 0 & 0 \\
+	 0 & 0 & V_{r'r'} & 0  \\
+	 0 & 0 & 0 & ...
+	 \end{pmatrix}
+\]
+
+En general tenemos más grados de libertad que tres. Ubicamos el centro de masa en
+el Cesio por ser muy masivo. Entonces pierdo tres grados de libertad y me quedan
+seis. Ignoro rotación, y otra cosa más [¿?]
+
+\includegraphics[scale=0.5]{images/fig_mc_molecula_3.jpg}
+
+\includegraphics[scale=0.5]{images/fig_mc_molecula_2.jpg}
+
+Restan cuatro grados de libertad $r, \vp, r', \beta$.
+\[
+	\dot{X}_0^2 = \dot{r}^2 + r^2 \dot{\vp}^2
+\]
+\[
+	\vb{X}_0 = r \cos (\vp) \hat{x} + r \sin (\vp) \hat{y}
+\]
+\[
+	\vb{X}_H = \vb{X}_0 + r' \cos (\vp + \beta) \hat{x} + r' \sin (\vp + \beta) \hat{y}
+\]
+y el cuadrado es
+\[
+	\dot{X}_H^2 = \dot{X}_0^2 + \dot{r'}^2 + {r'}^2 ( \dot{\vp} + \dot{\beta} )^2
+\]
+\begin{multline}
+	2 \dot{r} \dot{r'} [ \cos \vp \cos (\beta + \vp) + \sin\vp \sin(\beta + \vp) ] + \\
+	2 {r} {r'} [ \sin(\beta + \vp) \sin\vp (\dot{\beta} + \dot{\vp}) \dot{\vp} + \cos(\beta + \vp) \cos\vp \dot{\vp} (\dot{\beta} + \dot{\vp}) ] + \\
+	2 \dot{r} {r'} [ \cos (\beta + \vp) \sin \vp - \cos \vp \sin (\beta + \vp)] (\dot{\beta} + \dot{\vp}) + \\
+	2 {r} \dot{r'} [ \dot{\vp} \cos\vp \sin(\beta + \vp) - \dot{\vp} \sin\vp \cos (\beta + \vp)] 
+\end{multline}
+donde los últimos dos se {\it mueren} al aproximar.
+Finalmente el lagrangiano de pequeñas oscilaciones resulta en
+\[
+	\Lag = \frac {17} 2 m ( \dot{r}^2 + r^2 \dot{\vp}^2 ) + 
+	\frac m 2 ( \dot{r'}^2 + {r'}^2( \dot{\vp} + \dot{\beta} ) ) +
+	\frac m 2 ( 2 \dot{r} \dot{r'} + 2 \ell^2 ( \dot{\beta} + \dot{\vp} ) \dot{\vp} ) - 
+	\frac{k_r r^2}{2} - \frac{k_{r'} {r'}^2}{2} - \frac{k_\beta \beta^2}{2}
+\]
+en donde los $r^2$ y ${r'}^2$ son ambos $\ell^2$.
+
+Definimos
+\[
+	\eta = \begin{pmatrix}
+	       r - \ell \\
+	       r' - \ell \\
+	       \beta - 0 \\
+	       \vp - 0
+	      \end{pmatrix} \qquad     
+	\qquad  \qquad 
+	\dot{\eta} = \begin{pmatrix}
+	       \dot{r} \\
+	       \dot{r'} \\
+	       \dot{\beta} \\
+	       \dot{\vp}
+	      \end{pmatrix} \qquad 
+\]
+siendo la posición de equilibrio 
+
+\includegraphics[scale=0.5]{images/fig_mc_molecula_4.jpg}
+
+La matriz del potencial $V$ es 
+\[
+	V =  \begin{pmatrix}
+		k_r	 &	0	&	0	&	0	\\
+		\\
+		0 	&	k_{r'} 	&	0	&	0	\\
+		\\
+		0	&	0	&	k_{\alpha}  &	0  \\
+		\\
+		0	&	0	&	0  	&   0
+	    \end{pmatrix}
+\]
+donde $k_r = 15 k_{r'}$ y $M_0 = 16 M_H$ (check!).
+
+Y ahora hay que armar la energía cinétic $T$ que resulta
+\[
+	T = \begin{pmatrix}
+		17 m	 &	m 	&	0	&	0	\\
+		\\
+		m 	&	m 	&	0	&	0	\\
+		\\
+		0	&	0	&	20 m \ell^2  &	2 m \ell^2  \\
+		\\
+		0	&	0	&	2 m \ell^2  	&   m \ell^2
+	    \end{pmatrix}
+\]
+
+Luego, el lagrangiano
+\[
+	\Lag = \frac{ 1 }{ 2 } \dot{\vb{\eta}}^t \mathbb{T} \dot{\vb{\eta}} -
+	\frac{1}{2} \dot{\vb{\eta}}^t \mathbb{V} \dot{\vb{\eta}}
+\]
+puede transformarse a 
+\[
+	\Lag = \frac{ 1 }{ 2 } \dot{\vb{\xi}}\dot{\vb{\xi}} - \frac{1}{2} \dot{\vb{\xi}} \omega^2 \dot{\vb{\xi}}
+\]
+y en estas nuevas coordenadas,
+\[
+	\ddot{\xi}_i + \omega^2 \xi_i = 0
+\]
+y la solución son osciladores armónicos.
+
+Para ello debería hallar $A$, donde 
+\[
+	\bar{\eta} = A \bar{\xi} 
+\]
+que verifica $A\mathbb{T}A^t = \mathbb{1}$ y $A\mathbb{V}A^t = \omega$ de modo que necesito $|\omega^2\bar{T} - 
+\bar{V}|=|M|=0$ donde es
+\[
+	M = \begin{pmatrix}
+		17 m \omega^2 - k_r	&	m \omega^2	&	0	&	0	\\
+		\\
+		m \omega^2	&	m \omega^2 - k_{r'}	&	0	&	0	\\
+		\\
+		0	&	0	&	20 m \ell^2 \omega^2 - k_\alpha	 &	2 m \ell^2 \omega^2 \\
+		\\
+		0	&	0	&	2 m \ell^2 \omega^2 	&   m \ell^2 \omega^2
+	    \end{pmatrix}
+\]
+
+Gracias a los bloques se hace menos trabajo, pués los autovalores de la matriz serán los de cada bloque.
+El primer bloque es
+\[
+	\begin{pmatrix}
+	 \displaystyle 17 \frac{m\omega^2}{k_{r'}} -\frac{k_r}{k_{r'}} &  \displaystyle \frac{m\omega^2}{k_{r'}}  \\
+	 \\
+	 \displaystyle \frac{m\omega^2}{k_{r'}} &  \displaystyle \frac{m\omega^2}{k_{r'}} - 1
+	 \end{pmatrix} =
+	\begin{pmatrix}
+	\\
+	 \displaystyle 17 \lambda - 15 & \lambda  \\
+	 \\
+	  \displaystyle \lambda & \lambda - 1 \\
+	  \\
+	 \end{pmatrix}
+\]
+y entonces
+\[
+	(17\lambda -15)(\lambda -1) - \lambda^2 =  \lambda^2 - 2\lambda + \frac{15}{16} = 0
+\]
+resulta en $\lambda_{1,2} = 5/4, 3/4$ de modo que 
+\[
+	\omega^2_1 = \frac 5 4 \frac {k_{r'}}{m} \qquad \qquad 
+	\omega^2_2 = \frac 3 4 \frac {k_{r'}}{m}
+\]
+
+El otro bloque es
+\[
+	\begin{pmatrix}
+	 20 \lambda - 1 & 2 \lambda  \\
+	 2 \lambda & \lambda
+	 \end{pmatrix} = 0 
+\]
+de manera que 
+\[
+	(20 \lambda - 1) \lambda  - 4\lambda^2 = 0 
+\]
+lo cual conduce a $\lambda_{3,4} = 1/16, 0 $. 
+
+Los coeficientes de normalización serán
+\[
+	a_4 = c_4 \begin{pmatrix}
+	       0 \\
+	       0 \\
+	       0 \\
+	       1
+	      \end{pmatrix} \qquad 
+	a_3 = c_3 \begin{pmatrix}
+	       0 \\
+	       0 \\
+	       1 \\
+	       -2
+	      \end{pmatrix} \qquad 
+	a_1 = c_1 \begin{pmatrix}
+	       1 \\
+	       -5 \\
+	       0 \\
+	       0
+	      \end{pmatrix} \qquad 
+	a_2 = c_2 \begin{pmatrix}
+	       1 \\
+	       3 \\
+	       0 \\
+	       0
+	      \end{pmatrix}
+\]
+
+Aquí la matriz se separó en bloques y entonces los autovalores serán independientes en cada
+bloque; no se mezclan entre sí.
+
+\includegraphics[scale=0.5]{images/fig_mc_molecula_5.jpg}
+
+Habría que calcular ahora la matriz modal
+\[
+	\bar{a}_1^t \mathbb{T} \bar{a}_1 = 1,
+\]
+que conduce a 
+\[
+	\begin{pmatrix}
+	17 & 1 \\
+	1  & 1
+	\end{pmatrix}
+	\begin{pmatrix}
+	1 \\
+	-3
+	\end{pmatrix}
+	c_1^2 m = 1
+\]
+lo que arroja $c_1 = 1 /(4\sqrt{2m})$
+\[
+	\begin{pmatrix}
+	1 & 3 
+	\end{pmatrix}
+	\begin{pmatrix}
+	17 & 1 \\
+	1  & 1
+	\end{pmatrix}
+	\begin{pmatrix}
+	1 \\
+	3
+	\end{pmatrix}
+	c_2^2 m = 1
+\]
+que da $ c_2 = c_1 $. Luego $c_3 = 1 / (4 \sqrt{m} \ell^2 )$ y $c_4$ quedó vacante.
+La matriz modal resulta
+\[
+	A = \begin{pmatrix}
+		\frac{1}{4\sqrt{2m}}	&	\frac{1}{4\sqrt{2m}}	&	0	&	0	\\
+		\\
+		\frac{-5}{4\sqrt{2m}}	&	\frac{3}{4\sqrt{2m}}	&	0	&	0	\\
+		\\
+		0	&	0	&	\frac{1}{4\sqrt{m}\ell}	&	0	\\
+		\\
+		0	&	0	&	\frac{-2}{4\sqrt{m}\ell}	&	\frac{1}{\sqrt{m}\ell}
+	    \end{pmatrix}
+\]
+
+Supongamos ahora el sistema moviéndose de acuerdo con
+\[
+	\bar{X} = 1 \bar{\xi}_2 + 3 \bar{\xi}_3
+\]
+y entonces podemos pasar a las coordenadas originales,
+\[
+	A \bar{\xi}_2 + 3 A \bar{\xi}_3
+\]
+
+\notamargen{Hay que revisar la notación aquí.}
+
+\end{ejemplo}
 
 
 % \bibliographystyle{CBFT-apa-good}	% (uses file "apa-good.bst")
 % \bibliography{CBFT.Referencias} % La base de datos bibliográfica
 
 \end{document}
+
